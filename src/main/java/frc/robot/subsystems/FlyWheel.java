@@ -11,6 +11,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import frc.robot.Constants.FlyWheelConstants;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheel extends SubsystemBase {
@@ -21,7 +23,7 @@ public class FlyWheel extends SubsystemBase {
   /** CREATE A NEW FLYWHEEL **/
   public FlyWheel() {
     /** Assign objects there classes and parameters **/
-    m_flyWheel = new SparkMax(20, MotorType.kBrushed);
+    m_flyWheel = new SparkMax(FlyWheelConstants.kIDFlyWheelMotor, MotorType.kBrushed);
     m_configMotor = new SparkMaxConfig();
     
     /** Do the configuration setup for the motor **/
@@ -31,6 +33,18 @@ public class FlyWheel extends SubsystemBase {
     
     /** Apply the configuration to the motor **/
     m_flyWheel.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+  }
+
+  public void in() {
+    m_flyWheel.set(FlyWheelConstants.kSpeedIn);
+  }
+
+  public void out() {
+    m_flyWheel.set(-FlyWheelConstants.kSpeedOut);
+  }
+
+  public void stop() {
+    m_flyWheel.set(0.0);
   }
 
   @Override
