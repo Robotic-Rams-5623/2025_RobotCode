@@ -30,7 +30,12 @@ public final class Constants
     public static final double kSpeedUp = 0.5;
     public static final double kSpeedDown = 0.5;
   }
-
+  public static final class ArmTiltConstants
+  {
+    public static final int kIDArmTiltMotor = 22;
+    public static final double kSpeedUp = 0.5;
+    public static final double kspeedDown = 0.5;
+  }
 
 
 
