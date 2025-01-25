@@ -38,7 +38,7 @@ public class ArmTilt extends SubsystemBase {
   }
 
   public void stop() {
-    m_armtilt.set(0.0);
+    m_armtilt.set(0.0); 
   }
 
   @Override
