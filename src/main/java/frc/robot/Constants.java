@@ -37,7 +37,13 @@ public final class Constants
     public static final double kspeedDown = 0.5;
   }
 
-
+  public static final class ArmLengthConstants
+  {
+    public static final int kIDArmBaseLength = 23;
+    public static final int kIDArmTopLength = 24;
+    public static final double kSpeedUp = 0.5;
+    public static final double kSpeedDown = 0.5;
+  }
 
 
 
