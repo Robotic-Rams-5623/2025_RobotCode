@@ -16,6 +16,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.ArmLength;
+import frc.robot.subsystems.ArmTilt;
+import frc.robot.subsystems.FlyWheel;
+import frc.robot.subsystems.HandTilt;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -30,9 +34,14 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController armXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
+  private final ArmLength armlength = new ArmLength();
+  private final ArmTilt armtilt = new ArmTilt();
+  private final HandTilt handtilt = new HandTilt();
+  private final FlyWheel flywheel = new FlyWheel();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -102,6 +111,9 @@ public class RobotContainer
 
     // SET THE DRIVE TYPE
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    // SET DEFAULT COMMAND FOR ARM LENGTHS
+    armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
+    armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
 
     if (DriverStation.isTest())
     {
@@ -135,6 +147,24 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
     }
+
+
+
+    /**
+     * OPERATOR XBOX CONTROLS
+     */
+
+    // FLYWHEEL CAPTURE CORAL
+    armXbox.a().whileTrue((Commands.startEnd(flywheel::in, flywheel::stop, flywheel)));
+    // FLYWHEEL RELEASE CORAL
+    armXbox.b().whileTrue((Commands.startEnd(flywheel::out, flywheel::stop, flywheel)));
+    //TILT HAND UPWARDS
+    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt)));
+    // TILT HAND DOWNWARDS
+    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt)));
+    // MOVE ARM BASE FORWARD AND BACKWARDS
+    armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));
+    armXbox.start().and(armXbox.rightBumper()).whileTrue((Commands.startEnd(armtilt::down, armtilt::stop, armtilt)));
 
   }
 
