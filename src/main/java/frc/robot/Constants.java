@@ -23,6 +23,7 @@ public final class Constants
     public static final int kIDFlyWheelMotor = 20;
     public static final double kSpeedIn = 0.5;
     public static final double kSpeedOut = 0.5;
+    public static final int kDIOSwitch = 0;
   }
   public static final class HandTiltConstants
   {

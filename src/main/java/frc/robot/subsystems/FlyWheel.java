@@ -12,13 +12,14 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import frc.robot.Constants.FlyWheelConstants;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheel extends SubsystemBase {
   // /* Create object containers */
   // private final SparkMax m_flyWheel;
   // private final SparkMaxConfig m_configMotor;
+  private final DigitalInput m_coralSwitch;
 
   /** CREATE A NEW FLYWHEEL **/
   public FlyWheel() {
@@ -33,6 +34,9 @@ public class FlyWheel extends SubsystemBase {
     
     // /** Apply the configuration to the motor **/
     // m_flyWheel.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+
+    /* CORAL SWITCH CONFIGURATION */
+    m_coralSwitch = new DigitalInput(FlyWheelConstants.kDIOSwitch);
   }
 
   public void in() {
@@ -45,6 +49,10 @@ public class FlyWheel extends SubsystemBase {
 
   public void stop() {
     // m_flyWheel.set(0.0);
+  }
+
+  public boolean getSwitch() {
+    return m_coralSwitch.get();
   }
 
   @Override
