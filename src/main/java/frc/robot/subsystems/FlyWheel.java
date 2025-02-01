@@ -16,35 +16,35 @@ import frc.robot.Constants.FlyWheelConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheel extends SubsystemBase {
-  /* Create object containers */
-  private final SparkMax m_flyWheel;
-  private final SparkMaxConfig m_configMotor;
+  // /* Create object containers */
+  // private final SparkMax m_flyWheel;
+  // private final SparkMaxConfig m_configMotor;
 
   /** CREATE A NEW FLYWHEEL **/
   public FlyWheel() {
-    /** Assign objects there classes and parameters **/
-    m_flyWheel = new SparkMax(FlyWheelConstants.kIDFlyWheelMotor, MotorType.kBrushed);
-    m_configMotor = new SparkMaxConfig();
+    // /** Assign objects there classes and parameters **/
+    // m_flyWheel = new SparkMax(FlyWheelConstants.kIDFlyWheelMotor, MotorType.kBrushed);
+    // m_configMotor = new SparkMaxConfig();
     
-    /** Do the configuration setup for the motor **/
-    m_configMotor
-        .inverted(false)
-        .idleMode(IdleMode.kCoast);
+    // /** Do the configuration setup for the motor **/
+    // m_configMotor
+    //     .inverted(false)
+    //     .idleMode(IdleMode.kCoast);
     
-    /** Apply the configuration to the motor **/
-    m_flyWheel.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    // /** Apply the configuration to the motor **/
+    // m_flyWheel.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void in() {
-    m_flyWheel.set(FlyWheelConstants.kSpeedIn);
+    // m_flyWheel.set(FlyWheelConstants.kSpeedIn);
   }
 
   public void out() {
-    m_flyWheel.set(-FlyWheelConstants.kSpeedOut);
+    // m_flyWheel.set(-FlyWheelConstants.kSpeedOut);
   }
 
   public void stop() {
-    m_flyWheel.set(0.0);
+    // m_flyWheel.set(0.0);
   }
 
   @Override

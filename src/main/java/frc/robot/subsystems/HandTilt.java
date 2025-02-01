@@ -19,49 +19,49 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandTiltConstants;
 
 public class HandTilt extends SubsystemBase {
-  /** Creates a new HandTilt. */
-  private final SparkMax m_handtilt;
-  private final SparkMaxConfig m_configMotor;
-  private final SparkAbsoluteEncoder m_tiltencoder;
-  private final SparkClosedLoopController m_tiltcontrol;
+  // /** Creates a new HandTilt. */
+  // private final SparkMax m_handtilt;
+  // private final SparkMaxConfig m_configMotor;
+  // private final SparkAbsoluteEncoder m_tiltencoder;
+  // private final SparkClosedLoopController m_tiltcontrol;
 
 
   public HandTilt() {
-    m_handtilt = new SparkMax(HandTiltConstants.kIDHandTiltMotor, MotorType.kBrushed);
-    m_configMotor = new SparkMaxConfig();
-    m_tiltencoder = m_handtilt.getAbsoluteEncoder();
+    // m_handtilt = new SparkMax(HandTiltConstants.kIDHandTiltMotor, MotorType.kBrushed);
+    // m_configMotor = new SparkMaxConfig();
+    // m_tiltencoder = m_handtilt.getAbsoluteEncoder();
 
-    m_configMotor
-        .inverted(false)
-        .idleMode(IdleMode.kBrake);
-    m_configMotor.absoluteEncoder
-        .positionConversionFactor(0.1)
-        .velocityConversionFactor(1000)
-        .zeroOffset(0)
-        .inverted(false);
-    m_configMotor.closedLoop
-        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .outputRange(-0.4, 0.4)
-        .pidf(0.001, 0, 0, 0.001);
+    // m_configMotor
+    //     .inverted(false)
+    //     .idleMode(IdleMode.kBrake);
+    // m_configMotor.absoluteEncoder
+    //     .positionConversionFactor(0.1)
+    //     .velocityConversionFactor(1000)
+    //     .zeroOffset(0)
+    //     .inverted(false);
+    // m_configMotor.closedLoop
+    //     .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+    //     .outputRange(-0.4, 0.4)
+    //     .pidf(0.001, 0, 0, 0.001);
     
-    m_handtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    m_tiltcontrol = m_handtilt.getClosedLoopController();
+    // m_handtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    // m_tiltcontrol = m_handtilt.getClosedLoopController();
   }
 
   public void up() {
-    m_handtilt.set(HandTiltConstants.kSpeedUp);
+    // m_handtilt.set(HandTiltConstants.kSpeedUp);
   }
 
   public void down() {
-    m_handtilt.set(-HandTiltConstants.kSpeedDown);
+    // m_handtilt.set(-HandTiltConstants.kSpeedDown);
   }
 
   public void stop() {
-    m_handtilt.set(0.0);
+    // m_handtilt.set(0.0);
   }
 
   public void setAngle(double angle) {
-    m_tiltcontrol.setReference(angle, ControlType.kPosition);
+    // m_tiltcontrol.setReference(angle, ControlType.kPosition);
   }
   
   @Override

@@ -15,30 +15,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmTiltConstants;
 
 public class ArmTilt extends SubsystemBase {
-  /** Creates a new ArmTilt. */
-  private final SparkMax m_armtilt;
-  private final SparkMaxConfig m_configMotor;
+  // /** Creates a new ArmTilt. */
+  // private final SparkMax m_armtilt;
+  // private final SparkMaxConfig m_configMotor;
 
   public ArmTilt() {
-    m_armtilt = new SparkMax(ArmTiltConstants.kIDArmTiltMotor, MotorType.kBrushed);
-    m_configMotor = new SparkMaxConfig();
-    m_configMotor
-      .inverted(false)
-      .idleMode(IdleMode.kCoast);
+    // m_armtilt = new SparkMax(ArmTiltConstants.kIDArmTiltMotor, MotorType.kBrushed);
+    // m_configMotor = new SparkMaxConfig();
+    // m_configMotor
+    //   .inverted(false)
+    //   .idleMode(IdleMode.kCoast);
 
-    m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    // m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void up() {
-    m_armtilt.set(ArmTiltConstants.kSpeedUp);
+    // m_armtilt.set(ArmTiltConstants.kSpeedUp);
   }
 
   public void down() {
-    m_armtilt.set(-ArmTiltConstants.kspeedDown);
+    // m_armtilt.set(-ArmTiltConstants.kspeedDown);
   }
 
   public void stop() {
-    m_armtilt.set(0.0); 
+    // m_armtilt.set(0.0); 
   }
 
   @Override

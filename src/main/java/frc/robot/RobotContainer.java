@@ -86,9 +86,11 @@ public class RobotContainer
   public RobotContainer()
   {
     // Configure the trigger bindings
-    configureBindings();
+    configureBindingsDrive();
+    // configureBindingsOper();
+
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    // NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
 
   /**
@@ -98,7 +100,7 @@ public class RobotContainer
    * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
    * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
-  private void configureBindings()
+  private void configureBindingsDrive()
   {
 
     Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
@@ -111,9 +113,7 @@ public class RobotContainer
 
     // SET THE DRIVE TYPE
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    // SET DEFAULT COMMAND FOR ARM LENGTHS
-    armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
-    armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
+
 
     if (DriverStation.isTest())
     {
@@ -148,7 +148,13 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     }
 
+  }
 
+  public void configureBindingsOper()
+  {
+    // SET DEFAULT COMMAND FOR ARM LENGTHS
+    armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
+    armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
 
     /**
      * OPERATOR XBOX CONTROLS
@@ -165,7 +171,6 @@ public class RobotContainer
     // MOVE ARM BASE FORWARD AND BACKWARDS
     armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));
     armXbox.start().and(armXbox.rightBumper()).whileTrue((Commands.startEnd(armtilt::down, armtilt::stop, armtilt)));
-
   }
 
   /**
