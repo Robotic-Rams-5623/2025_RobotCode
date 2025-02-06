@@ -4,6 +4,14 @@
 
 package frc.robot;
 
+import java.lang.module.FindException;
+
+import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.EncoderConfig;
+import com.revrobotics.spark.config.SignalsConfig;
+import com.revrobotics.spark.config.SoftLimitConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -38,12 +46,90 @@ public final class Constants
     public static final double kspeedDown = 0.5;
   }
 
-  public static final class ArmLengthConstants
+  public static final class ArmLengthConst
   {
-    public static final int kIDArmBaseLength = 23;
-    public static final int kIDArmTopLength = 24;
-    public static final double kSpeedUp = 0.5;
-    public static final double kSpeedDown = 0.5;
+    public static final int kIDArmBaseLength = 23;        // CAN Bus ID Number
+    public static final int kIDArmTopLength = 24;         // CAN Bus ID Number
+    public static final int kDIOBaseRetractSwitch = 1;    // RoboRIO DIO Port Number
+    public static final int kDIOBaseExtendSwitch = 2;     // RoboRIO DIO Port Number
+    public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
+    public static final int kDIOTopExtendSwitch = 4;      // RoboRIO DIO Port Number
+
+    /* SET SPEED LIMITATIONS */
+    public static final double kSpeedUp = 0.5;            // Manual Extend Speed
+    public static final double kSpeedDown = 0.5;          // Manual Retract Speed
+    public static final double[] kLoopRange = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+
+    /* CLOSED LOOP CONTROL CONSTANTS */
+    public static final double[] kPIDF = {0.01, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+    public static final double kIzone = 5;              // Integral Constant Zone
+    public static final double kPosConversion = 0.5;    // 1 Shaft Rev = 0.5" Height
+    public static final double kVelConversion = 1000;   // 
+    public static final int kCPR = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
+
+    /* ARM LIMITS */
+    public static final double kbaseExtendLimit = 6.0;  // Soft limit in inches as read from encoder
+    public static final double ktopExtendLimit = 6.0;  // Soft limit in inches as read from encoder
+
+    // MOTOR CONFIGURATION SUB-COMPONENTS (FOR CLEANER CODE)
+    public static final ClosedLoopConfig kMotorLoopConfig = new ClosedLoopConfig()
+              .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+              .outputRange(kLoopRange[0], kLoopRange[1])
+              .iZone(kIzone)
+              .positionWrappingEnabled(false)
+              .pidf(kPIDF[0], kPIDF[1], kPIDF[2], kPIDF[3]);
+    public static final EncoderConfig kMotorEncoderConfig = new EncoderConfig()
+              .positionConversionFactor(kPosConversion)
+              .velocityConversionFactor(kVelConversion)
+              .inverted(false)
+              .countsPerRevolution(kCPR);
+    public static final SoftLimitConfig kMotorSoftLimitConfig = new SoftLimitConfig()
+              .forwardSoftLimit(kbaseExtendLimit)
+              .forwardSoftLimitEnabled(false)
+              .reverseSoftLimit(0.0)
+              .reverseSoftLimitEnabled(false);
+
+    /*
+     * Set the reference positions for the arm closed loop control.
+     * The 1st element in the array will correspond to the ID of
+     * the desired position. The second int parameter in the array
+     * corresponds to one of three reference positions for one of
+     * three closed loop controlers, one for each motor in the system.
+     * [0][] - Home Position. Will correspond with reverse limit switches.
+     * [1][] - Position 1 - Floor Pickup
+     * [2][] - Position 2 - Human Player Pickup
+     * [3][] - Position 3 - Low Reef
+     * [4][] - Position 4 - Mid Reef
+     * [5][] - Position 5 - Top Reef
+     * [6][] - Position 6 - Barge Height
+     * [7][] - Position 7 - Climg Height
+     * [8][] - Position 8 - MAX Possible Extension
+     */
+    public static final class kPositions
+    {
+      public static enum armSetpoint {
+        HOME,
+        FLOOR_PICKUP,
+        HP_PICKUP,
+        REEF1,
+        REEF2,
+        REEF3,
+        BARGE,
+        CLIMB,
+        MAX
+      }
+
+      public static final double setpoint[][] = 
+      {
+        // {BOTTOM POSITION, TOP POSITION, EXTENSION POSITION}
+        {0,       1,      2},       // HOME POSITION
+        {0,       1,      2},       // POSITION 1
+        {0,       1,      2},       // POSITION 2
+        {0,       1,      2},       // POSITION 3
+        {0,       1,      2},       // POSITION 4
+        {0,       1,      2},       // POSITION 5
+      };
+    }
   }
 
 
@@ -83,4 +169,47 @@ public final class Constants
 //    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
 //    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
 //  }
+
+  public static final class CANSignals
+  {
+    public static final class ArmMotors
+    {
+      public static final SignalsConfig kMotorSignalConfig = new SignalsConfig()
+            .analogPositionAlwaysOn(false)
+            .analogVelocityAlwaysOn(false)
+            .analogVoltageAlwaysOn(false)
+            .analogPositionPeriodMs(0)
+            .analogVelocityPeriodMs(0)
+            .analogVoltagePeriodMs(0)
+
+            .absoluteEncoderPositionAlwaysOn(false)
+            .absoluteEncoderVelocityAlwaysOn(false)
+            .externalOrAltEncoderPositionAlwaysOn(true)
+            .externalOrAltEncoderVelocityAlwaysOn(true)
+            .absoluteEncoderPositionPeriodMs(0)
+            .absoluteEncoderVelocityPeriodMs(0)
+            .externalOrAltEncoderPosition(100)
+            .externalOrAltEncoderVelocity(200)
+
+            .primaryEncoderPositionAlwaysOn(false)
+            .primaryEncoderVelocityAlwaysOn(false)
+            .primaryEncoderPositionPeriodMs(0)
+            .primaryEncoderVelocityPeriodMs(0)
+
+            .iAccumulationAlwaysOn(false)
+            .iAccumulationPeriodMs(0)
+
+            .faultsAlwaysOn(false)
+            .warningsAlwaysOn(true)
+            .faultsPeriodMs(0)
+            .warningsPeriodMs(500)
+
+            .appliedOutputPeriodMs(0)
+            .busVoltagePeriodMs(0)
+            .limitsPeriodMs(0)
+            .motorTemperaturePeriodMs(0)
+            .outputCurrentPeriodMs(0);   
+    }
+    // OTHER CLASSES
+  }
 }

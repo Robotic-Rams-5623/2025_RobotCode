@@ -153,8 +153,8 @@ public class RobotContainer
   public void configureBindingsOper()
   {
     // SET DEFAULT COMMAND FOR ARM LENGTHS
-    armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
-    armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
+    // armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
+    // armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
 
     /**
      * OPERATOR XBOX CONTROLS
