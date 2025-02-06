@@ -63,7 +63,7 @@ public final class Constants
     /* CLOSED LOOP CONTROL CONSTANTS */
     public static final double[] kPIDF = {0.01, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
     public static final double kIzone = 5;              // Integral Constant Zone
-    public static final double kPosConversion = 0.5;    // 1 Shaft Rev = 0.5" Height
+    public static final double kPosConversion = 0.5/8192;    // Output of encoder * position factor = output in inches (0.5" = 8192 counts)
     public static final double kVelConversion = 1000;   // 
     public static final int kCPR = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
 
