@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
@@ -54,6 +55,7 @@ public final class Constants
     public static final int kDIOBaseExtendSwitch = 2;     // RoboRIO DIO Port Number
     public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
     public static final int kDIOTopExtendSwitch = 4;      // RoboRIO DIO Port Number
+    public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
 
     /* SET SPEED LIMITATIONS */
     public static final double kSpeedUp = 0.5;            // Manual Extend Speed

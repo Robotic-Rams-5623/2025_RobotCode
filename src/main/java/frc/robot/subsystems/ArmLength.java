@@ -10,7 +10,9 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmLengthConst;
 import frc.robot.Constants.CANSignals;
@@ -35,6 +37,16 @@ public class ArmLength extends SubsystemBase {
   private final DigitalInput m_topRetractLimit;
   private final DigitalInput m_baseExtendLimit;
   private final DigitalInput m_baseRetractLimit;
+
+  private TrapezoidProfile m_Profilebot;
+  private TrapezoidProfile m_Profiletop;
+  private TrapezoidProfile.State goaltop;
+  private TrapezoidProfile.State goalbot;
+  private TrapezoidProfile.State setpointtop;
+  private TrapezoidProfile.State setpointbot;
+  private Timer m_Timer;
+  private double m_setpointtop;
+  private double m_setpointbot;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
@@ -76,13 +88,65 @@ public class ArmLength extends SubsystemBase {
     m_baseRetractLimit = new DigitalInput(ArmLengthConst.kDIOBaseRetractSwitch);
     m_topExtendLimit = new DigitalInput(ArmLengthConst.kDIOTopExtendSwitch);
     m_topRetractLimit = new DigitalInput(ArmLengthConst.kDIOTopRetractSwitch);
+
+
+    m_Timer = new Timer();
+    m_Timer.start();
+    m_Timer.reset();
+    
+    m_setpointtop = kPositions.setpoint[0][0];
+    m_setpointbot = kPositions.setpoint[0][1];
+
+    m_Profilebot = new TrapezoidProfile(ArmLengthConst.kArmMotionConstraint);
+    m_Profiletop = new TrapezoidProfile(ArmLengthConst.kArmMotionConstraint);
+
+    goaltop = new TrapezoidProfile.State();
+    goalbot = new TrapezoidProfile.State();
+    setpointtop = new TrapezoidProfile.State();
+    setpointbot = new TrapezoidProfile.State();
+
+    updateMotionprofile();
   } 
 
-  public void baseUp(){
-    // m_armbase.set(ArmLengthConstants.kSpeedUp);
+  public void setTargetPosition(double setBot, double setTop) {
+    if (setTop != m_setpointtop || setBot != m_setpointbot) {
+      m_setpointtop = setTop;
+      m_setpointbot = setBot;
+      updateMotionprofile();
+    }
   }
 
-  public void baseDown(){
+  private void updateMotionprofile(){
+    TrapezoidProfile.State statebot = new TrapezoidProfile.State(m_baseencoder.getPosition(), m_baseencoder.getVelocity());
+    TrapezoidProfile.State goalbot = new TrapezoidProfile.State(m_setpointbot, 0.0);
+    TrapezoidProfile.State statetop = new TrapezoidProfile.State(m_topEncoder.getPosition(), m_topEncoder.getVelocity());
+    TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpointtop, 0.0);
+
+    m_Timer.reset();
+  }
+
+  public void runAutomatic() {
+      double elapsedTime = m_Timer.get();
+      if (m_Profilebot.isFinished(elapsedTime) && m_Profiletop.isFinished(elapsedTime)) {
+        setpointtop = new TrapezoidProfile.State(m_setpointtop, 0.0);
+        setpointbot = new TrapezoidProfile.State(m_setpointbot, 0.0);
+      }
+      else {
+        setpointtop = m_Profiletop.calculate(elapsedTime, setpointtop, goaltop);
+        setpointbot = m_Profilebot.calculate(elapsedTime, setpointbot, goalbot);
+      }
+  
+      // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
+      m_basecontrol.setReference(setpointbot.position, ControlType.kPosition);
+      m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
+    }
+  
+
+  public void baseUp(){
+    //m_armbase.set(ArmLengthConstants.kSpeedUp);
+  }
+
+   public void baseDown(){
     // m_armbase.set(-ArmLengthConstants.kSpeedDown);
   }
 
