@@ -199,7 +199,7 @@ public class ArmLength extends SubsystemBase {
      * Set the position of both arms simultaneously to move in fluid motion to desired position.
      * A feedforward could be calculated and added to the top control if gravity starts to fight us.
      */
-    // m_basecontrol.setReference(kPositions.setpoint[posID][0], ControlType.kPosition);
+     //m_basecontrol.setReference(kPositions.setpoint[posID][0], ControlType.kPosition);
     // m_topcontrol.setReference(kPositions.setpoint[posID][1], ControlType.kPosition);
   }
 

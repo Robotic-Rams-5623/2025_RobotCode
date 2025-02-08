@@ -27,6 +27,7 @@ import swervelib.math.Matter;
  */
 public final class Constants
 {
+
   public static final class FlyWheelConstants
   {
     public static final int kIDFlyWheelMotor = 20;
@@ -34,23 +35,71 @@ public final class Constants
     public static final double kSpeedOut = 0.5;
     public static final int kDIOSwitch = 0;
   }
+
+
+
   public static final class HandTiltConstants
   {
-    public static final int kIDHandTiltMotor = 21;
-    public static final double kSpeedUp = 0.5;
-    public static final double kSpeedDown = 0.5;
+    public static final class Tilt {
+      public static final int kIDHandTiltMotor = 21;
+      public static final double kSpeedUp = 0.5;
+      public static final double kSpeedDown = 0.5;
+
+      public static final double kLoopRange[] = {-.2, .2};
+      public static final double kIzone = 5; // DERGREES
+      public static final double kPIDF[] = {.001, 0, 0, 100};
+      public static final double kPosConversion = 0.1607200257;
+      public static final double kVelConversion = 1000; 
+      public static final int kCPR = 2240;
+      public static final double ktiltLimit = 180.0;
+    
+      // TILT MOTOR CONFIGURATION SUB-COMPONENTS (FOR CLEANER CODE)
+      public static final ClosedLoopConfig kTiltLoopConfig = new ClosedLoopConfig()
+                .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+                .outputRange(kLoopRange[0], kLoopRange[1])
+                .iZone(kIzone)
+                .positionWrappingEnabled(false)
+                .pidf(kPIDF[0], kPIDF[1], kPIDF[2], kPIDF[3]);
+      public static final EncoderConfig kTiltEncoderConfig = new EncoderConfig()
+                .positionConversionFactor(kPosConversion)
+                .velocityConversionFactor(kVelConversion)
+                .inverted(false)
+                .countsPerRevolution(kCPR);
+      public static final SoftLimitConfig kTiltSoftLimitConfig = new SoftLimitConfig()
+                .forwardSoftLimit(ktiltLimit)
+                .forwardSoftLimitEnabled(false)
+                .reverseSoftLimit(0.0)
+                .reverseSoftLimitEnabled(false);
+    }
+
+    public static final class Grab {
+      // GRABBER CONFIG
+      public static final int kIDGrabbyThingy = 24;
+      public static final int kIDGrabbyThingy2 = 25;
+
+      public static final double kSpeedUp = 0.5;
+      public static final double kSpeedDown = 0.5;
+    }
   }
+
+
+
   public static final class ArmTiltConstants
   {
     public static final int kIDArmTiltMotor = 22;
     public static final double kSpeedUp = 0.5;
     public static final double kspeedDown = 0.5;
+
+
   }
+
+
 
   public static final class ArmLengthConst
   {
-    public static final int kIDArmBaseLength = 23;        // CAN Bus ID Number
-    public static final int kIDArmTopLength = 24;         // CAN Bus ID Number
+    public static final int kIDextend = 28;
+    public static final int kIDArmBaseLength = 22;        // CAN Bus ID Number
+    public static final int kIDArmTopLength = 23;         // CAN Bus ID Number
     public static final int kDIOBaseRetractSwitch = 1;    // RoboRIO DIO Port Number
     public static final int kDIOBaseExtendSwitch = 2;     // RoboRIO DIO Port Number
     public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
@@ -131,14 +180,8 @@ public final class Constants
         {0,       1,      2},       // POSITION 4
         {0,       1,      2},       // POSITION 5
       };
-    }
+    }    
   }
-
-
-
-
-
-
 
 
 
@@ -156,6 +199,9 @@ public final class Constants
     // Maximum speed of the robot in meters per second, used to limit acceleration.
   }
 
+
+
+
   public static class OperatorConstants
   {
 
@@ -171,6 +217,9 @@ public final class Constants
 //    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
 //    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
 //  }
+
+
+
 
   public static final class CANSignals
   {
