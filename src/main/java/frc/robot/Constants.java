@@ -172,13 +172,13 @@ public final class Constants
 
       public static final double setpoint[][] = 
       {
-        // {BOTTOM POSITION, TOP POSITION, EXTENSION POSITION}
-        {0,       1,      2},       // HOME POSITION
-        {0,       1,      2},       // POSITION 1
-        {0,       1,      2},       // POSITION 2
-        {0,       1,      2},       // POSITION 3
-        {0,       1,      2},       // POSITION 4
-        {0,       1,      2},       // POSITION 5
+        // {BOTTOM POSITION, TOP POSITION, EXTENSION POSITION} // UNITS IN INCHES
+        {0,       0,      0},       // HOME POSITION
+        {3,       1,      0},       // POSITION 1
+        {3,       2,      0},       // POSITION 2
+        {3,       3,      0},       // POSITION 3
+        {3,       4,      0},       // POSITION 4
+        {2,       5,      4},       // POSITION 5
       };
     }    
   }
@@ -261,6 +261,78 @@ public final class Constants
             .motorTemperaturePeriodMs(0)
             .outputCurrentPeriodMs(0);   
     }
-    // OTHER CLASSES
+    public static final class HandMotors
+    {
+      public static final SignalsConfig kMotorSignalConfig_Dumb = new SignalsConfig()
+            .analogPositionAlwaysOn(false)
+            .analogVelocityAlwaysOn(false)
+            .analogVoltageAlwaysOn(false)
+            .analogPositionPeriodMs(0)
+            .analogVelocityPeriodMs(0)
+            .analogVoltagePeriodMs(0)
+
+            .absoluteEncoderPositionAlwaysOn(false)
+            .absoluteEncoderVelocityAlwaysOn(false)
+            .externalOrAltEncoderPositionAlwaysOn(false)
+            .externalOrAltEncoderVelocityAlwaysOn(false)
+            .absoluteEncoderPositionPeriodMs(0)
+            .absoluteEncoderVelocityPeriodMs(0)
+            .externalOrAltEncoderPosition(0)
+            .externalOrAltEncoderVelocity(0)
+
+            .primaryEncoderPositionAlwaysOn(false)
+            .primaryEncoderVelocityAlwaysOn(false)
+            .primaryEncoderPositionPeriodMs(0)
+            .primaryEncoderVelocityPeriodMs(0)
+
+            .iAccumulationAlwaysOn(false)
+            .iAccumulationPeriodMs(0)
+
+            .faultsAlwaysOn(false)
+            .warningsAlwaysOn(true)
+            .faultsPeriodMs(0)
+            .warningsPeriodMs(500)
+
+            .appliedOutputPeriodMs(0)
+            .busVoltagePeriodMs(0)
+            .limitsPeriodMs(0)
+            .motorTemperaturePeriodMs(0)
+            .outputCurrentPeriodMs(0);
+      public static final SignalsConfig kMotorSignalConfig_Tilt = new SignalsConfig()
+            .analogPositionAlwaysOn(false)
+            .analogVelocityAlwaysOn(false)
+            .analogVoltageAlwaysOn(false)
+            .analogPositionPeriodMs(0)
+            .analogVelocityPeriodMs(0)
+            .analogVoltagePeriodMs(0)
+
+            .absoluteEncoderPositionAlwaysOn(false)
+            .absoluteEncoderVelocityAlwaysOn(false)
+            .externalOrAltEncoderPositionAlwaysOn(false)
+            .externalOrAltEncoderVelocityAlwaysOn(false)
+            .absoluteEncoderPositionPeriodMs(0)
+            .absoluteEncoderVelocityPeriodMs(0)
+            .externalOrAltEncoderPosition(0)
+            .externalOrAltEncoderVelocity(0)
+
+            .primaryEncoderPositionAlwaysOn(true)
+            .primaryEncoderVelocityAlwaysOn(true)
+            .primaryEncoderPositionPeriodMs(100)
+            .primaryEncoderVelocityPeriodMs(200)
+
+            .iAccumulationAlwaysOn(false)
+            .iAccumulationPeriodMs(0)
+
+            .faultsAlwaysOn(false)
+            .warningsAlwaysOn(true)
+            .faultsPeriodMs(0)
+            .warningsPeriodMs(500)
+
+            .appliedOutputPeriodMs(0)
+            .busVoltagePeriodMs(0)
+            .limitsPeriodMs(0)
+            .motorTemperaturePeriodMs(0)
+            .outputCurrentPeriodMs(0);
+    }
   }
 }
