@@ -188,4 +188,15 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(brake);
   }
+
+  public double deadbandDriveX() {
+    return 0.0;
+  }
+
+  public double deadbandDriveY() {
+    return 0.0;
+  }
+
+  public double deadbandDriveZ() {
+    return 0.0;
 }
