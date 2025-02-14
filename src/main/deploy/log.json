@@ -1,0 +1,3886 @@
+[
+    {
+        "messageType": 2,
+        "timestamp": 0.7864990234375,
+        "seqNumber": 326,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 54903"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.7899169921875,
+        "seqNumber": 327,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:54903)"
+    },
+    {
+        "timestamp": 2.6650390625,
+        "seqNumber": 328,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 2.66668701171875,
+        "seqNumber": 329,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 2.66729736328125,
+        "seqNumber": 330,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 2.718017578125,
+        "seqNumber": 331,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.718505859375,
+        "seqNumber": 332,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.71917724609375,
+        "seqNumber": 333,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.77880859375,
+        "seqNumber": 334,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.780029296875,
+        "seqNumber": 335,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.78033447265625,
+        "seqNumber": 336,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.88690185546875,
+        "seqNumber": 337,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.8885498046875,
+        "seqNumber": 338,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.88885498046875,
+        "seqNumber": 339,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.8897705078125,
+        "seqNumber": 340,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.8900146484375,
+        "seqNumber": 341,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.8905029296875,
+        "seqNumber": 342,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.89215087890625,
+        "seqNumber": 343,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.9090576171875,
+        "seqNumber": 344,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.9093017578125,
+        "seqNumber": 345,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 3.71337890625,
+        "seqNumber": 346,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 3.81488037109375,
+        "seqNumber": 347,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 5.448486328125,
+        "seqNumber": 348,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 5.82940673828125,
+        "seqNumber": 349,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 5.83013916015625,
+        "seqNumber": 350,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 5.83056640625,
+        "seqNumber": 351,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 7.05126953125,
+        "seqNumber": 352,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.0521240234375,
+        "seqNumber": 353,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.0533447265625,
+        "seqNumber": 354,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.0537109375,
+        "seqNumber": 355,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.053955078125,
+        "seqNumber": 356,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.05419921875,
+        "seqNumber": 357,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.05718994140625,
+        "seqNumber": 358,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.05767822265625,
+        "seqNumber": 359,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.05792236328125,
+        "seqNumber": 360,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.05810546875,
+        "seqNumber": 361,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.058349609375,
+        "seqNumber": 362,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.0584716796875,
+        "seqNumber": 363,
+        "line": ""
+    },
+    {
+        "timestamp": 7.0604248046875,
+        "seqNumber": 364,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.06085205078125,
+        "seqNumber": 365,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "timestamp": 7.06109619140625,
+        "seqNumber": 366,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.0614013671875,
+        "seqNumber": 367,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.06280517578125,
+        "seqNumber": 368,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.06640625,
+        "seqNumber": 369,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 9.91583251953125,
+        "seqNumber": 370,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 9.9410400390625,
+        "seqNumber": 371,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "timestamp": 14.33587646484375,
+        "seqNumber": 372,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 14.33587646484375,
+        "seqNumber": 372,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 14.33587646484375,
+        "seqNumber": 372,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 14.33587646484375,
+        "seqNumber": 372,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 14.33587646484375,
+        "seqNumber": 372,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.3834228515625,
+        "seqNumber": 376,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 13.5498046875,
+        "seqNumber": 461,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 13.572998046875,
+        "seqNumber": 462,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.02362060546875,
+        "seqNumber": 463,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 54986"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 14.025634765625,
+        "seqNumber": 464,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:54986)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 26.44573974609375,
+        "seqNumber": 465,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 26.4693603515625,
+        "seqNumber": 466,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 26.9495849609375,
+        "seqNumber": 467,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55011"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 26.951171875,
+        "seqNumber": 468,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55011)"
+    },
+    {
+        "timestamp": 30.98992919921875,
+        "seqNumber": 469,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 30.99072265625,
+        "seqNumber": 470,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 30.99114990234375,
+        "seqNumber": 471,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 31.04290771484375,
+        "seqNumber": 472,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.04351806640625,
+        "seqNumber": 473,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.0438232421875,
+        "seqNumber": 474,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.10498046875,
+        "seqNumber": 475,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.10552978515625,
+        "seqNumber": 476,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.10595703125,
+        "seqNumber": 477,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.2034912109375,
+        "seqNumber": 478,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.2039794921875,
+        "seqNumber": 479,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.205078125,
+        "seqNumber": 480,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.20574951171875,
+        "seqNumber": 481,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.21490478515625,
+        "seqNumber": 482,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.21728515625,
+        "seqNumber": 483,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.2177734375,
+        "seqNumber": 484,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.24066162109375,
+        "seqNumber": 485,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 31.24102783203125,
+        "seqNumber": 486,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 32.0086669921875,
+        "seqNumber": 487,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 32.111083984375,
+        "seqNumber": 488,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 33.7705078125,
+        "seqNumber": 489,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 34.12646484375,
+        "seqNumber": 490,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 34.128173828125,
+        "seqNumber": 491,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 34.12860107421875,
+        "seqNumber": 492,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 34.7552490234375,
+        "seqNumber": 493,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.7559814453125,
+        "seqNumber": 494,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.75653076171875,
+        "seqNumber": 495,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.75677490234375,
+        "seqNumber": 496,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.7569580078125,
+        "seqNumber": 497,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.75714111328125,
+        "seqNumber": 498,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.75738525390625,
+        "seqNumber": 499,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.7576904296875,
+        "seqNumber": 500,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.7579345703125,
+        "seqNumber": 501,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.7581787109375,
+        "seqNumber": 502,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.75836181640625,
+        "seqNumber": 503,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.758544921875,
+        "seqNumber": 504,
+        "line": ""
+    },
+    {
+        "timestamp": 34.76171875,
+        "seqNumber": 505,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.76220703125,
+        "seqNumber": 506,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.76263427734375,
+        "seqNumber": 507,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.76287841796875,
+        "seqNumber": 508,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 34.7640380859375,
+        "seqNumber": 509,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 34.76470947265625,
+        "seqNumber": 510,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 37.5606689453125,
+        "seqNumber": 511,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 37.58203125,
+        "seqNumber": 512,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 37.8485107421875,
+        "seqNumber": 513,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55029"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 37.8541259765625,
+        "seqNumber": 514,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55029)"
+    },
+    {
+        "timestamp": 42.059814453125,
+        "seqNumber": 515,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 42.060546875,
+        "seqNumber": 516,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 42.06109619140625,
+        "seqNumber": 517,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 42.10357666015625,
+        "seqNumber": 518,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.10400390625,
+        "seqNumber": 519,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.104248046875,
+        "seqNumber": 520,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.16485595703125,
+        "seqNumber": 521,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.16558837890625,
+        "seqNumber": 522,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.16632080078125,
+        "seqNumber": 523,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.25360107421875,
+        "seqNumber": 524,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.25390625,
+        "seqNumber": 525,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.254638671875,
+        "seqNumber": 526,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.2568359375,
+        "seqNumber": 527,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.2650146484375,
+        "seqNumber": 528,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.265869140625,
+        "seqNumber": 529,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.2662353515625,
+        "seqNumber": 530,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.288330078125,
+        "seqNumber": 531,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 42.28863525390625,
+        "seqNumber": 532,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 43.1273193359375,
+        "seqNumber": 533,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 43.228759765625,
+        "seqNumber": 534,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 44.843994140625,
+        "seqNumber": 535,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 45.22503662109375,
+        "seqNumber": 536,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 45.2261962890625,
+        "seqNumber": 537,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 45.22711181640625,
+        "seqNumber": 538,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 45.8741455078125,
+        "seqNumber": 539,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.87579345703125,
+        "seqNumber": 540,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8760986328125,
+        "seqNumber": 541,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8763427734375,
+        "seqNumber": 542,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.87652587890625,
+        "seqNumber": 543,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8768310546875,
+        "seqNumber": 544,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.87701416015625,
+        "seqNumber": 545,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.877197265625,
+        "seqNumber": 546,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.87744140625,
+        "seqNumber": 547,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.87762451171875,
+        "seqNumber": 548,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8778076171875,
+        "seqNumber": 549,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8780517578125,
+        "seqNumber": 550,
+        "line": ""
+    },
+    {
+        "timestamp": 45.88275146484375,
+        "seqNumber": 551,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.88427734375,
+        "seqNumber": 552,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.884521484375,
+        "seqNumber": 553,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.884765625,
+        "seqNumber": 554,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 45.8856201171875,
+        "seqNumber": 555,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 45.8865966796875,
+        "seqNumber": 556,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 48.60418701171875,
+        "seqNumber": 557,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 48.62994384765625,
+        "seqNumber": 558,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 48.9400634765625,
+        "seqNumber": 559,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55039"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 48.94207763671875,
+        "seqNumber": 560,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55039)"
+    },
+    {
+        "timestamp": 53.125732421875,
+        "seqNumber": 561,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 53.12646484375,
+        "seqNumber": 562,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 53.12689208984375,
+        "seqNumber": 563,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 53.13848876953125,
+        "seqNumber": 564,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)",
+        "callStack": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)\n\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)\n\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)\n\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)\n\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\n\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1390380859375,
+        "seqNumber": 565,
+        "line": "Warning at com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64): CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1434326171875,
+        "seqNumber": 566,
+        "line": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1439208984375,
+        "seqNumber": 567,
+        "line": "\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14422607421875,
+        "seqNumber": 568,
+        "line": "\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1444091796875,
+        "seqNumber": 569,
+        "line": "\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1446533203125,
+        "seqNumber": 570,
+        "line": "\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14483642578125,
+        "seqNumber": 571,
+        "line": "\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14501953125,
+        "seqNumber": 572,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14520263671875,
+        "seqNumber": 573,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.1453857421875,
+        "seqNumber": 574,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14569091796875,
+        "seqNumber": 575,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14593505859375,
+        "seqNumber": 576,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.14605712890625,
+        "seqNumber": 577,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.146240234375,
+        "seqNumber": 578,
+        "line": ""
+    },
+    {
+        "timestamp": 53.18511962890625,
+        "seqNumber": 579,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.18560791015625,
+        "seqNumber": 580,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.18597412109375,
+        "seqNumber": 581,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.24859619140625,
+        "seqNumber": 582,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.250732421875,
+        "seqNumber": 583,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.251220703125,
+        "seqNumber": 584,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.3511962890625,
+        "seqNumber": 585,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.3524169921875,
+        "seqNumber": 586,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.352783203125,
+        "seqNumber": 587,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.35302734375,
+        "seqNumber": 588,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.35491943359375,
+        "seqNumber": 589,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.35528564453125,
+        "seqNumber": 590,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.35565185546875,
+        "seqNumber": 591,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.372314453125,
+        "seqNumber": 592,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 53.3726806640625,
+        "seqNumber": 593,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 54.1932373046875,
+        "seqNumber": 594,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 54.2947998046875,
+        "seqNumber": 595,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 55.9102783203125,
+        "seqNumber": 596,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 56.3094482421875,
+        "seqNumber": 597,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 56.31024169921875,
+        "seqNumber": 598,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 56.3106689453125,
+        "seqNumber": 599,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 56.97833251953125,
+        "seqNumber": 600,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.97894287109375,
+        "seqNumber": 601,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.9810791015625,
+        "seqNumber": 602,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.981689453125,
+        "seqNumber": 603,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.98187255859375,
+        "seqNumber": 604,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.98211669921875,
+        "seqNumber": 605,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.9822998046875,
+        "seqNumber": 606,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.98248291015625,
+        "seqNumber": 607,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.98602294921875,
+        "seqNumber": 608,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.986328125,
+        "seqNumber": 609,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.98651123046875,
+        "seqNumber": 610,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.9866943359375,
+        "seqNumber": 611,
+        "line": ""
+    },
+    {
+        "timestamp": 56.99163818359375,
+        "seqNumber": 612,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.99249267578125,
+        "seqNumber": 613,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.99273681640625,
+        "seqNumber": 614,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.99298095703125,
+        "seqNumber": 615,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 56.99365234375,
+        "seqNumber": 616,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 56.99700927734375,
+        "seqNumber": 617,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 59.72662353515625,
+        "seqNumber": 618,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 59.75,
+        "seqNumber": 619,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 60.04803466796875,
+        "seqNumber": 620,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55049"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 60.0499267578125,
+        "seqNumber": 621,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55049)"
+    },
+    {
+        "timestamp": 64.176025390625,
+        "seqNumber": 622,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 64.1768798828125,
+        "seqNumber": 623,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 64.1773681640625,
+        "seqNumber": 624,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 64.22723388671875,
+        "seqNumber": 625,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.22760009765625,
+        "seqNumber": 626,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.2281494140625,
+        "seqNumber": 627,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.294189453125,
+        "seqNumber": 628,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.2955322265625,
+        "seqNumber": 629,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.29583740234375,
+        "seqNumber": 630,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.40087890625,
+        "seqNumber": 631,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.40179443359375,
+        "seqNumber": 632,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.402099609375,
+        "seqNumber": 633,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.40228271484375,
+        "seqNumber": 634,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.402587890625,
+        "seqNumber": 635,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.40301513671875,
+        "seqNumber": 636,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.4033203125,
+        "seqNumber": 637,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.42218017578125,
+        "seqNumber": 638,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.4229736328125,
+        "seqNumber": 639,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 65.20208740234375,
+        "seqNumber": 640,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 65.30364990234375,
+        "seqNumber": 641,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 66.958984375,
+        "seqNumber": 642,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 67.32489013671875,
+        "seqNumber": 643,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 67.325927734375,
+        "seqNumber": 644,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 67.3262939453125,
+        "seqNumber": 645,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 67.95111083984375,
+        "seqNumber": 646,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95196533203125,
+        "seqNumber": 647,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95306396484375,
+        "seqNumber": 648,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.953369140625,
+        "seqNumber": 649,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95440673828125,
+        "seqNumber": 650,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.9547119140625,
+        "seqNumber": 651,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95489501953125,
+        "seqNumber": 652,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95513916015625,
+        "seqNumber": 653,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.9554443359375,
+        "seqNumber": 654,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95599365234375,
+        "seqNumber": 655,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95623779296875,
+        "seqNumber": 656,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.95654296875,
+        "seqNumber": 657,
+        "line": ""
+    },
+    {
+        "timestamp": 67.97039794921875,
+        "seqNumber": 658,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.97186279296875,
+        "seqNumber": 659,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.97222900390625,
+        "seqNumber": 660,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.972412109375,
+        "seqNumber": 661,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 67.97369384765625,
+        "seqNumber": 662,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 67.9749755859375,
+        "seqNumber": 663,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.72991943359375,
+        "seqNumber": 664,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.75225830078125,
+        "seqNumber": 665,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 71.063720703125,
+        "seqNumber": 666,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55058"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 71.07073974609375,
+        "seqNumber": 667,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55058)"
+    },
+    {
+        "timestamp": 75.1695556640625,
+        "seqNumber": 668,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 75.17041015625,
+        "seqNumber": 669,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 75.17083740234375,
+        "seqNumber": 670,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 75.23333740234375,
+        "seqNumber": 671,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.2337646484375,
+        "seqNumber": 672,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.2347412109375,
+        "seqNumber": 673,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.30047607421875,
+        "seqNumber": 674,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.30224609375,
+        "seqNumber": 675,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.302490234375,
+        "seqNumber": 676,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.3929443359375,
+        "seqNumber": 677,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.39404296875,
+        "seqNumber": 678,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.3944091796875,
+        "seqNumber": 679,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.3946533203125,
+        "seqNumber": 680,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.39508056640625,
+        "seqNumber": 681,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.39556884765625,
+        "seqNumber": 682,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.396484375,
+        "seqNumber": 683,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.41827392578125,
+        "seqNumber": 684,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 75.41864013671875,
+        "seqNumber": 685,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 76.2490234375,
+        "seqNumber": 686,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 76.35211181640625,
+        "seqNumber": 687,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 77.96588134765625,
+        "seqNumber": 688,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 78.36187744140625,
+        "seqNumber": 689,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 78.36383056640625,
+        "seqNumber": 690,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 78.364501953125,
+        "seqNumber": 691,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 78.94940185546875,
+        "seqNumber": 692,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95037841796875,
+        "seqNumber": 693,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95166015625,
+        "seqNumber": 694,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95196533203125,
+        "seqNumber": 695,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95220947265625,
+        "seqNumber": 696,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.952392578125,
+        "seqNumber": 697,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95294189453125,
+        "seqNumber": 698,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95318603515625,
+        "seqNumber": 699,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95416259765625,
+        "seqNumber": 700,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95440673828125,
+        "seqNumber": 701,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95458984375,
+        "seqNumber": 702,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.95489501953125,
+        "seqNumber": 703,
+        "line": ""
+    },
+    {
+        "timestamp": 78.9686279296875,
+        "seqNumber": 704,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.969482421875,
+        "seqNumber": 705,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.96978759765625,
+        "seqNumber": 706,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.969970703125,
+        "seqNumber": 707,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 78.97119140625,
+        "seqNumber": 708,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 78.97247314453125,
+        "seqNumber": 709,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 81.7623291015625,
+        "seqNumber": 710,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 81.7845458984375,
+        "seqNumber": 711,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.056396484375,
+        "seqNumber": 712,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55069"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.0604248046875,
+        "seqNumber": 713,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55069)"
+    },
+    {
+        "timestamp": 86.26470947265625,
+        "seqNumber": 714,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 86.2655029296875,
+        "seqNumber": 715,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 86.2659912109375,
+        "seqNumber": 716,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 86.27508544921875,
+        "seqNumber": 717,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)",
+        "callStack": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)\n\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)\n\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)\n\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)\n\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\n\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.275634765625,
+        "seqNumber": 718,
+        "line": "Warning at com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64): CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27679443359375,
+        "seqNumber": 719,
+        "line": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.277099609375,
+        "seqNumber": 720,
+        "line": "\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27734375,
+        "seqNumber": 721,
+        "line": "\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27752685546875,
+        "seqNumber": 722,
+        "line": "\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.2777099609375,
+        "seqNumber": 723,
+        "line": "\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.2779541015625,
+        "seqNumber": 724,
+        "line": "\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27850341796875,
+        "seqNumber": 725,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27874755859375,
+        "seqNumber": 726,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.2791748046875,
+        "seqNumber": 727,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.2794189453125,
+        "seqNumber": 728,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27960205078125,
+        "seqNumber": 729,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.27978515625,
+        "seqNumber": 730,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.2799072265625,
+        "seqNumber": 731,
+        "line": ""
+    },
+    {
+        "timestamp": 86.315673828125,
+        "seqNumber": 732,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.316162109375,
+        "seqNumber": 733,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31658935546875,
+        "seqNumber": 734,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.38330078125,
+        "seqNumber": 735,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.3841552734375,
+        "seqNumber": 736,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.38519287109375,
+        "seqNumber": 737,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.527587890625,
+        "seqNumber": 738,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.5291748046875,
+        "seqNumber": 739,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.53173828125,
+        "seqNumber": 740,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.53338623046875,
+        "seqNumber": 741,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.53436279296875,
+        "seqNumber": 742,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.53521728515625,
+        "seqNumber": 743,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.53558349609375,
+        "seqNumber": 744,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.55902099609375,
+        "seqNumber": 745,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.5594482421875,
+        "seqNumber": 746,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 87.4154052734375,
+        "seqNumber": 747,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 87.51690673828125,
+        "seqNumber": 748,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 89.047607421875,
+        "seqNumber": 749,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 89.5157470703125,
+        "seqNumber": 750,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 89.5164794921875,
+        "seqNumber": 751,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 89.51800537109375,
+        "seqNumber": 752,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 90.189453125,
+        "seqNumber": 753,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.1943359375,
+        "seqNumber": 754,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.1947021484375,
+        "seqNumber": 755,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.19580078125,
+        "seqNumber": 756,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.196044921875,
+        "seqNumber": 757,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.19622802734375,
+        "seqNumber": 758,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.19647216796875,
+        "seqNumber": 759,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.1966552734375,
+        "seqNumber": 760,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.19696044921875,
+        "seqNumber": 761,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.1971435546875,
+        "seqNumber": 762,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.19732666015625,
+        "seqNumber": 763,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.197509765625,
+        "seqNumber": 764,
+        "line": ""
+    },
+    {
+        "timestamp": 90.20074462890625,
+        "seqNumber": 765,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.2012939453125,
+        "seqNumber": 766,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.20159912109375,
+        "seqNumber": 767,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.201904296875,
+        "seqNumber": 768,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 90.20245361328125,
+        "seqNumber": 769,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 90.20355224609375,
+        "seqNumber": 770,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.92913818359375,
+        "seqNumber": 771,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.9510498046875,
+        "seqNumber": 772,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.2705078125,
+        "seqNumber": 773,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55078"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.2752685546875,
+        "seqNumber": 774,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55078)"
+    },
+    {
+        "timestamp": 97.43621826171875,
+        "seqNumber": 775,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 97.43707275390625,
+        "seqNumber": 776,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 97.4375,
+        "seqNumber": 777,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 97.4508056640625,
+        "seqNumber": 778,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)",
+        "callStack": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)\n\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)\n\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)\n\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)\n\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\n\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.4512939453125,
+        "seqNumber": 779,
+        "line": "Warning at com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64): CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45306396484375,
+        "seqNumber": 780,
+        "line": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.4539794921875,
+        "seqNumber": 781,
+        "line": "\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45428466796875,
+        "seqNumber": 782,
+        "line": "\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45452880859375,
+        "seqNumber": 783,
+        "line": "\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45477294921875,
+        "seqNumber": 784,
+        "line": "\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.4549560546875,
+        "seqNumber": 785,
+        "line": "\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45513916015625,
+        "seqNumber": 786,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.455322265625,
+        "seqNumber": 787,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45556640625,
+        "seqNumber": 788,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.455810546875,
+        "seqNumber": 789,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45599365234375,
+        "seqNumber": 790,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.4561767578125,
+        "seqNumber": 791,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.45635986328125,
+        "seqNumber": 792,
+        "line": ""
+    },
+    {
+        "timestamp": 97.487060546875,
+        "seqNumber": 793,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.487548828125,
+        "seqNumber": 794,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.48779296875,
+        "seqNumber": 795,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.55352783203125,
+        "seqNumber": 796,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.55413818359375,
+        "seqNumber": 797,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.5545654296875,
+        "seqNumber": 798,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.6915283203125,
+        "seqNumber": 799,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.6929931640625,
+        "seqNumber": 800,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.69329833984375,
+        "seqNumber": 801,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.69598388671875,
+        "seqNumber": 802,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.69720458984375,
+        "seqNumber": 803,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.69744873046875,
+        "seqNumber": 804,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.69769287109375,
+        "seqNumber": 805,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.7059326171875,
+        "seqNumber": 806,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 97.706298828125,
+        "seqNumber": 807,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 98.51263427734375,
+        "seqNumber": 808,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 98.61419677734375,
+        "seqNumber": 809,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 100.21575927734375,
+        "seqNumber": 810,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 100.6265869140625,
+        "seqNumber": 811,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 100.62738037109375,
+        "seqNumber": 812,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 100.62841796875,
+        "seqNumber": 813,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 101.26611328125,
+        "seqNumber": 814,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.26702880859375,
+        "seqNumber": 815,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "timestamp": 101.26727294921875,
+        "seqNumber": 816,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 101.26800537109375,
+        "seqNumber": 817,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.269775390625,
+        "seqNumber": 818,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27008056640625,
+        "seqNumber": 819,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27032470703125,
+        "seqNumber": 820,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.2705078125,
+        "seqNumber": 821,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.270751953125,
+        "seqNumber": 822,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27099609375,
+        "seqNumber": 823,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.271240234375,
+        "seqNumber": 824,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.271484375,
+        "seqNumber": 825,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27166748046875,
+        "seqNumber": 826,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.2718505859375,
+        "seqNumber": 827,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.2720947265625,
+        "seqNumber": 828,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27227783203125,
+        "seqNumber": 829,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.272705078125,
+        "seqNumber": 830,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 101.27294921875,
+        "seqNumber": 831,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 104.0286865234375,
+        "seqNumber": 832,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 104.053466796875,
+        "seqNumber": 833,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 104.35693359375,
+        "seqNumber": 834,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55093"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 104.3616943359375,
+        "seqNumber": 835,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55093)"
+    },
+    {
+        "timestamp": 108.5499267578125,
+        "seqNumber": 836,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 108.55059814453125,
+        "seqNumber": 837,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 108.551025390625,
+        "seqNumber": 838,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 108.59698486328125,
+        "seqNumber": 839,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.597412109375,
+        "seqNumber": 840,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.5977783203125,
+        "seqNumber": 841,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.656005859375,
+        "seqNumber": 842,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.6566162109375,
+        "seqNumber": 843,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.65704345703125,
+        "seqNumber": 844,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.7811279296875,
+        "seqNumber": 845,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.78173828125,
+        "seqNumber": 846,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.781982421875,
+        "seqNumber": 847,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.7822265625,
+        "seqNumber": 848,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.782470703125,
+        "seqNumber": 849,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.78271484375,
+        "seqNumber": 850,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.78289794921875,
+        "seqNumber": 851,
+        "line": "Retransmitting stream configuration command to navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.783935546875,
+        "seqNumber": 852,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 108.78411865234375,
+        "seqNumber": 853,
+        "line": "NavX: firmware version 4.0.433"
+    },
+    {
+        "timestamp": 109.61749267578125,
+        "seqNumber": 854,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "cancoder 12 (\"\") Apply Config",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:87)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:91)\ncom.ctre.phoenix6.configs.CANcoderConfigurator.apply(CANcoderConfigurator.java:77)\nswervelib.encoders.CANCoderSwerve.factoryDefault(CANCoderSwerve.java:95)\nswervelib.SwerveModule.<init>(SwerveModule.java:132)\nswervelib.parser.SwerveDriveConfiguration.createModules(SwerveDriveConfiguration.java:62)\nswervelib.parser.SwerveDriveConfiguration.<init>(SwerveDriveConfiguration.java:45)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:172)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 109.71954345703125,
+        "seqNumber": 855,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Refresh Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 111.32861328125,
+        "seqNumber": 856,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 111.730224609375,
+        "seqNumber": 857,
+        "numOccur": 1,
+        "errorCode": -10021,
+        "flags": 1,
+        "details": "Device firmware could not be retrieved. Check that the device is running v6 firmware, the device ID is correct, the specified CAN bus is correct, and the device is powered.",
+        "location": "cancoder 12 (\"\")",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.hardware.ParentDevice.reportIfTooOld(ParentDevice.java:88)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:146)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:200)\nswervelib.encoders.CANCoderSwerve.getAbsolutePosition(CANCoderSwerve.java:129)\nswervelib.SwerveModule.getRawAbsolutePosition(SwerveModule.java:538)\nswervelib.parser.Cache.update(Cache.java:47)\nswervelib.parser.Cache.getValue(Cache.java:83)\nswervelib.SwerveModule.getAbsolutePosition(SwerveModule.java:521)\nswervelib.SwerveModule.getPosition(SwerveModule.java:508)\nswervelib.SwerveDrive.getModulePositions(SwerveDrive.java:862)\nswervelib.SwerveDrive.<init>(SwerveDrive.java:235)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:176)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 111.731201171875,
+        "seqNumber": 858,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 111.73175048828125,
+        "seqNumber": 859,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 112.371337890625,
+        "seqNumber": 860,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration.",
+        "location": "com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)",
+        "callStack": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)\n\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)\n\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.37591552734375,
+        "seqNumber": 861,
+        "line": "Error at com.revrobotics.spark.SparkBase.configure(SparkBase.java:300): Unhandled exception: java.lang.IllegalStateException: The selected feedback sensor is incompatible with the current data port configuration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.3775634765625,
+        "seqNumber": 862,
+        "line": "\tat com.revrobotics.spark.SparkBase.configure(SparkBase.java:300)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.3779296875,
+        "seqNumber": 863,
+        "line": "\tat com.revrobotics.spark.SparkMax.configure(SparkMax.java:90)"
+    },
+    {
+        "timestamp": 112.3780517578125,
+        "seqNumber": 864,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.37835693359375,
+        "seqNumber": 865,
+        "line": "\tat frc.robot.subsystems.ArmLength.<init>(ArmLength.java:68)"
+    },
+    {
+        "timestamp": 112.38006591796875,
+        "seqNumber": 866,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.380126953125,
+        "seqNumber": 867,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38250732421875,
+        "seqNumber": 868,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38287353515625,
+        "seqNumber": 869,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38311767578125,
+        "seqNumber": 870,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38330078125,
+        "seqNumber": 871,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38348388671875,
+        "seqNumber": 872,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.3836669921875,
+        "seqNumber": 873,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.3839111328125,
+        "seqNumber": 874,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:433): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.3841552734375,
+        "seqNumber": 875,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38458251953125,
+        "seqNumber": 876,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 112.38482666015625,
+        "seqNumber": 877,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:440): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 115.09307861328125,
+        "seqNumber": 878,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 115.11962890625,
+        "seqNumber": 879,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 115.443603515625,
+        "seqNumber": 880,
+        "line": "NT: Got a NT4 connection from 10.56.23.200 port 55104"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 115.4453125,
+        "seqNumber": 881,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.56.23.200:55104)"
+    },
+    {
+        "timestamp": 119.56243896484375,
+        "seqNumber": 882,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal MagnetHealth",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenix6.StatusSignal.updateValue(StatusSignal.java:163)\ncom.ctre.phoenix6.StatusSignal.refresh(StatusSignal.java:183)\ncom.ctre.phoenix6.hardware.ParentDevice.commonLookup(ParentDevice.java:466)\ncom.ctre.phoenix6.hardware.ParentDevice.lookupStatusSignal(ParentDevice.java:478)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:904)\ncom.ctre.phoenix6.hardware.core.CoreCANcoder.getMagnetHealth(CoreCANcoder.java:879)\nswervelib.encoders.CANCoderSwerve.<init>(CANCoderSwerve.java:66)\nswervelib.parser.json.DeviceJson.createEncoder(DeviceJson.java:85)\nswervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:54)\nswervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\nfrc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:40)\nfrc.robot.Robot.robotInit(Robot.java:46)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\nfrc.robot.Main.main(Main.java:27)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 119.56317138671875,
+        "seqNumber": 883,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal AbsolutePosition",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 119.5635986328125,
+        "seqNumber": 884,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale. Check the CAN bus wiring, CAN bus utilization, and power to the device.",
+        "location": "cancoder 12 (\"\") Status Signal Velocity",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 119.5777587890625,
+        "seqNumber": 885,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)",
+        "callStack": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)\n\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)\n\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)\n\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)\n\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)\n\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)\n\tat frc.robot.Robot.robotInit(Robot.java:46)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:27)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.57843017578125,
+        "seqNumber": 886,
+        "line": "Warning at com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64): CANSparkFlex object created for CAN ID 10, which is not a SPARK Flex. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58038330078125,
+        "seqNumber": 887,
+        "line": "\tat com.revrobotics.spark.SparkFlex.<init>(SparkFlex.java:64)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58087158203125,
+        "seqNumber": 888,
+        "line": "\tat swervelib.motors.SparkFlexSwerve.<init>(SparkFlexSwerve.java:89)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58123779296875,
+        "seqNumber": 889,
+        "line": "\tat swervelib.parser.json.DeviceJson.createMotor(DeviceJson.java:172)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58154296875,
+        "seqNumber": 890,
+        "line": "\tat swervelib.parser.json.ModuleJson.createModuleConfiguration(ModuleJson.java:98)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58184814453125,
+        "seqNumber": 891,
+        "line": "\tat swervelib.parser.SwerveParser.createSwerveDrive(SwerveParser.java:161)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58209228515625,
+        "seqNumber": 892,
+        "line": "\tat frc.robot.subsystems.swervedrive.SwerveSubsystem.<init>(SwerveSubsystem.java:90)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58245849609375,
+        "seqNumber": 893,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:40)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58270263671875,
+        "seqNumber": 894,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58294677734375,
+        "seqNumber": 895,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58319091796875,
+        "seqNumber": 896,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.5833740234375,
+        "seqNumber": 897,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.58355712890625,
+        "seqNumber": 898,
+        "line": "\tat frc.robot.Main.main(Main.java:27)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.583740234375,
+        "seqNumber": 899,
+        "line": ""
+    },
+    {
+        "timestamp": 119.62506103515625,
+        "seqNumber": 900,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "WARNING: There is issues when using USB camera's and the NavX like this!\nhttps://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/",
+        "location": "swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.62554931640625,
+        "seqNumber": 901,
+        "line": "Warning at swervelib.parser.json.DeviceJson.createIMU(DeviceJson.java:133): WARNING: There is issues when using USB camera's and the NavX like this!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.62591552734375,
+        "seqNumber": 902,
+        "line": "https://pdocs.kauailabs.com/navx-mxp/guidance/selecting-an-interface/"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.691162109375,
+        "seqNumber": 903,
+        "line": "Instantiating navX-Sensor on roboRIO Serial Port 2."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.69189453125,
+        "seqNumber": 904,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.69256591796875,
+        "seqNumber": 905,
+        "line": "NavX: Opening USB  serial port to communicate with navX-MXP/Micro."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.83538818359375,
+        "seqNumber": 906,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.83746337890625,
+        "seqNumber": 907,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.83782958984375,
+        "seqNumber": 908,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.8380126953125,
+        "seqNumber": 909,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.83856201171875,
+        "seqNumber": 910,
+        "line": "NavX: Board Type 50 (navX2-Micro (Gen 2))"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 119.83941650390625,
+        "seqNumber": 911,
+        "line": "NavX: firmware version 4.0.433"
+    }
+]
