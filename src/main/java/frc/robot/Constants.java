@@ -44,6 +44,7 @@ public final class Constants
       public static final int kIDHandTiltMotor = 21;
       public static final double kSpeedUp = 0.5;
       public static final double kSpeedDown = 0.5;
+      public static final int kDIOtiltdownswitch = 1;
 
       public static final double kLoopRange[] = {-.2, .2};
       public static final double kIzone = 5; // DERGREES
@@ -51,7 +52,7 @@ public final class Constants
       public static final double kPosConversion = 0.1607200257;
       public static final double kVelConversion = 1000; 
       public static final int kCPR = 2240;
-      public static final double ktiltLimit = 180.0;
+      public static final double ktiltLimit = 150.0;
     
       // TILT MOTOR CONFIGURATION SUB-COMPONENTS (FOR CLEANER CODE)
       public static final ClosedLoopConfig kTiltLoopConfig = new ClosedLoopConfig()
@@ -100,10 +101,9 @@ public final class Constants
     public static final int kIDextend = 28;
     public static final int kIDArmBaseLength = 22;        // CAN Bus ID Number
     public static final int kIDArmTopLength = 23;         // CAN Bus ID Number
-    public static final int kDIOBaseRetractSwitch = 1;    // RoboRIO DIO Port Number
-    public static final int kDIOBaseExtendSwitch = 2;     // RoboRIO DIO Port Number
+    public static final int kDIOBaseExtendSwitch = 4;     // RoboRIO DIO Port Number
     public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
-    public static final int kDIOTopExtendSwitch = 4;      // RoboRIO DIO Port Number
+    public static final int kDIOextendretractswitch = 2;
     public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
 
     /* SET SPEED LIMITATIONS */
@@ -120,7 +120,8 @@ public final class Constants
 
     /* ARM LIMITS */
     public static final double kbaseExtendLimit = 6.0;  // Soft limit in inches as read from encoder
-    public static final double ktopExtendLimit = 6.0;  // Soft limit in inches as read from encoder
+    public static final double ktopRetractLimit = 6.0;  // Soft limit in inches as read from encoder
+    
 
     // MOTOR CONFIGURATION SUB-COMPONENTS (FOR CLEANER CODE)
     public static final ClosedLoopConfig kMotorLoopConfig = new ClosedLoopConfig()

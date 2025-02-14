@@ -5,17 +5,19 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.servohub.ServoHub.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmLengthConst;
 import frc.robot.Constants.ArmLengthConst.kPositions;
@@ -32,7 +34,7 @@ public class ArmExtend extends SubsystemBase {
   private TrapezoidProfile.State setpoint;
   private Timer m_Timer;
   private double m_setpoint;
-
+  private DigitalInput m_retractlimit;
 
   public ArmExtend() {
     m_extend = new SparkMax(ArmLengthConst.kIDextend, MotorType.kBrushed);
@@ -53,6 +55,8 @@ public class ArmExtend extends SubsystemBase {
     m_Timer.start();
     m_Timer.reset();
   
+    m_retractlimit = new DigitalInput(ArmLengthConst.kDIOextendretractswitch);
+
     m_setpoint = kPositions.setpoint[0][0];
     
     m_profile = new TrapezoidProfile(ArmLengthConst.kArmMotionConstraint);
@@ -104,16 +108,23 @@ public class ArmExtend extends SubsystemBase {
     m_encoder.setPosition(0);
   }
 
-  public double[] getPosition() {
-    double pos[] = {m_encoder.getPosition()};
+  public double getPosition() {
+    double pos = m_encoder.getPosition();
     return pos;
   }
 
-  public void setArmPosition(kPositions.armSetpoint posID){
+  public void setArmPosition(int posID){
     m_control.setReference(kPositions.setpoint[posID][0], ControlType.kPosition);
   }
+
+  public boolean getSwitch(){
+    return m_retractlimit.get();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("arm extend position", getPosition());
+    SmartDashboard.putBoolean("arm extend switch", getSwitch());
   }
 }

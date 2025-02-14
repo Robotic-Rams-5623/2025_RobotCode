@@ -14,6 +14,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandTiltConstants;
 
@@ -29,6 +31,8 @@ public class HandTilt extends SubsystemBase {
   private final SparkMaxConfig m_configgrableft;
   private final SparkMaxConfig m_configgrabright;
   // DIGITAL INPUT FOR TOP LIMIT
+  private final DigitalInput m_tiltlimit;
+
 
 
   public HandTilt() {
@@ -60,6 +64,7 @@ public class HandTilt extends SubsystemBase {
 
     m_grableft.configure(m_configgrableft, ResetMode.kNoResetSafeParameters,  PersistMode.kPersistParameters);
     m_grabright.configure(m_configgrabright, ResetMode.kNoResetSafeParameters,  PersistMode.kPersistParameters);
+    m_tiltlimit = new DigitalInput(HandTiltConstants.Tilt.kDIOtiltdownswitch);
   }
 
   public void up() {
@@ -90,9 +95,21 @@ public class HandTilt extends SubsystemBase {
     m_grableft.set(0.0);
   }
 
+  public double getangle(){
+    return m_tiltencoder.getPosition();
+
+  }
+
+  public boolean getswitch(){
+    return m_tiltlimit.get();
+  }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putNumber("tiltencoder", getangle());
+    SmartDashboard.putBoolean("tiltlimit", getswitch());
   }
 }
