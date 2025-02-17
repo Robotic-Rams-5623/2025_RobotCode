@@ -39,8 +39,7 @@ public class ArmExtend extends SubsystemBase {
   public ArmExtend() {
     m_extend = new SparkMax(ArmLengthConst.kIDextend, MotorType.kBrushed);
 
-    m_encoder = m_extend.getAlternateEncoder();
-    m_encoder.setPosition(0.0);
+    
 
     m_configmotor = new SparkMaxConfig();
     m_configmotor
@@ -49,6 +48,9 @@ public class ArmExtend extends SubsystemBase {
 
     m_extend.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
+    m_encoder = m_extend.getAlternateEncoder();
+    m_encoder.setPosition(0.0);
+    
     m_control = m_extend.getClosedLoopController();
 
     m_Timer = new Timer();

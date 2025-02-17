@@ -40,10 +40,9 @@ public class ArmTilt extends SubsystemBase {
 
 
   public ArmTilt() {
-    m_armtilt = new SparkMax(ArmTiltConstants.kIDArmTiltMotor, MotorType.kBrushed);
+    m_armtilt = new SparkMax(ArmTiltConstants.kIDArmTiltMotor, MotorType.kBrushless);
 
-    m_baseencoder = m_armtilt.getAlternateEncoder();
-    m_baseencoder.setPosition(0.0);
+   
 
     m_configMotor = new SparkMaxConfig();
     m_configMotor
@@ -58,6 +57,9 @@ public class ArmTilt extends SubsystemBase {
 
     m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
+    m_baseencoder = m_armtilt.getAlternateEncoder();
+    m_baseencoder.setPosition(0.0);
+    
     m_basecontrol = m_armtilt.getClosedLoopController();
     
     m_baseExtendLimit = new DigitalInput(ArmLengthConst.kDIOBaseExtendSwitch);

@@ -30,7 +30,7 @@ public final class Constants
 
   public static final class FlyWheelConstants
   {
-    public static final int kIDFlyWheelMotor = 20;
+    public static final int kIDFlyWheelMotor = 27;
     public static final double kSpeedIn = 0.5;
     public static final double kSpeedOut = 0.5;
     public static final int kDIOSwitch = 0;
@@ -41,7 +41,7 @@ public final class Constants
   public static final class HandTiltConstants
   {
     public static final class Tilt {
-      public static final int kIDHandTiltMotor = 21;
+      public static final int kIDHandTiltMotor = 26;
       public static final double kSpeedUp = 0.5;
       public static final double kSpeedDown = 0.5;
       public static final int kDIOtiltdownswitch = 1;

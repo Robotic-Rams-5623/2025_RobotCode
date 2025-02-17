@@ -45,12 +45,12 @@ public class ArmLength extends SubsystemBase {
     /* THIS SECTION ASSIGNS STUFF TO THE CREATED OBJECTS */
 
     // Define the motors (NEO Brushless plugged into Spark MAX)
-    m_armtop = new SparkMax(ArmLengthConst.kIDArmTopLength, MotorType.kBrushed);
+    m_armtop = new SparkMax(ArmLengthConst.kIDArmTopLength, MotorType.kBrushless);
 
     // Define the encoders (Rev Throughbore quadrature encoders plugged into the Alt Encoder Data Port of Spark Max)
-    m_topEncoder = m_armtop.getAlternateEncoder();
+    
     // Set the start positions for the encoders
-    m_topEncoder.setPosition(0.0);
+    
 
     // Define the motors configuration
     m_configmotor = new SparkMaxConfig();
@@ -66,7 +66,8 @@ public class ArmLength extends SubsystemBase {
 
     // Apply the motor configurations to the motors
     m_armtop.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-
+    m_topEncoder = m_armtop.getAlternateEncoder();
+    m_topEncoder.setPosition(0.0);
     // Get the closed loop controllers from the motors
     m_topcontrol = m_armtop.getClosedLoopController();
 
