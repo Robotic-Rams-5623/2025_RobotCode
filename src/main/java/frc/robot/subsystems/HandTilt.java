@@ -135,7 +135,15 @@ public class HandTilt extends SubsystemBase {
   }
 
   public void down() {
-    m_handtilt.set(-Tilt.kSpeedDown);
+    // Manually move the hand tilt down until you hit the lower switch
+    if (getswitch())
+    {
+      stop();
+    }
+    else
+    {
+      m_handtilt.set(-Tilt.kSpeedDown);
+    }
   }
 
   public void stop() {
@@ -170,12 +178,21 @@ public class HandTilt extends SubsystemBase {
     return m_tiltlimit.get(); // Lower tilt limit
   }
 
+  public void resetAngle() {
+    m_tiltencoder.setPosition(0.0);
+  }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    boolean switchState = getswitch();
+    double motorAngle = getangle();
+    
+    SmartDashboard.putNumber("Tilt Angle", motorAngle);
+    SmartDashboard.putBoolean("Tilt Dow Limit", switchState);
 
-    SmartDashboard.putNumber("Tilt Angle", getangle());
-    SmartDashboard.putBoolean("Tilt Dow Limit", getswitch());
+    // If the switch is hit and the angle isnt too far off, reset the encoder to zero.
+    if (switchState && ((motorAngle <= 10) && (motorAngle >= -10))) {resetAngle();}
   }
 }
