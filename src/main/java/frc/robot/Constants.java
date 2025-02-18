@@ -167,6 +167,8 @@ public final class Constants
       // Speeds
       public static final double kSpeedUp = 0.5;    // Manual Speed to Extend Upper Arm Mechanism
       public static final double kspeedDown = 0.5;  // Manual Speed to Retract Upper Arm Mechanism
+      // Trapezoid Profile Constant
+      public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
     }
 
     /* ARM MOTOR CONFIGURATIONS */
