@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -19,54 +19,73 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmLengthConst;
-import frc.robot.Constants.ArmLengthConst.kPositions;
+
+import frc.robot.Constants.ArmConst.Extend;
+import frc.robot.Constants.ArmConst.MotorConfigs;
+import frc.robot.Constants.CANSignals;
+import frc.robot.Constants.ArmConst.kposition;
 
 
 public class ArmExtend extends SubsystemBase {
-  /** Creates a new ArmExtend. */
-  private final SparkClosedLoopController m_control;
+  /* THIS SECTION CREATES ALL THE EMPTY OBJECTS FOR THIS SUBSYTEM */
+  // Create Motor Objects
   private final SparkMax m_extend;
+  // Create Encoder Objects
+  // private final RelativeEncoder m_encoder;
+  private final SparkMaxAlternateEncoder m_encoder;
+  // Create Closed Loop Controller Objects
+  private final SparkClosedLoopController m_control;
+  // Create Motor Configuration Objects
   private final SparkMaxConfig m_configmotor;
-  private final RelativeEncoder m_encoder;
+  // Create Limit Switch Objects
+  private DigitalInput m_retractlimit;
+  // Create Trapezoidal closed loop profile Objects
   private TrapezoidProfile m_profile;
   private TrapezoidProfile.State goal;
   private TrapezoidProfile.State setpoint;
   private Timer m_Timer;
   private double m_setpoint;
-  private DigitalInput m_retractlimit;
-
+  
+  /* CREATE A NEW ArmExtend SUBSYSTEM */
   public ArmExtend() {
-    m_extend = new SparkMax(ArmLengthConst.kIDextend, MotorType.kBrushed);
+    /* THIS SECTION ASSIGNS STUFF TO THE CREATED OBJECTS */
+    // Define the motors (Rev HD Hex Brushed plugged into Spark MAX)
+    m_extend = new SparkMax(Extend.kIDextend, MotorType.kBrushed);
 
-    
+    // Define the encoders (Built-in Rev HD Hex Motor quadrature encoder plugged into the Alt Encoder Data Port of Spark Max)
+    m_encoder = m_extend.getAlternateEncoder();
 
+    // Define the motor's configuration
     m_configmotor = new SparkMaxConfig();
     m_configmotor
         .inverted(false)
         .idleMode(IdleMode.kBrake);
-
-    m_extend.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-
-    m_encoder = m_extend.getAlternateEncoder();
-    m_encoder.setPosition(0.0);
+    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_HD);
+    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_HD);
+    m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Extend);
+    m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     
+    // Apply the motor configurations to the motors
+    m_extend.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    
+    // Reset Encoder to Zero
+    m_encoder.setPosition(0.0);
+
+    // Get the closed loop controllers from the motors
     m_control = m_extend.getClosedLoopController();
 
+    // Configure the LOWER LIMIT limit switch.
+    m_retractlimit = new DigitalInput(Extend.kDIOextendretractswitch);
+
+    // Configure the items needed for trapezoidal profiling
     m_Timer = new Timer();
     m_Timer.start();
     m_Timer.reset();
   
-    m_retractlimit = new DigitalInput(ArmLengthConst.kDIOextendretractswitch);
-
-    m_setpoint = kPositions.setpoint[0][0];
-    
-    m_profile = new TrapezoidProfile(ArmLengthConst.kArmMotionConstraint);
-
+    m_setpoint = kpositions.setpoint[0][2];
+    m_profile = new TrapezoidProfile(Extend.kArmMotionConstraint);
     goal = new TrapezoidProfile.State();
     setpoint = new TrapezoidProfile.State();
-
-    
   }
 
   public void setTargetPosition(double set) {
@@ -95,11 +114,11 @@ public class ArmExtend extends SubsystemBase {
   }
 
   public void out(){
-    m_extend.set(ArmLengthConst.kSpeedUp);
+    m_extend.set(Extend.kSpeedUp);
   }
 
   public void in(){
-    m_extend.set(-ArmLengthConst.kSpeedDown);
+    m_extend.set(-Extend.kSpeedDown);
   }
 
   public void stop(){
@@ -116,7 +135,7 @@ public class ArmExtend extends SubsystemBase {
   }
 
   public void setArmPosition(int posID){
-    m_control.setReference(kPositions.setpoint[posID][0], ControlType.kPosition);
+    m_control.setReference(kposition.setpoint[posID][2], ControlType.kPosition);
   }
 
   public boolean getSwitch(){
