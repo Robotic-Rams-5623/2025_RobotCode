@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkMaxAlternateEncoder
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -15,43 +15,41 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmLengthConst;
+
+import frc.robot.Constants.ArmConst.Length;
+import frc.robot.Constants.ArmConst.MotorConfigs;
 import frc.robot.Constants.CANSignals;
-import frc.robot.Constants.ArmLengthConst.kPositions;
-import frc.robot.Constants.ArmLengthConst.kPositions.armSetpoint;
+import frc.robot.Constants.ArmConst.kposition;
 
 public class ArmLength extends SubsystemBase {
   /* THIS SECTION CREATES ALL THE EMPTY OBJECTS FOR THIS SUBSYTEM */
   // Create Motor Objects
   private final SparkMax m_armtop;
   // Create Encoder Objects
-  private final RelativeEncoder m_topEncoder;
+  // private final RelativeEncoder m_topEncoder;
+  private final SparkMaxAlternateEncoder m_topEncoder;
   // Create Closed Loop Controller Objects
   private final SparkClosedLoopController m_topcontrol;
   // Create Motor Configuration Objects
   private final SparkMaxConfig m_configmotor;
   // Create Limit Switch Objects
   private final DigitalInput m_topRetractLimit;
-
+  // Create Trapezoidal closed loop profile Objects
   private TrapezoidProfile m_Profiletop;
   private TrapezoidProfile.State goaltop;
   private TrapezoidProfile.State setpointtop;
-
   private Timer m_Timer;
   private double m_setpointtop;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
     /* THIS SECTION ASSIGNS STUFF TO THE CREATED OBJECTS */
-
     // Define the motors (NEO Brushless plugged into Spark MAX)
-    m_armtop = new SparkMax(ArmLengthConst.kIDArmTopLength, MotorType.kBrushless);
+    m_armtop = new SparkMax(Length.kIDArmTopLength, MotorType.kBrushless);
 
     // Define the encoders (Rev Throughbore quadrature encoders plugged into the Alt Encoder Data Port of Spark Max)
+    m_topEncoder = m_armtop.getAlternateEncoder();
     
-    // Set the start positions for the encoders
-    
-
     // Define the motors configuration
     m_configmotor = new SparkMaxConfig();
     m_configmotor
@@ -59,32 +57,35 @@ public class ArmLength extends SubsystemBase {
         .idleMode(IdleMode.kBrake)
         .openLoopRampRate(0.1)
         .closedLoopRampRate(0.1);
-    m_configmotor.encoder.apply(ArmLengthConst.kMotorEncoderConfig);
-    m_configmotor.closedLoop.apply(ArmLengthConst.kMotorLoopConfig);
-    m_configmotor.softLimit.apply(ArmLengthConst.kMotorSoftLimitConfig);
+    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
+    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_NEO);
+    m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
     m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
 
     // Apply the motor configurations to the motors
     m_armtop.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    m_topEncoder = m_armtop.getAlternateEncoder();
-    m_topEncoder.setPosition(0.0);
+
+    // Reset Encoder to Zero
+    m_topEncoder.setPosition(0.0); // Set the current position as zero (Should be home position but can be corrected by hitting retract limit switch 
+    
     // Get the closed loop controllers from the motors
     m_topcontrol = m_armtop.getClosedLoopController();
 
-    // Configure the limit switches
-    m_topRetractLimit = new DigitalInput(ArmLengthConst.kDIOTopRetractSwitch);
+    // Configure the LOWER LIMIT limit switch.
+    m_topRetractLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
 
+    // Configure the items needed for trapezoidal profiling
     m_Timer = new Timer();
     m_Timer.start();
     m_Timer.reset();
     
-    m_setpointtop = kPositions.setpoint[0][0];
+    m_setpointtop = kposition.setpoint[0][1];
 
-    m_Profiletop = new TrapezoidProfile(ArmLengthConst.kArmMotionConstraint);
-
+    m_Profiletop = new TrapezoidProfile(Length.kArmMotionConstraint);
     goaltop = new TrapezoidProfile.State();
     setpointtop = new TrapezoidProfile.State();
 
+    // Update the current motion profile with the current position.
     updateMotionprofile();
   } 
 
@@ -115,29 +116,33 @@ public class ArmLength extends SubsystemBase {
       m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
     }
 
+  /**
+   *
+   */
   public void Up(){
-    m_armtop.set(ArmLengthConst.kSpeedUp);
+    m_armtop.set(Length.kSpeedUp);
   }
-
+  
+  /**
+   *
+   */
   public void Down(){
-    m_armtop.set(-ArmLengthConst.kSpeedDown);
-  }
-
-  public void Halt(){
-    m_armtop.set(0.0);
-  }
-
-  
-  
-  public boolean gettopswitch(){
-    return m_topRetractLimit.get();
+    m_armtop.set(-Length.kSpeedDown);
   }
 
   /**
-   * Reset the encoder of the bottom linear actuator to its zeroed home position.
+   *
    */
+  public void Halt(){
+    m_armtop.set(0.0);
+  }
   
-  
+  /**
+   *
+   */
+  public boolean gettopswitch(){
+    return m_topRetractLimit.get();
+  }
 
   /**
    * Reset the encoder of the top linear actuator to its zeroed home position.
@@ -165,7 +170,7 @@ public class ArmLength extends SubsystemBase {
      * A feedforward could be calculated and added to the top control if gravity starts to fight us.
      */
      //m_basecontrol.setReference(kPositions.setpoint[posID][0], ControlType.kPosition);
-    m_topcontrol.setReference(kPositions.setpoint[posID][1], ControlType.kPosition);
+    m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kPosition);
   }
 
   @Override
