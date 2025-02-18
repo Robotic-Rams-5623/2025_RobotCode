@@ -46,6 +46,9 @@ public final class Constants
       public static final double kSpeedDown = 0.5;
       public static final int kDIOtiltdownswitch = 1;
 
+      // Trapezoid Profile Constant
+      public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
+
       public static final double kLoopRange[] = {-.2, .2};
       public static final double kIzone = 5; // DERGREES
       public static final double kPIDF[] = {.001, 0, 0, 100};
@@ -61,14 +64,18 @@ public final class Constants
                 .iZone(kIzone)
                 .positionWrappingEnabled(false)
                 .pidf(kPIDF[0], kPIDF[1], kPIDF[2], kPIDF[3]);
-      public static final EncoderConfig kTiltEncoderConfig = new EncoderConfig()
-                .positionConversionFactor(kPosConversion)
-                .velocityConversionFactor(kVelConversion)
-                .inverted(false)
-                .countsPerRevolution(kCPR);
+      
+      public static final AlternateEncoderConfig kTiltEncoderConfig = new AlternateEncoderConfig() // MAY HAVE TO USE setSparkMaxDataPortConfig() method to configure the data port for alternate sensor mode.
+                .positionConversionFactor(kPosConversion) // 
+                .velocityConversionFactor(kVelConversion) // Default output is RPM.
+                .inverted(false) // Positive motor direction should equal positive encoder movement.
+                .countsPerRevolution(kCPR) // Encoder counts per revolution using Through Bore Encoder
+                .measurementPeriod(10) // period in ms of the position measurement used for calculating the velocity. (Change in Position in Period)/(Period) = Velocity
+                .averageDepth(32); // Default = 64 ~ Number of samples averaged for velocity reading, quadratures can be 1 to 64. 64 measurements average into one velocity measurement.
+
       public static final SoftLimitConfig kTiltSoftLimitConfig = new SoftLimitConfig()
                 .forwardSoftLimit(ktiltLimit)
-                .forwardSoftLimitEnabled(false)
+                .forwardSoftLimitEnabled(true)
                 .reverseSoftLimit(0.0)
                 .reverseSoftLimitEnabled(false);
     }
