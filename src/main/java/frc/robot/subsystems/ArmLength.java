@@ -116,6 +116,34 @@ public class ArmLength extends SubsystemBase {
       m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
     }
 
+
+
+  public void setPositionState(
+      TrapezoidProfile.State current,
+      TrapezoidProfile.State next) {
+    
+    m_armtop.setReference(current, ControlType.kPosition)
+  }
+  
+  public Command profiledMovePosition(double position) {
+    return startRun(
+      () -> { // START COMMAND
+        // Reset timer so setpoints start at the beginning
+        m_Timer.restart();
+        resetTopEncoder();
+      },
+      () -> { // RUN COMMAND
+        var currentTime = m_Timer.get();
+        var currentSetpoint = m_Profiletop.calculate(currentTime, new State(), new State(position, 0));
+        var nextSetpoint = m_Profiletop.calculate(currentTime + .02, new State(), new State(position, 0));
+        setDriveStates(currentSetpoint, currentSetpoint, nextSetpoint, nextSetpoint);
+      }
+    ).until(() -> m_Profiletop.isFinished(0));
+  }
+
+
+
+  
   /**
    *
    */
