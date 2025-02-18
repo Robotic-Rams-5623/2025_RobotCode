@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ArmConst.kposition;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
@@ -138,31 +139,34 @@ public class RobotContainer
     } else
     {
       /*
-       * A = Zero Gyro
-       * X = // Fake Vision Reading
-       * B = // DRIVE TO POSITION
-       * START = No Command
+       * A = GRAB ALGEA
+       * B = RELEASE ALGEA
+       * 
+       * X = ARM LENGTH UP
+       * Y = ARM LENGTH DOWN
+       * 
+       * Left Bump = ARM TILT BACKWARDS
+       * Right Bump = ARM TILT FORWARD
+       *
+       * START = Zero Gyro
        * BACK = No Command
-       * Left Bump = // Lock Wheels
-       * Right Bump = No Command
        */
-
-      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      driverXbox.x().onTrue(Commands.none());
-
-      // driverXbox.b().whileTrue(
-      //     drivebase.driveToPose(
-      //         new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      //                         );
       driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
-      // driverXbox.back().whileTrue(Commands.none());
-      // driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
       driverXbox.b().onTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
       driverXbox.x().onTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
       driverXbox.y().onTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength).until(armtoptrigger));
       driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt).until(armbasetrigger));
       driverXbox.rightBumper().onTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
+
+      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      // driverXbox.x().onTrue(Commands.none());
+      // driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      // driverXbox.back().whileTrue(Commands.none());
+      // driverXbox.b().whileTrue(
+      //     drivebase.driveToPose(
+      //         new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+      // );
     }
 
   }
@@ -172,11 +176,20 @@ public class RobotContainer
     // SET DEFAULT COMMAND FOR ARM LENGTHS
     // armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
     // armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
-
-    /**
-     * OPERATOR XBOX CONTROLS
+    
+    /*
+     * A = CAPTURE CORAL
+     * B = RELEASE ALGEA
+     * 
+     * X = ARM EXTEND IN
+     * Y = ARM EXTEND OUT
+     * 
+     * Left Bump = HAND TILT DOWN
+     * Right Bump = HAND TILT UP
+     *
+     * START = Zero Gyro
+     * BACK = No Command
      */
-
     // FLYWHEEL CAPTURE CORAL
     armXbox.a().whileTrue((Commands.startEnd(flywheel::in, flywheel::stop, flywheel).until(coraltrigger)));
     // FLYWHEEL RELEASE CORAL
@@ -192,6 +205,15 @@ public class RobotContainer
     // EXTEND INWARDS
     armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend).until(armextendtrigger)));
 
+
+    // armXbox.back().onTrue(
+    //     Commands.SequentialCommandGroup(
+    //       Commands.InstantCommand(() -> handtilt.setTargetPosition(kposition.setpoint[0][3]), handtilt),
+    //       Commands.InstantCommand(() -> armExtend.setTargetPosition(kposition.setpoint[0][2]), armExtend),
+    //       Commands.InstantCommand(() -> armtilt.setTargetPosition(kposition.setpoint[0][1]), armtilt),
+    //       Commands.InstantCommand(() -> armlength.setTargetPosition(kposition.setpoint[0][0]), armlength)
+    //     )
+    // );
     // MOVE ARM BASE FORWARD AND BACKWARDS
     // armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));
     // armXbox.start().and(armXbox.rightBumper()).whileTrue((Commands.startEnd(armtilt::down, armtilt::stop, armtilt)));
