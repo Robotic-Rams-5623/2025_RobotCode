@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -205,22 +209,25 @@ public class RobotContainer
     // EXTEND INWARDS
     armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend)));
 
+    armXbox.back().onTrue(
+      new ParallelCommandGroup(
+        new StartEndCommand(handtilt::up, handtilt::stop, handtilt)
+            .onlyWhile(() -> !handtilt.getswitch())
+            .withTimeout(5.0)
+            .beforeStarting(new StartEndCommand(handtilt::open, handtilt::halt, handtilt).withTimeout(3.0)),
+        new InstantCommand(() -> armtilt.setArmPosition(1), armtilt),
+        new InstantCommand(() -> armExtend.setArmPosition(1), armExtend)
+            .onlyWhile(() -> !armExtend.getSwitch())
+            .withTimeout(20.0)
+            .andThen(new InstantCommand(() -> armlength.setArmPosition(1), armlength)
+                .onlyWhile(() -> !armlength.gettopswitch())
+                .withTimeout(20.0)
+                )
+      ));
 
-    // armXbox.back().onTrue(
-    //     Commands.SequentialCommandGroup(
-    //       Commands.InstantCommand(() -> handtilt.setTargetPosition(kposition.setpoint[0][3]), handtilt),
-    //       Commands.InstantCommand(() -> armExtend.setTargetPosition(kposition.setpoint[0][2]), armExtend),
-    //       Commands.InstantCommand(() -> armtilt.setTargetPosition(kposition.setpoint[0][1]), armtilt),
-    //       Commands.InstantCommand(() -> armlength.setTargetPosition(kposition.setpoint[0][0]), armlength)
-    //     )
-    // );
     // MOVE ARM BASE FORWARD AND BACKWARDS
     // armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));
     // armXbox.start().and(armXbox.rightBumper()).whileTrue((Commands.startEnd(armtilt::down, armtilt::stop, armtilt)));
-
-
-
-
   }
 
   /**
@@ -239,19 +246,23 @@ public class RobotContainer
     drivebase.setMotorBrake(brake);
   }
 
+  public Command stowArm() {
+    return new ParallelCommandGroup(
+      new StartEndCommand(handtilt::up, handtilt::stop, handtilt)
+          .onlyWhile(() -> !handtilt.getswitch())
+          .withTimeout(5.0)
+          .beforeStarting(new StartEndCommand(handtilt::open, handtilt::halt, handtilt).withTimeout(3.0)),
+      new InstantCommand(() -> armtilt.setArmPosition(1), armtilt),
+      new InstantCommand(() -> armExtend.setArmPosition(1), armExtend)
+          .onlyWhile(() -> !armExtend.getSwitch())
+          .withTimeout(20.0)
+          .andThen(new InstantCommand(() -> armlength.setArmPosition(1), armlength)
+              .onlyWhile(() -> !armlength.gettopswitch())
+              .withTimeout(20.0)
+              )
+      );
+  }
 
-
-//   public double deadbandDriveX() {
-//     return 0.0;
-//   }
-
-//   public double deadbandDriveY() {
-//     return 0.0;
-//   }
-
-//   public double deadbandDriveZ() {
-//     return 0.0;
-// }
 }
 
 

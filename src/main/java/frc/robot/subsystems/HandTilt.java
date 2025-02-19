@@ -13,6 +13,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -181,6 +183,7 @@ public class HandTilt extends SubsystemBase {
   public void resetAngle() {
     m_tiltencoder.setPosition(0.0);
   }
+
 
 
   @Override

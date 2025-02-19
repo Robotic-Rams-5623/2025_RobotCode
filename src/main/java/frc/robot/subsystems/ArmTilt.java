@@ -151,10 +151,6 @@ public class ArmTilt extends SubsystemBase {
 
   public void setArmPosition(int posID)
   {
-    /**
-     * Set the position of both arms simultaneously to move in fluid motion to desired position.
-     * A feedforward could be calculated and added to the top control if gravity starts to fight us.
-     */
     m_basecontrol.setReference(kposition.setpoint[posID][0], ControlType.kPosition);
   }
 
@@ -170,6 +166,7 @@ public class ArmTilt extends SubsystemBase {
 
     if (proxSwitch) {
       resetBaseEncoder();
+      halt();
     }
   }
 }
