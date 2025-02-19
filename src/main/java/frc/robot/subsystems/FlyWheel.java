@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants.FlyWheelConstants;
+import frc.robot.Constants.CANSignals;
+
 
 public class FlyWheel extends SubsystemBase {
   /* THIS SECTION CREATES ALL THE EMPTY OBJECTS FOR THIS SUBSYTEM */
@@ -31,7 +33,7 @@ public class FlyWheel extends SubsystemBase {
     // Define the motors configuration
     m_configMotor = new SparkMaxConfig();
     m_configMotor
-        .inverted(false)
+        .inverted(true)
         .idleMode(IdleMode.kCoast);
     m_configMotor.signals.apply(CANSignals.HandMotors.kMotorSignalConfig_Dumb);
     
@@ -43,7 +45,12 @@ public class FlyWheel extends SubsystemBase {
   }
 
   public void in() {
-    m_flyWheel.set(FlyWheelConstants.kSpeedIn);
+    if (getSwitch()) {
+      stop();
+    } else {
+      m_flyWheel.set(FlyWheelConstants.kSpeedIn);
+    }
+    
   }
 
   public void out() {
@@ -55,7 +62,7 @@ public class FlyWheel extends SubsystemBase {
   }
 
   public boolean getSwitch() {
-    return m_coralSwitch.get();
+    return !m_coralSwitch.get();
   }
 
   @Override

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMaxAlternateEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -32,7 +33,7 @@ public class ArmExtend extends SubsystemBase {
   private final SparkMax m_extend;
   // Create Encoder Objects
   // private final RelativeEncoder m_encoder;
-  private final SparkMaxAlternateEncoder m_encoder;
+  private final RelativeEncoder m_encoder;
   // Create Closed Loop Controller Objects
   private final SparkClosedLoopController m_control;
   // Create Motor Configuration Objects
@@ -40,11 +41,11 @@ public class ArmExtend extends SubsystemBase {
   // Create Limit Switch Objects
   private DigitalInput m_retractlimit;
   // Create Trapezoidal closed loop profile Objects
-  private TrapezoidProfile m_profile;
-  private TrapezoidProfile.State goal;
-  private TrapezoidProfile.State setpoint;
-  private Timer m_Timer;
-  private double m_setpoint;
+  // private TrapezoidProfile m_profile;
+  // private TrapezoidProfile.State goal;
+  // private TrapezoidProfile.State setpoint;
+  // private Timer m_Timer;
+  // private double m_setpoint;
   
   /* CREATE A NEW ArmExtend SUBSYSTEM */
   public ArmExtend() {
@@ -78,47 +79,51 @@ public class ArmExtend extends SubsystemBase {
     m_retractlimit = new DigitalInput(Extend.kDIOextendretractswitch);
 
     // Configure the items needed for trapezoidal profiling
-    m_Timer = new Timer();
-    m_Timer.start();
-    m_Timer.reset();
+    // m_Timer = new Timer();
+    // m_Timer.start();
+    // m_Timer.reset();
   
-    m_setpoint = kpositions.setpoint[0][2];
-    m_profile = new TrapezoidProfile(Extend.kArmMotionConstraint);
-    goal = new TrapezoidProfile.State();
-    setpoint = new TrapezoidProfile.State();
+    // m_setpoint = kpositions.setpoint[0][2];
+    // m_profile = new TrapezoidProfile(Extend.kArmMotionConstraint);
+    // goal = new TrapezoidProfile.State();
+    // setpoint = new TrapezoidProfile.State();
   }
 
-  public void setTargetPosition(double set) {
-    if (set !=m_setpoint) {
-      m_setpoint = set;
-    }
-  }
+  // public void setTargetPosition(double set) {
+  //   if (set !=m_setpoint) {
+  //     m_setpoint = set;
+  //   }
+  // }
 
-  private void updateMotionprofile(){
-    TrapezoidProfile.State state = new TrapezoidProfile.State(m_encoder.getPosition(), m_encoder.getVelocity());
-    TrapezoidProfile.State goal = new TrapezoidProfile.State(m_setpoint, 0.0);
+  // private void updateMotionprofile(){
+  //   TrapezoidProfile.State state = new TrapezoidProfile.State(m_encoder.getPosition(), m_encoder.getVelocity());
+  //   TrapezoidProfile.State goal = new TrapezoidProfile.State(m_setpoint, 0.0);
 
-    m_Timer.reset();
-  }
+  //   m_Timer.reset();
+  // }
 
-  public void runAutomatic(){
-    double elapsedTime = m_Timer.get();
-    if (m_profile.isFinished(elapsedTime)) {
-      setpoint = new TrapezoidProfile.State(m_setpoint, 0.0);
-    }
-    else {
-      setpoint =m_profile.calculate(elapsedTime, setpoint, goal);
-    }
+  // public void runAutomatic(){
+  //   double elapsedTime = m_Timer.get();
+  //   if (m_profile.isFinished(elapsedTime)) {
+  //     setpoint = new TrapezoidProfile.State(m_setpoint, 0.0);
+  //   }
+  //   else {
+  //     setpoint =m_profile.calculate(elapsedTime, setpoint, goal);
+  //   }
 
-    m_control.setReference(setpoint.position, ControlType.kPosition);
-  }
+  //   m_control.setReference(setpoint.position, ControlType.kPosition);
+  // }
 
   public void out(){
     m_extend.set(Extend.kSpeedUp);
   }
 
   public void in(){
-    m_extend.set(-Extend.kSpeedDown);
+    if(getSwitch()) {
+      stop();
+    } else {
+      m_extend.set(-Extend.kspeedDown);
+    }
   }
 
   public void stop(){
@@ -130,8 +135,7 @@ public class ArmExtend extends SubsystemBase {
   }
 
   public double getPosition() {
-    double pos = m_encoder.getPosition();
-    return pos;
+    return m_encoder.getPosition();
   }
 
   public void setArmPosition(int posID){
@@ -139,13 +143,20 @@ public class ArmExtend extends SubsystemBase {
   }
 
   public boolean getSwitch(){
-    return m_retractlimit.get();
+    return !m_retractlimit.get();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("arm extend position", getPosition());
-    SmartDashboard.putBoolean("arm extend switch", getSwitch());
+    double position = getPosition();
+    boolean proxSwitch = getSwitch();
+
+    SmartDashboard.putNumber("arm extend position", position);
+    SmartDashboard.putBoolean("arm extend switch", proxSwitch);
+
+    if (proxSwitch) {
+      resetencoder();
+    }
   }
 }

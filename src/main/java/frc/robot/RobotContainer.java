@@ -49,9 +49,9 @@ public class RobotContainer
   //* TRIGGERS */
   private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
   private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
-  private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
-  private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
-  private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
+  // private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
+  // private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
+  // private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
 
 
   /**
@@ -98,7 +98,7 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindingsDrive();
-    // configureBindingsOper();
+    configureBindingsOper();
 
     DriverStation.silenceJoystickConnectionWarning(true);
     // NamedCommands.registerCommand("test", Commands.print("I EXIST"));
@@ -128,14 +128,14 @@ public class RobotContainer
 
     if (DriverStation.isTest())
     {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      // driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+      // driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      // driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+      // driverXbox.leftBumper().onTrue(Commands.none());
+      // driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
       /*
@@ -153,11 +153,11 @@ public class RobotContainer
        */
       driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
       driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
-      driverXbox.b().onTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
-      driverXbox.x().onTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
-      driverXbox.y().onTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength).until(armtoptrigger));
-      driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt).until(armbasetrigger));
-      driverXbox.rightBumper().onTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
+      driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
+      driverXbox.x().whileTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
+      driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
+      driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));
+      driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
 
       // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       // driverXbox.x().onTrue(Commands.none());
@@ -196,14 +196,14 @@ public class RobotContainer
     armXbox.b().whileTrue((Commands.startEnd(flywheel::out, flywheel::stop, flywheel)));
 
     //TILT HAND UPWARDS
-    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt)));
+    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt).until(handtiltTrigger)));
     // TILT HAND DOWNWARDS
-    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt).until(handtiltTrigger)));
+    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt)));
 
     // EXTEND OUTWARDS
     armXbox.y().whileTrue((Commands.startEnd(armExtend::out, armExtend::stop, armExtend)));
     // EXTEND INWARDS
-    armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend).until(armextendtrigger)));
+    armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend)));
 
 
     // armXbox.back().onTrue(
@@ -241,15 +241,44 @@ public class RobotContainer
 
 
 
-  public double deadbandDriveX() {
-    return 0.0;
-  }
+//   public double deadbandDriveX() {
+//     return 0.0;
+//   }
 
-  public double deadbandDriveY() {
-    return 0.0;
-  }
+//   public double deadbandDriveY() {
+//     return 0.0;
+//   }
 
-  public double deadbandDriveZ() {
-    return 0.0;
+//   public double deadbandDriveZ() {
+//     return 0.0;
+// }
 }
-}
+
+
+      /* DRIVER 0
+       * A = GRAB ALGEA
+       * B = RELEASE ALGEA
+       * 
+       * X = ARM LENGTH UP
+       * Y = ARM LENGTH DOWN
+       * 
+       * Left Bump = ARM TILT BACKWARDS
+       * Right Bump = ARM TILT FORWARD
+       *
+       * START = Zero Gyro
+       * BACK = No Command
+       */
+
+     /* DRIVER 1
+      * A = CAPTURE CORAL
+      * B = RELEASE ALGEA
+      * 
+      * X = ARM EXTEND IN
+      * Y = ARM EXTEND OUT
+      * 
+      * Left Bump = HAND TILT DOWN
+      * Right Bump = HAND TILT UP
+      *
+      * START = Zero Gyro
+      * BACK = No Command
+      */

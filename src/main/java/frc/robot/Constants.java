@@ -31,8 +31,8 @@ public final class Constants
   public static final class FlyWheelConstants
   {
     public static final int kIDFlyWheelMotor = 27;
-    public static final double kSpeedIn = 0.5;
-    public static final double kSpeedOut = 0.5;
+    public static final double kSpeedIn = 0.6;
+    public static final double kSpeedOut = 0.6;
     public static final int kDIOSwitch = 0;
   }
 
@@ -51,11 +51,11 @@ public final class Constants
 
       public static final double kLoopRange[] = {-.2, .2};
       public static final double kIzone = 5; // DERGREES
-      public static final double kPIDF[] = {.001, 0, 0, 100};
-      public static final double kPosConversion = 0.1607200257;
-      public static final double kVelConversion = 1000; 
-      public static final int kCPR = 2240;
-      public static final double ktiltLimit = 150.0;
+      public static final double kPIDF[] = {.001, 0, 0, 0};
+      public static final double kPosConversion = 180/30.32;
+      public static final double kVelConversion = 1.0; 
+      public static final int kCPR = 28;
+      public static final double ktiltLimit = 190.0;
     
       // TILT MOTOR CONFIGURATION SUB-COMPONENTS (FOR CLEANER CODE)
       public static final ClosedLoopConfig kTiltLoopConfig = new ClosedLoopConfig()
@@ -75,8 +75,8 @@ public final class Constants
 
       public static final SoftLimitConfig kTiltSoftLimitConfig = new SoftLimitConfig()
                 .forwardSoftLimit(ktiltLimit)
-                .forwardSoftLimitEnabled(true)
-                .reverseSoftLimit(0.0)
+                .forwardSoftLimitEnabled(false)
+                .reverseSoftLimit(0)
                 .reverseSoftLimitEnabled(false);
     }
 
@@ -120,18 +120,18 @@ public final class Constants
       {
         // {BOTTOM INCHES, TOP INCHES, EXTENSION INCHES, HAND TILT ANGLE DEGREES}
         {0,       0,      0,      0},       // HOME POSITION
-        {1,       1,      1,      0},       // POSITION 1
+        {1,       1,      0,      0},       // POSITION 1
         {3,       2,      0,      0},       // POSITION 2
         {3,       3,      0,      0},       // POSITION 3
         {3,       4,      0,      0},       // POSITION 4
-        {2,       5,      4,      0},       // POSITION 5
-        {2,       5,      4,      0},       // POSITION 6
-        {2,       5,      4,      0},       // POSITION 7
-        {2,       5,      4,      0},       // POSITION 8
-        {2,       5,      4,      0},       // POSITION 9
-        {2,       5,      4,      0},       // POSITION 10
-        {2,       5,      4,      0},       // POSITION 11
-        {2,       5,      4,      0},       // POSITION 12
+        {2,       5,      0,      0},       // POSITION 5
+        {2,       5,      0,      0},       // POSITION 6
+        {2,       5,      0,      0},       // POSITION 7
+        {2,       5,      0,      0},       // POSITION 8
+        {2,       5,      0,      0},       // POSITION 9
+        {2,       5,      0,      0},       // POSITION 10
+        {2,       5,      0,      0},       // POSITION 11
+        {2,       5,      0,      0},       // POSITION 12
       };
     }
     
@@ -147,8 +147,8 @@ public final class Constants
       // Trapezoid Profile Constant
       public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
       // Closed Loop Control
-      public static final double[] kLoopRange = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF = {0.01, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kLoopRange = {-0.4,0.5}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF = {0.001, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone = 5;              // Integral Constant Zone
     }
     
@@ -160,7 +160,7 @@ public final class Constants
       public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
       // Speeds
       public static final double kSpeedUp = 0.5;    // Manual Speed to Lift Upper Arm Mechanism
-      public static final double kspeedDown = 0.5;  // Manual Speed to Lower Upper Arm Mechanism
+      public static final double kspeedDown = 0.2;  // Manual Speed to Lower Upper Arm Mechanism
       // Trapezoid Profile Constant
       public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
     }
@@ -193,18 +193,18 @@ public final class Constants
       public static final double ktopRetractLimit = 4.0;  // Soft limit in inches as read from encoder
       public static final double kextendExtendLimit = 5.0; // Soft limit in inches as read from encoder
       // CLOSED LOOP CONSTANTS
-      public static final double[] kLoopRange_NEO = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_NEO = {0.01, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kLoopRange_NEO = {-0.4,0.5}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_NEO = {0.001, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_NEO = 5;              // Integral Constant Zone
-      public static final double[] kLoopRange_HD = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_HD = {0.01, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kLoopRange_HD = {-0.4,0.5}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_HD = {0.001, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_HD = 5;              // Integral Constant Zone
 
       // ALTERNATE ENCODER SPARK MAX CONFIGURATIONS
       public static final AlternateEncoderConfig kAltEncoderConfig_NEO = new AlternateEncoderConfig() // MAY HAVE TO USE setSparkMaxDataPortConfig() method to configure the data port for alternate sensor mode.
           .positionConversionFactor(kPosConversion_NEO) // 
           .velocityConversionFactor(kVelConversion_NEO) // Default output is RPM.
-          .inverted(false) // Positive motor direction should equal positive encoder movement.
+          .inverted(true) // Positive motor direction should equal positive encoder movement.
           .countsPerRevolution(kCPR_RevBore) // Encoder counts per revolution using Through Bore Encoder
           .measurementPeriod(10) // period in ms of the position measurement used for calculating the velocity. (Change in Position in Period)/(Period) = Velocity
           .averageDepth(64); // Default = 64 ~ Number of samples averaged for velocity reading, quadratures can be 1 to 64. 64 measurements average into one velocity measurement.
@@ -233,17 +233,17 @@ public final class Constants
       // SOFT LIMIT SPARK MAX CONFIGURATIONS
       public static final SoftLimitConfig kMotorSoftLimitConfig_Base = new SoftLimitConfig()
           .forwardSoftLimit(kbaseExtendLimit)
-          .forwardSoftLimitEnabled(true)
+          .forwardSoftLimitEnabled(false)
           .reverseSoftLimit(0.0)
           .reverseSoftLimitEnabled(false);
       public static final SoftLimitConfig kMotorSoftLimitConfig_Top = new SoftLimitConfig()
           .forwardSoftLimit(0.0)
           .forwardSoftLimitEnabled(false)
           .reverseSoftLimit(ktopRetractLimit)
-          .reverseSoftLimitEnabled(true);
+          .reverseSoftLimitEnabled(false);
       public static final SoftLimitConfig kMotorSoftLimitConfig_Extend = new SoftLimitConfig()
           .forwardSoftLimit(kextendExtendLimit)
-          .forwardSoftLimitEnabled(true)
+          .forwardSoftLimitEnabled(false)
           .reverseSoftLimit(0.0)
           .reverseSoftLimitEnabled(false);
     }
@@ -263,7 +263,7 @@ public final class Constants
     public static final double ROBOT_MASS = (46) * 0.453592; // 32lbs * kg per pound
     public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final double MAX_SPEED  = Units.feetToMeters(5); // Max speed of 2024 Chassis is ~5 m/s
+    public static final double MAX_SPEED  = Units.feetToMeters(2); // Max speed of 2024 Chassis is ~5 m/s
     // Maximum speed of the robot in meters per second, used to limit acceleration.
   }
 
@@ -296,113 +296,56 @@ public final class Constants
     public static final class ArmMotors
     {
       public static final SignalsConfig kMotorSignalConfig = new SignalsConfig()
-            .analogPositionAlwaysOn(false)
-            .analogVelocityAlwaysOn(false)
-            .analogVoltageAlwaysOn(false)
-            .analogPositionPeriodMs(0)
-            .analogVelocityPeriodMs(0)
-            .analogVoltagePeriodMs(0)
-
-            .absoluteEncoderPositionAlwaysOn(false)
-            .absoluteEncoderVelocityAlwaysOn(false)
-            .externalOrAltEncoderPositionAlwaysOn(true)
-            .externalOrAltEncoderVelocityAlwaysOn(true)
-            .absoluteEncoderPositionPeriodMs(0)
-            .absoluteEncoderVelocityPeriodMs(0)
-            .externalOrAltEncoderPosition(10)
-            .externalOrAltEncoderVelocity(10)
-
-            .primaryEncoderPositionAlwaysOn(false)
-            .primaryEncoderVelocityAlwaysOn(false)
-            .primaryEncoderPositionPeriodMs(0)
-            .primaryEncoderVelocityPeriodMs(0)
-
-            .iAccumulationAlwaysOn(false)
-            .iAccumulationPeriodMs(0)
-
-            .faultsAlwaysOn(false)
-            .warningsAlwaysOn(true)
-            .faultsPeriodMs(0)
-            .warningsPeriodMs(500)
-
-            .appliedOutputPeriodMs(0)
-            .busVoltagePeriodMs(0)
-            .limitsPeriodMs(10)
-            .motorTemperaturePeriodMs(0)
-            .outputCurrentPeriodMs(0);   
+        .absoluteEncoderPositionAlwaysOn(false)
+        .absoluteEncoderVelocityAlwaysOn(false)
+        .analogPositionAlwaysOn(false)
+        .analogVelocityAlwaysOn(false)
+        .analogVoltageAlwaysOn(false)
+        .externalOrAltEncoderPositionAlwaysOn(true)
+        .externalOrAltEncoderVelocityAlwaysOn(true)
+        .externalOrAltEncoderPosition(10)
+        .externalOrAltEncoderVelocity(10)
+        .faultsAlwaysOn(false)
+        .iAccumulationAlwaysOn(false)
+        .primaryEncoderPositionAlwaysOn(false)
+        .primaryEncoderVelocityAlwaysOn(false)
+        
+        .warningsAlwaysOn(true)
+        .warningsPeriodMs(500); 
     }
     public static final class HandMotors
     {
       public static final SignalsConfig kMotorSignalConfig_Dumb = new SignalsConfig()
+            .absoluteEncoderPositionAlwaysOn(false)
+            .absoluteEncoderVelocityAlwaysOn(false)
             .analogPositionAlwaysOn(false)
             .analogVelocityAlwaysOn(false)
             .analogVoltageAlwaysOn(false)
-            .analogPositionPeriodMs(0)
-            .analogVelocityPeriodMs(0)
-            .analogVoltagePeriodMs(0)
-
-            .absoluteEncoderPositionAlwaysOn(false)
-            .absoluteEncoderVelocityAlwaysOn(false)
-            .externalOrAltEncoderPositionAlwaysOn(false)
-            .externalOrAltEncoderVelocityAlwaysOn(false)
-            .absoluteEncoderPositionPeriodMs(0)
-            .absoluteEncoderVelocityPeriodMs(0)
-            .externalOrAltEncoderPosition(0)
-            .externalOrAltEncoderVelocity(0)
-
+            .faultsAlwaysOn(false)
+            .iAccumulationAlwaysOn(false)
             .primaryEncoderPositionAlwaysOn(false)
             .primaryEncoderVelocityAlwaysOn(false)
-            .primaryEncoderPositionPeriodMs(0)
-            .primaryEncoderVelocityPeriodMs(0)
 
-            .iAccumulationAlwaysOn(false)
-            .iAccumulationPeriodMs(0)
-
-            .faultsAlwaysOn(false)
             .warningsAlwaysOn(true)
-            .faultsPeriodMs(0)
-            .warningsPeriodMs(500)
+            .warningsPeriodMs(500);
 
-            .appliedOutputPeriodMs(0)
-            .busVoltagePeriodMs(0)
-            .limitsPeriodMs(0)
-            .motorTemperaturePeriodMs(0)
-            .outputCurrentPeriodMs(0);
       public static final SignalsConfig kMotorSignalConfig_Tilt = new SignalsConfig()
-            .analogPositionAlwaysOn(false)
-            .analogVelocityAlwaysOn(false)
-            .analogVoltageAlwaysOn(false)
-            .analogPositionPeriodMs(0)
-            .analogVelocityPeriodMs(0)
-            .analogVoltagePeriodMs(0)
+      .absoluteEncoderPositionAlwaysOn(false)
+      .absoluteEncoderVelocityAlwaysOn(false)
+      .analogPositionAlwaysOn(false)
+      .analogVelocityAlwaysOn(false)
+      .analogVoltageAlwaysOn(false)
+      .externalOrAltEncoderPositionAlwaysOn(true)
+      .externalOrAltEncoderVelocityAlwaysOn(true)
+      .externalOrAltEncoderPosition(10)
+      .externalOrAltEncoderVelocity(10)
+      .faultsAlwaysOn(false)
+      .iAccumulationAlwaysOn(false)
+      .primaryEncoderPositionAlwaysOn(false)
+      .primaryEncoderVelocityAlwaysOn(false)
 
-            .absoluteEncoderPositionAlwaysOn(false)
-            .absoluteEncoderVelocityAlwaysOn(false)
-            .externalOrAltEncoderPositionAlwaysOn(false)
-            .externalOrAltEncoderVelocityAlwaysOn(false)
-            .absoluteEncoderPositionPeriodMs(0)
-            .absoluteEncoderVelocityPeriodMs(0)
-            .externalOrAltEncoderPosition(0)
-            .externalOrAltEncoderVelocity(0)
-
-            .primaryEncoderPositionAlwaysOn(true)
-            .primaryEncoderVelocityAlwaysOn(true)
-            .primaryEncoderPositionPeriodMs(10)
-            .primaryEncoderVelocityPeriodMs(10)
-
-            .iAccumulationAlwaysOn(false)
-            .iAccumulationPeriodMs(0)
-
-            .faultsAlwaysOn(false)
-            .warningsAlwaysOn(true)
-            .faultsPeriodMs(0)
-            .warningsPeriodMs(500)
-
-            .appliedOutputPeriodMs(0)
-            .busVoltagePeriodMs(0)
-            .limitsPeriodMs(10)
-            .motorTemperaturePeriodMs(0)
-            .outputCurrentPeriodMs(0);
+      .warningsAlwaysOn(true)
+      .warningsPeriodMs(500);
     }
   }
 }

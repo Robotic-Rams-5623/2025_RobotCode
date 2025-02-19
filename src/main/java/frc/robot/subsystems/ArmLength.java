@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMaxAlternateEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -27,7 +27,7 @@ public class ArmLength extends SubsystemBase {
   private final SparkMax m_armtop;
   // Create Encoder Objects
   // private final RelativeEncoder m_topEncoder;
-  private final SparkMaxAlternateEncoder m_topEncoder;
+  private final RelativeEncoder m_topEncoder;
   // Create Closed Loop Controller Objects
   private final SparkClosedLoopController m_topcontrol;
   // Create Motor Configuration Objects
@@ -35,11 +35,11 @@ public class ArmLength extends SubsystemBase {
   // Create Limit Switch Objects
   private final DigitalInput m_topRetractLimit;
   // Create Trapezoidal closed loop profile Objects
-  private TrapezoidProfile m_Profiletop;
-  private TrapezoidProfile.State goaltop;
-  private TrapezoidProfile.State setpointtop;
-  private Timer m_Timer;
-  private double m_setpointtop;
+  // private TrapezoidProfile m_Profiletop;
+  // private TrapezoidProfile.State goaltop;
+  // private TrapezoidProfile.State setpointtop;
+  // private Timer m_Timer;
+  // private double m_setpointtop;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
@@ -75,71 +75,71 @@ public class ArmLength extends SubsystemBase {
     m_topRetractLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
 
     // Configure the items needed for trapezoidal profiling
-    m_Timer = new Timer();
-    m_Timer.start();
-    m_Timer.reset();
+    // m_Timer = new Timer();
+    // m_Timer.start();
+    // m_Timer.reset();
     
-    m_setpointtop = kposition.setpoint[0][1];
+    // m_setpointtop = kposition.setpoint[0][1];
 
-    m_Profiletop = new TrapezoidProfile(Length.kArmMotionConstraint);
-    goaltop = new TrapezoidProfile.State();
-    setpointtop = new TrapezoidProfile.State();
+    // m_Profiletop = new TrapezoidProfile(Length.kArmMotionConstraint);
+    // goaltop = new TrapezoidProfile.State();
+    // setpointtop = new TrapezoidProfile.State();
 
     // Update the current motion profile with the current position.
-    updateMotionprofile();
+    // updateMotionprofile();
   } 
 
-  public void setTargetPosition(double setTop) {
-    if (setTop != m_setpointtop) {
-      m_setpointtop = setTop;
-      updateMotionprofile();
-    }
-  }
+  // public void setTargetPosition(double setTop) {
+  //   if (setTop != m_setpointtop) {
+  //     m_setpointtop = setTop;
+  //     updateMotionprofile();
+  //   }
+  // }
 
-  private void updateMotionprofile(){
-    TrapezoidProfile.State statetop = new TrapezoidProfile.State(m_topEncoder.getPosition(), m_topEncoder.getVelocity());
-    TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpointtop, 0.0);
+  // private void updateMotionprofile(){
+  //   TrapezoidProfile.State statetop = new TrapezoidProfile.State(m_topEncoder.getPosition(), m_topEncoder.getVelocity());
+  //   TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpointtop, 0.0);
 
-    m_Timer.reset();
-  }
+  //   m_Timer.reset();
+  // }
 
-  public void runAutomatic() {
-      double elapsedTime = m_Timer.get();
-      if (m_Profiletop.isFinished(elapsedTime)) {
-        setpointtop = new TrapezoidProfile.State(m_setpointtop, 0.0);
-      }
-      else {
-        setpointtop = m_Profiletop.calculate(elapsedTime, setpointtop, goaltop);
-      }
+  // public void runAutomatic() {
+  //     double elapsedTime = m_Timer.get();
+  //     if (m_Profiletop.isFinished(elapsedTime)) {
+  //       setpointtop = new TrapezoidProfile.State(m_setpointtop, 0.0);
+  //     }
+  //     else {
+  //       setpointtop = m_Profiletop.calculate(elapsedTime, setpointtop, goaltop);
+  //     }
   
-      // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
-      m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
-    }
+  //     // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
+  //     m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
+  //   }
 
 
 
-  public void setPositionState(
-      TrapezoidProfile.State current,
-      TrapezoidProfile.State next) {
+  // public void setPositionState(
+  //     TrapezoidProfile.State current,
+  //     TrapezoidProfile.State next) {
     
-    m_armtop.setReference(current, ControlType.kPosition)
-  }
+  //   m_armtop.setReference(current, ControlType.kPosition)
+  // }
   
-  public Command profiledMovePosition(double position) {
-    return startRun(
-      () -> { // START COMMAND
-        // Reset timer so setpoints start at the beginning
-        m_Timer.restart();
-        resetTopEncoder();
-      },
-      () -> { // RUN COMMAND
-        var currentTime = m_Timer.get();
-        var currentSetpoint = m_Profiletop.calculate(currentTime, new State(), new State(position, 0));
-        var nextSetpoint = m_Profiletop.calculate(currentTime + .02, new State(), new State(position, 0));
-        setDriveStates(currentSetpoint, currentSetpoint, nextSetpoint, nextSetpoint);
-      }
-    ).until(() -> m_Profiletop.isFinished(0));
-  }
+  // public Command profiledMovePosition(double position) {
+  //   return startRun(
+  //     () -> { // START COMMAND
+  //       // Reset timer so setpoints start at the beginning
+  //       m_Timer.restart();
+  //       resetTopEncoder();
+  //     },
+  //     () -> { // RUN COMMAND
+  //       var currentTime = m_Timer.get();
+  //       var currentSetpoint = m_Profiletop.calculate(currentTime, new State(), new State(position, 0));
+  //       var nextSetpoint = m_Profiletop.calculate(currentTime + .02, new State(), new State(position, 0));
+  //       setDriveStates(currentSetpoint, currentSetpoint, nextSetpoint, nextSetpoint);
+  //     }
+  //   ).until(() -> m_Profiletop.isFinished(0));
+  // }
 
 
 
@@ -148,14 +148,18 @@ public class ArmLength extends SubsystemBase {
    *
    */
   public void Up(){
-    m_armtop.set(Length.kSpeedUp);
+    if (gettopswitch()) {
+      Halt();
+    } else {
+      m_armtop.set(Length.kSpeedUp);
+    }
   }
   
   /**
    *
    */
   public void Down(){
-    m_armtop.set(-Length.kSpeedDown);
+    m_armtop.set(-Length.kspeedDown);
   }
 
   /**
@@ -169,7 +173,7 @@ public class ArmLength extends SubsystemBase {
    *
    */
   public boolean gettopswitch(){
-    return m_topRetractLimit.get();
+    return !m_topRetractLimit.get();
   }
 
   /**
@@ -204,7 +208,14 @@ public class ArmLength extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("get arm length top", getPosition());
-    SmartDashboard.putBoolean("arm top switch", gettopswitch());
+    double position = getPosition();
+    boolean proxSwitch = gettopswitch();
+
+    SmartDashboard.putNumber("get arm length top", position);
+    SmartDashboard.putBoolean("arm top switch", proxSwitch);
+
+    if (proxSwitch) {
+      resetTopEncoder();
+    }
   }
 }

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import com.revrobotics.spark.SparkMaxAlternateEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -18,6 +19,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 import frc.robot.Constants.HandTiltConstants.Tilt;
 import frc.robot.Constants.HandTiltConstants.Grab;
+import frc.robot.Constants.CANSignals;
+import frc.robot.Constants.HandTiltConstants;
 
 public class HandTilt extends SubsystemBase {
   /* THIS SECTION CREATES ALL THE EMPTY OBJECTS FOR THIS SUBSYTEM */
@@ -27,7 +30,7 @@ public class HandTilt extends SubsystemBase {
   private final SparkMax m_grabright;
   // Create Encoder Objects
   // private final RelativeEncoder m_tiltencoder;
-  private final SparkMaxAlternateEncoder m_tiltencoder;
+  private final RelativeEncoder m_tiltencoder;
   // Create Closed Loop Controller Objects
   private final SparkClosedLoopController m_tiltcontrol;
   // Create Motor Configuration Objects
@@ -37,11 +40,11 @@ public class HandTilt extends SubsystemBase {
   // Create Limit Switch Objects
   private final DigitalInput m_tiltlimit;
   // Create Trapezoidal closed loop profile Objects
-  private TrapezoidProfile m_Profiletop;
-  private TrapezoidProfile.State goaltop;
-  private TrapezoidProfile.State setpointtop;
-  private Timer m_Timer;
-  private double m_setpointtop;
+  // private TrapezoidProfile m_Profiletop;
+  // private TrapezoidProfile.State goaltop;
+  // private TrapezoidProfile.State setpointtop;
+  // private Timer m_Timer;
+  // private double m_setpointtop;
 
   /* CREATE A NEW HandTilt SUBSYSTEM */
   public HandTilt() {
@@ -57,7 +60,7 @@ public class HandTilt extends SubsystemBase {
     // Define the motors configuration
     m_configMotor = new SparkMaxConfig();
     m_configMotor
-        .inverted(false)
+        .inverted(true)
         .idleMode(IdleMode.kBrake);
     m_configMotor.alternateEncoder.apply(Tilt.kTiltEncoderConfig);
     m_configMotor.closedLoop.apply(Tilt.kTiltLoopConfig);
@@ -68,6 +71,7 @@ public class HandTilt extends SubsystemBase {
     m_configgrableft
         .inverted(false)
         .idleMode(IdleMode.kBrake);
+    m_configgrableft.signals.apply(CANSignals.HandMotors.kMotorSignalConfig_Dumb);
     //m_configgrableft.softLimit.apply(); // Set current limiting
 
     m_configgrabright = new SparkMaxConfig();
@@ -89,61 +93,57 @@ public class HandTilt extends SubsystemBase {
     m_tiltlimit = new DigitalInput(Tilt.kDIOtiltdownswitch);
 
     // Configure the items needed for trapezoidal profiling
-    m_Timer = new Timer();
-    m_Timer.start();
-    m_Timer.reset();
+    // m_Timer = new Timer();
+    // m_Timer.start();
+    // m_Timer.reset();
     
-    m_setpoint = kposition.setpoint[0][3];
+    // m_setpoint = kposition.setpoint[0][3];
 
-    m_Profile = new TrapezoidProfile(Tilt.kArmMotionConstraint);
-    goal = new TrapezoidProfile.State();
-    setpoint = new TrapezoidProfile.State();
+    // m_Profile = new TrapezoidProfile(Tilt.kArmMotionConstraint);
+    // goal = new TrapezoidProfile.State();
+    // setpoint = new TrapezoidProfile.State();
 
     // Update the current motion profile with the current position.
-    updateMotionprofile();
+    // updateMotionprofile();
   }
 
-  public void setTargetPosition(double set) {
-    if (set != m_setpoint) {
-      m_setpoint = set;
-      updateMotionprofile();
-    }
-  }
+  // public void setTargetPosition(double set) {
+  //   if (set != m_setpoint) {
+  //     m_setpoint = set;
+  //     updateMotionprofile();
+  //   }
+  // }
 
-  private void updateMotionprofile(){
-    TrapezoidProfile.State statetop = new TrapezoidProfile.State(getangle(), getspeed());
-    TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpoint, 0.0);
+  // private void updateMotionprofile(){
+  //   TrapezoidProfile.State statetop = new TrapezoidProfile.State(getangle(), getspeed());
+  //   TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpoint, 0.0);
 
-    m_Timer.reset();
-  }
+  //   m_Timer.reset();
+  // }
 
-  public void runAutomatic() {
-      double elapsedTime = m_Timer.get();
-      if (m_Profile.isFinished(elapsedTime)) {
-        setpoint = new TrapezoidProfile.State(m_setpoint, 0.0);
-      }
-      else {
-        setpoint = m_Profile.calculate(elapsedTime, setpoint, goal);
-      }
+  // public void runAutomatic() {
+  //     double elapsedTime = m_Timer.get();
+  //     if (m_Profile.isFinished(elapsedTime)) {
+  //       setpoint = new TrapezoidProfile.State(m_setpoint, 0.0);
+  //     }
+  //     else {
+  //       setpoint = m_Profile.calculate(elapsedTime, setpoint, goal);
+  //     }
   
-      // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
-      m_tiltcontrol.setReference(setpoint.position, ControlType.kPosition);
-    }
+  //     // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
+  //     m_tiltcontrol.setReference(setpoint.position, ControlType.kPosition);
+  //   }
 
   public void up() {
-    m_handtilt.set(Tilt.kSpeedUp);
+    if (getswitch()) {
+      stop();
+    } else {
+      m_handtilt.set(Tilt.kSpeedUp);
+    }
   }
 
   public void down() {
-    // Manually move the hand tilt down until you hit the lower switch
-    if (getswitch())
-    {
-      stop();
-    }
-    else
-    {
-      m_handtilt.set(-Tilt.kSpeedDown);
-    }
+    m_handtilt.set(-Tilt.kSpeedDown);
   }
 
   public void stop() {
@@ -175,7 +175,7 @@ public class HandTilt extends SubsystemBase {
   }
 
   public boolean getswitch(){
-    return m_tiltlimit.get(); // Lower tilt limit
+    return !m_tiltlimit.get(); // Lower tilt limit
   }
 
   public void resetAngle() {
@@ -193,6 +193,6 @@ public class HandTilt extends SubsystemBase {
     SmartDashboard.putBoolean("Tilt Dow Limit", switchState);
 
     // If the switch is hit and the angle isnt too far off, reset the encoder to zero.
-    if (switchState && ((motorAngle <= 10) && (motorAngle >= -10))) {resetAngle();}
+    if (switchState ) {resetAngle();} //&& ((motorAngle <= 10) && (motorAngle >= -10))
   }
 }
