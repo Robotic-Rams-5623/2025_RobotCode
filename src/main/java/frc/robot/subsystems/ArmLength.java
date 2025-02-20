@@ -204,6 +204,10 @@ public class ArmLength extends SubsystemBase {
     m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kPosition);
   }
 
+  public void setSmartPosition(int posID) {
+    // m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kMAXMotionPositionControl);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
