@@ -193,9 +193,26 @@ public final class Constants
       public static final double ktopRetractLimit = 4.0;  // Soft limit in inches as read from encoder
       public static final double kextendExtendLimit = 5.0; // Soft limit in inches as read from encoder
       // CLOSED LOOP CONSTANTS
+
+      // DELETE THIS SECTION ONCE CONVERTED OVER TO BOT AND TOP //
       public static final double[] kLoopRange_NEO = {-0.4,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_NEO = {0.4, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kPIDF_NEO = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_NEO = 0.1;              // Integral Constant Zone
+      
+      public static final double[] kLoopRange_Bot = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_Bot = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double kIzone_Bot = 0.1;              // Integral Constant Zone
+      public static final double kmaxVel_Bot = 1.0;              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxAcc_Bot = 2.0;              // [Max Inch/Sec/Sec]
+      public static final double kallowedError_Bot = 0.25;        // [Inches] -> Affected by PosConversionFactor
+      
+      public static final double[] kLoopRange_Top = {-0.4,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_Top = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double kIzone_Top = 0.1;              // Integral Constant Zone
+      public static final double kmaxVel_Top = 1.0;              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxAcc_Top = 2.0;              // [Max Inch/Sec/Sec]
+      public static final double kallowedError_Top = 0.2;        // [Inches] -> Affected by PosConversionFactor
+      
       public static final double[] kLoopRange_HD = {-0.5,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
       public static final double[] kPIDF_HD = {0.6, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_HD = 5;              // Integral Constant Zone
@@ -223,6 +240,29 @@ public final class Constants
           .iZone(kIzone_NEO)
           .positionWrappingEnabled(false)
           .pidf(kPIDF_NEO[0], kPIDF_NEO[1], kPIDF_NEO[2], kPIDF_NEO[3]);
+
+      public static final ClosedLoopConfig kMotorLoopConfig_Bot = new ClosedLoopConfig()
+          .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+          .outputRange(kLoopRange_Bot[0], kLoopRange_Bot[1])
+          .iZone(kIzone_Bot)
+          .positionWrappingEnabled(false)
+          .pidf(kPIDF_Bot[0], kPIDF_Bot[1], kPIDF_Bot[2], kPIDF_Bot[3])
+          .maxMotion
+            .maxVelocity(kmaxVel_Bot)
+            .maxAcceleration(kmaxAcc_Bot)
+            .allowedClosedLoopError(kallowedError_Bot);
+      
+      public static final ClosedLoopConfig kMotorLoopConfig_Top = new ClosedLoopConfig()
+          .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+          .outputRange(kLoopRange_Top[0], kLoopRange_Top[1])
+          .iZone(kIzone_Top)
+          .positionWrappingEnabled(false)
+          .pidf(kPIDF_Top[0], kPIDF_Top[1], kPIDF_Top[2], kPIDF_Top[3])
+          .maxMotion
+            .maxVelocity(kmaxVel_Top)
+            .maxAcceleration(kmaxAcc_Top)
+            .allowedClosedLoopError(kallowedError_Top);
+      
       public static final ClosedLoopConfig kMotorLoopConfig_HD = new ClosedLoopConfig()
           .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
           .outputRange(kLoopRange_HD[0], kLoopRange_HD[1])
