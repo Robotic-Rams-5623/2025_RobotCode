@@ -200,9 +200,9 @@ public class RobotContainer
     armXbox.b().whileTrue((Commands.startEnd(flywheel::out, flywheel::stop, flywheel)));
 
     //TILT HAND UPWARDS
-    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt).until(handtiltTrigger)));
+    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt)));
     // TILT HAND DOWNWARDS
-    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt)));
+    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt)));
 
     // EXTEND OUTWARDS
     armXbox.y().whileTrue((Commands.startEnd(armExtend::out, armExtend::stop, armExtend)));
@@ -225,8 +225,33 @@ public class RobotContainer
     //             )
     //   ));
     armXbox.start().onTrue(
-      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    );
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+      ));
+    armXbox.povDown().onTrue(
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
+      ));
+    armXbox.povRight().onTrue(
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+      ));
+    armXbox.povUp().onTrue(
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+      ));
 
     // MOVE ARM BASE FORWARD AND BACKWARDS
     // armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));

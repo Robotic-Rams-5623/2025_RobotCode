@@ -52,8 +52,9 @@ public class ArmExtend extends SubsystemBase {
     m_configmotor
         .inverted(false)
         .idleMode(IdleMode.kBrake);
-    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_HD);
-    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_HD);
+    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Extend);
+    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Extend);
+    m_configmotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Extend);
     m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Extend);
     m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     
@@ -109,6 +110,9 @@ public class ArmExtend extends SubsystemBase {
   public double getPosition() {
     return m_encoder.getPosition();
   }
+  public double getVelocity() {
+    return m_encoder.getVelocity();
+  }
 
   /**
    * 
@@ -140,10 +144,13 @@ public class ArmExtend extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double position = getPosition();
+    double velocity = getVelocity();
     boolean proxSwitch = getSwitch();
 
     SmartDashboard.putNumber("arm extend position", position);
+    SmartDashboard.putNumber("arm extend velocity", velocity);
     SmartDashboard.putBoolean("arm extend switch", proxSwitch);
+    SmartDashboard.putNumber("Extend Current", m_extend.getOutputCurrent());
 
     if (proxSwitch) {resetencoder();}
   }

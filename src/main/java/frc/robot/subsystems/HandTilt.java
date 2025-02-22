@@ -52,10 +52,11 @@ public class HandTilt extends SubsystemBase {
     // Define the motors configuration
     m_configMotor = new SparkMaxConfig();
     m_configMotor
-        .inverted(true)
+        .inverted(false)
         .idleMode(IdleMode.kBrake);
     m_configMotor.alternateEncoder.apply(Tilt.kTiltEncoderConfig);
     m_configMotor.closedLoop.apply(Tilt.kTiltLoopConfig);
+    m_configMotor.closedLoop.maxMotion.apply(Tilt.kMotorSmartMotion_Tilt);
     m_configMotor.softLimit.apply(Tilt.kTiltSoftLimitConfig);
     m_configMotor.signals.apply(CANSignals.HandMotors.kMotorSignalConfig_Tilt);
     
@@ -72,12 +73,12 @@ public class HandTilt extends SubsystemBase {
         .follow(m_grableft, true); // Follow the settings of the other motor.
 
     // Apply the motor configurations to the motors
-    m_handtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    m_handtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     m_grableft.configure(m_configgrableft, ResetMode.kNoResetSafeParameters,  PersistMode.kPersistParameters);
     m_grabright.configure(m_configgrabright, ResetMode.kNoResetSafeParameters,  PersistMode.kPersistParameters);
 
     // Reset Encoder to Zero
-    m_tiltencoder.setPosition(kposition.setpoint[0][3]);
+    m_tiltencoder.setPosition(0.1);
 
     // Get the closed loop controllers from the motors
     m_tiltcontrol = m_handtilt.getClosedLoopController();
@@ -107,22 +108,20 @@ public class HandTilt extends SubsystemBase {
     m_grableft.set(0.0);
   }
 
-  /**
-   * HAND TILT
-   */
-  public void up() {
-    if (getswitch()) {
-      stop();
-    } else {
-      m_handtilt.set(Tilt.kSpeedUp);
-    }
-  }
+
 
   /**
    * HAND TILT
    */
   public void down() {
-    m_handtilt.set(-Tilt.kSpeedDown);
+      m_handtilt.set(0.5);
+  }
+
+  /**
+   * HAND TILT
+   */
+  public void up() {
+    m_handtilt.set(-0.5);
   }
 
   /**
@@ -132,20 +131,16 @@ public class HandTilt extends SubsystemBase {
     m_handtilt.set(0.0);
   }
 
+
+
+
+
   /**
    * HAND TILT
    * @return
    */
   public double getangle(){
     return m_tiltencoder.getPosition();
-  }
-
-  /**
-   * HAND TILT
-   * @return
-   */
-  public double getspeed() {
-    return m_tiltencoder.getVelocity();
   }
 
   /**
@@ -168,7 +163,8 @@ public class HandTilt extends SubsystemBase {
    */
   public void setSmartPosition(int posID)
   {
-    m_tiltcontrol.setReference(kposition.setpoint[posID][3], ControlType.kMAXMotionPositionControl);
+    SmartDashboard.putNumber("Hand Setpoint", kposition.setpoint[posID][3]); //kposition.setpoint[posID][3]
+    m_tiltcontrol.setReference(kposition.setpoint[posID][3], ControlType.kMAXMotionPositionControl); //kposition.setpoint[posID][3]
   }
 
 
@@ -180,8 +176,10 @@ public class HandTilt extends SubsystemBase {
     
     SmartDashboard.putNumber("Tilt Angle", motorAngle);
     SmartDashboard.putBoolean("Tilt Dow Limit", switchState);
+    SmartDashboard.putNumber("Tilt Current", m_handtilt.getOutputCurrent());
 
     // If the switch is hit and the angle isnt too far off, reset the encoder to zero.
-    if (switchState ) {resetAngle();} //&& ((motorAngle <= 10) && (motorAngle >= -10))
+    //
+    if (switchState && ((motorAngle <= 1) && (motorAngle >= -1))) {resetAngle();}
   }
 }

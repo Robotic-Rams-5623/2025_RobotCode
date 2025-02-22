@@ -49,7 +49,7 @@ public class ArmLength extends SubsystemBase {
         .idleMode(IdleMode.kBrake)
         .openLoopRampRate(0.1)
         .closedLoopRampRate(0.1);
-    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
+    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Top);
     m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
     m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
     m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
@@ -72,18 +72,18 @@ public class ArmLength extends SubsystemBase {
    *
    */
   public void Up(){
-    if (gettopswitch()) {
-      Halt();
-    } else {
-      m_armtop.set(Length.kSpeedUp);
-    }
+    m_armtop.set(Length.kSpeedUp);
   }
   
   /**
    *
    */
   public void Down(){
-    m_armtop.set(-Length.kspeedDown);
+    if (gettopswitch()) {
+      Halt();
+    } else {
+      m_armtop.set(-Length.kspeedDown);
+    }
   }
 
   /**
@@ -141,6 +141,7 @@ public class ArmLength extends SubsystemBase {
 
     SmartDashboard.putNumber("get arm length top", position);
     SmartDashboard.putBoolean("arm top switch", proxSwitch);
+    SmartDashboard.putNumber("Arm Top Current", m_armtop.getOutputCurrent());
 
     if (proxSwitch) {resetTopEncoder();}
   }
