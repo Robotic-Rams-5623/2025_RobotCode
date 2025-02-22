@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -38,12 +37,12 @@ import swervelib.SwerveInputStream;
 public class RobotContainer
 {
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandXboxController armXbox = new CommandXboxController(1);
+  /* XBOX CONTROLLERS */
+  final CommandXboxController driverXbox = new CommandXboxController(0);
+  final CommandXboxController armXbox = new CommandXboxController(1);
+
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                                "swerve"));
+  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   private final ArmLength armlength = new ArmLength();
   private final ArmTilt armtilt = new ArmTilt();
   private final ArmExtend armExtend = new ArmExtend();
@@ -105,7 +104,6 @@ public class RobotContainer
     configureBindingsOper();
 
     DriverStation.silenceJoystickConnectionWarning(true);
-    // NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
 
   /**
@@ -117,73 +115,65 @@ public class RobotContainer
    */
   private void configureBindingsDrive()
   {
-
-    Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveSetpointGen                      = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
-    Command driveFieldOrientedDirectAngleSim      = drivebase.driveFieldOriented(driveDirectAngleSim);
-    Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
-    Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleSim);
+    // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
+    // Command driveSetpointGen                      = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
+    // Command driveFieldOrientedDirectAngleSim      = drivebase.driveFieldOriented(driveDirectAngleSim);
+    // Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
+    // Command driveSetpointGenSim                   = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
     // SET THE DRIVE TYPE
+    Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
+    /* TEST CONTROLS
+      * A = GRAB ALGEA
+      * B = RELEASE ALGEA
+      * 
+      * X = ARM LENGTH UP
+      * Y = ARM LENGTH DOWN
+      * 
+      * Left Bump = ARM TILT BACKWARDS
+      * Right Bump = ARM TILT FORWARD
+      *
+      * START = Zero Gyro
+      * BACK = No Command
+      */
+    driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
+    driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
+    driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
+    driverXbox.x().whileTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
+    driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
+    driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));
+    driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
 
-    if (DriverStation.isTest())
-    {
-      // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
-
-      // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      // driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      // driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      // driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      // driverXbox.leftBumper().onTrue(Commands.none());
-      // driverXbox.rightBumper().onTrue(Commands.none());
-    } else
-    {
-      /*
-       * A = GRAB ALGEA
-       * B = RELEASE ALGEA
-       * 
-       * X = ARM LENGTH UP
-       * Y = ARM LENGTH DOWN
-       * 
-       * Left Bump = ARM TILT BACKWARDS
-       * Right Bump = ARM TILT FORWARD
-       *
-       * START = Zero Gyro
-       * BACK = No Command
-       */
-      driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
-      driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
-      driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
-      driverXbox.x().whileTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
-      driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
-      driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));
-      driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
-
-      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      // driverXbox.x().onTrue(Commands.none());
-      // driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      // driverXbox.back().whileTrue(Commands.none());
-      // driverXbox.b().whileTrue(
-      //     drivebase.driveToPose(
-      //         new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      // );
-    }
-
+    /* COMPETITION/PRACTICE CONTROLS
+      * A = ZERO GYRO
+      * B = DO A 180!!!
+      * 
+      * X = LOCK DRIVE BASE
+      * Y = None
+      * 
+      * Left Bump = CLIMB UP / TILT COLUMN FORWARD
+      * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
+      *
+      * START = None
+      * BACK = None
+    */
+    // driverXbox.a().whileTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
+    // driverXbox.b().whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))));
+    // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    // driverXbox.y().whileTrue(Commands.none());
+    // driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
+    // driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
+    // driverXbox.start().whileTrue(Commands.none());
+    // driverXbox.back().whileTrue(Commands.none());
   }
 
   public void configureBindingsOper()
   {
-    // SET DEFAULT COMMAND FOR ARM LENGTHS
-    // armlength.setDefaultCommand(Commands.run(() -> armlength.setbasespeed(armXbox.getRightY()), armlength));
-    // armlength.setDefaultCommand(Commands.run(() -> armlength.settopspeed(armXbox.getLeftY()), armlength));
-    
-    /*
+    /* TESTING
      * A = CAPTURE CORAL
-     * B = RELEASE ALGEA
+     * B = RELEASE CORAL
      * 
      * X = ARM EXTEND IN
      * Y = ARM EXTEND OUT
@@ -209,22 +199,42 @@ public class RobotContainer
     // EXTEND INWARDS
     armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend)));
 
-    // armXbox.back().onTrue(
+    /* COMPETITION PRACTICE
+     * A = CAPTURE CORAL
+     * B = RELEASE CORAL
+     * 
+     * X = CAPTURE ALGEA
+     * Y = RELEASE ALGEA
+     * 
+     * Left Bump = None
+     * Right Bump = None
+     *
+     * START = CANCEL ARM COMMANDS
+     * BACK = MOVE TO START POSITION
+     * 
+     * DPAD DOWN = LOW REEF CORAL
+     * DPAD DOWN RIGHT = !!!
+     * DPAD RIGHT = MID REEF CORAL
+     * DPAD UP RIGHT = !!!
+     * DPAD UP = TOP REEF CORAL
+     * DPAD UP LEFT = !!!
+     * DPAD LEFT = HOME/HUMAN PLAYER POSITION
+     * DPAD CENTER = MAKE THIS DEFAULT HOME???
+     */
+    armXbox.a().onTrue((Commands.startEnd(flywheel::in, flywheel::stop, flywheel).until(coraltrigger)));
+      // coraltrigger.onTrue(Commands.none()); IF WE ARENT PICKING FROM GROUND THIS IS USELESS
+      // coraltrigger.onFalse(Commands.runOnce(flywheel::stop, flywheel));
+    armXbox.b().whileTrue(Commands.startEnd(flywheel::out, flywheel::stop, flywheel));
+    armXbox.x().whileTrue(Commands.startEnd(handtilt::close, handtilt::hold, handtilt));
+    armXbox.y().whileTrue(Commands.startEnd(handtilt::open, handtilt::stop, handtilt));
+    // armXbox.povCenter().onTrue(
     //   new ParallelCommandGroup(
-    //     new StartEndCommand(handtilt::up, handtilt::stop, handtilt)
-    //         .onlyWhile(() -> !handtilt.getswitch())
-    //         .withTimeout(5.0)
-    //         .beforeStarting(new StartEndCommand(handtilt::open, handtilt::halt, handtilt).withTimeout(3.0)),
-    //     new InstantCommand(() -> armtilt.setArmPosition(1), armtilt),
-    //     new InstantCommand(() -> armExtend.setArmPosition(1), armExtend)
-    //         .onlyWhile(() -> !armExtend.getSwitch())
-    //         .withTimeout(20.0)
-    //         .andThen(new InstantCommand(() -> armlength.setArmPosition(1), armlength)
-    //             .onlyWhile(() -> !armlength.gettopswitch())
-    //             .withTimeout(20.0)
-    //             )
+    //     new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+    //     new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+    //     new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+    //     new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
     //   ));
-    armXbox.start().onTrue(
+    armXbox.povLeft().onTrue(
       new ParallelCommandGroup(
         new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
         new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
@@ -252,10 +262,6 @@ public class RobotContainer
         new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
         new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
       ));
-
-    // MOVE ARM BASE FORWARD AND BACKWARDS
-    // armXbox.start().and(armXbox.leftBumper()).whileTrue((Commands.startEnd(armtilt::up, armtilt::stop, armtilt)));
-    // armXbox.start().and(armXbox.rightBumper()).whileTrue((Commands.startEnd(armtilt::down, armtilt::stop, armtilt)));
   }
 
   /**
