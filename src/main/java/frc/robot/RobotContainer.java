@@ -224,8 +224,8 @@ public class RobotContainer
     //             .withTimeout(20.0)
     //             )
     //   ));
-    armXbox.back().onTrue(
-      new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt)
+    armXbox.start().onTrue(
+      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
     );
 
     // MOVE ARM BASE FORWARD AND BACKWARDS
@@ -247,23 +247,6 @@ public class RobotContainer
   public void setMotorBrake(boolean brake)
   {
     drivebase.setMotorBrake(brake);
-  }
-
-  public Command stowArm() {
-    return new ParallelCommandGroup(
-      new StartEndCommand(handtilt::up, handtilt::stop, handtilt)
-          .onlyWhile(() -> !handtilt.getswitch())
-          .withTimeout(5.0)
-          .beforeStarting(new StartEndCommand(handtilt::open, handtilt::halt, handtilt).withTimeout(3.0)),
-      new InstantCommand(() -> armtilt.setArmPosition(1), armtilt),
-      new InstantCommand(() -> armExtend.setArmPosition(1), armExtend)
-          .onlyWhile(() -> !armExtend.getSwitch())
-          .withTimeout(20.0)
-          .andThen(new InstantCommand(() -> armlength.setArmPosition(1), armlength)
-              .onlyWhile(() -> !armlength.gettopswitch())
-              .withTimeout(20.0)
-              )
-      );
   }
 
 }

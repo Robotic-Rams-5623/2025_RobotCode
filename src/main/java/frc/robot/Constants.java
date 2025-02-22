@@ -182,7 +182,7 @@ public final class Constants
     {
       // ENCODER CONFIG CONSTANTS
       public static final double kPosConversion_NEO = 0.5;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * (0.5 inch / 1 rot)
-      public static final double kVelConversion_NEO = 0.5 / 60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * (0.5 inch / 1 rev) * (1 min/ 60 sec)
+      public static final double kVelConversion_NEO = 0.5;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * (0.5 inch / 1 rev) * (1 min/ 60 sec)
       public static final double kPosConversion_HD = 0.5/30;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * ~~~~
       public static final double kVelConversion_HD = 0.5/30/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * ~~~~
       public static final int kCPR_RevBore = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
@@ -198,12 +198,12 @@ public final class Constants
       public static final double[] kPIDF_NEO = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_NEO = 0.1;              // Integral Constant Zone
       
-      public static final double[] kLoopRange_Bot = {-0.5,0.6}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Bot = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kLoopRange_Bot = {-0.6,0.8}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_Bot = {20, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_Bot = 0.1;              // Integral Constant Zone
-      public static final double kmaxVel_Bot = 1.0;              // [Max Inch/Sec] -> Affected by VelConversionFactor
-      public static final double kmaxAcc_Bot = 2.0;              // [Max Inch/Sec/Sec]
-      public static final double kallowedError_Bot = 0.25;        // [Inches] -> Affected by PosConversionFactor
+      public static final double kmaxVel_Bot = 3.0;              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxAcc_Bot = 6.0;              // [Max Inch/Sec/Sec]
+      public static final double kallowedError_Bot = 0.1;        // [Inches] -> Affected by PosConversionFactor
       
       public static final double[] kLoopRange_Top = {-0.4,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
       public static final double[] kPIDF_Top = {0.4, 0, 0, 1/473};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)

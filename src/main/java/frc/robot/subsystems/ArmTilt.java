@@ -49,10 +49,10 @@ public class ArmTilt extends SubsystemBase {
     // Define the motors configuration
     m_configMotor = new SparkMaxConfig();
     m_configMotor
-        .inverted(false)
+        .inverted(true)
         .idleMode(IdleMode.kBrake)
         .openLoopRampRate(0.1)
-        .closedLoopRampRate(0.1);
+        .closedLoopRampRate(0.0);
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
     m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Bot);
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Bot);
@@ -79,7 +79,7 @@ public class ArmTilt extends SubsystemBase {
     if (getbottomswitch()) {
       halt();
     } else {
-      m_armtilt.set(Tilt.kSpeedUp);
+      m_armtilt.set(-Tilt.kSpeedUp);
     }
   }
 
@@ -87,7 +87,7 @@ public class ArmTilt extends SubsystemBase {
    * 
    */
   public void down() {
-    m_armtilt.set(-Tilt.kspeedDown);
+    m_armtilt.set(Tilt.kspeedDown);
   }
 
   /**
@@ -109,7 +109,7 @@ public class ArmTilt extends SubsystemBase {
    * 
    */
   public void resetBaseEncoder() {
-    m_baseencoder.setPosition(kposition.setpoint[0][0]);
+    m_baseencoder.setPosition(0.0);
   }
 
   /**
