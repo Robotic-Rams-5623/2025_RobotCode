@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -15,9 +14,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -39,12 +36,6 @@ public class ArmTilt extends SubsystemBase {
   private final SparkMaxConfig m_configMotor;
   // Create Limit Switch Objects
   private final DigitalInput m_baseExtendLimit;
-  // Create Trapezoidal closed loop profile Objects
-  // private TrapezoidProfile m_Profilebot;
-  // private TrapezoidProfile.State goalbot;
-  // private TrapezoidProfile.State setpointbot;
-  // private Timer m_Timer;
-  // private double m_setpointbot;
 
   /* CREATE A NEW ArmTilt SUBSYSTEM */
   public ArmTilt() {
@@ -78,49 +69,11 @@ public class ArmTilt extends SubsystemBase {
 
     // Configure the LOWER LIMIT limit switch.
     m_baseExtendLimit = new DigitalInput(Tilt.kDIOBaseExtendSwitch);
-
-    // Configure the items needed for trapezoidal profiling
-    // m_Timer = new Timer();
-    // m_Timer.start();
-    // m_Timer.reset();
-    
-    // m_setpointbot = kposition.setpoint[0][0];
-
-    // m_Profilebot = new TrapezoidProfile(Tilt.kArmMotionConstraint);
-    // goalbot = new TrapezoidProfile.State();
-    // setpointbot = new TrapezoidProfile.State();
-
-    // Update the current motion profile with the current position.
-    // updateMotionprofile();
   }
 
-  // public void setTargetPosition(double setBot) {
-  //   if ( setBot != m_setpointbot) {
-  //     m_setpointbot = setBot;
-  //     updateMotionprofile();
-  //   }
-  // }
-
-  // private void updateMotionprofile(){
-  //   TrapezoidProfile.State statebot = new TrapezoidProfile.State(m_baseencoder.getPosition(), m_baseencoder.getVelocity());
-  //   TrapezoidProfile.State goalbot = new TrapezoidProfile.State(m_setpointbot, 0.0);
-    
-  //   m_Timer.reset();
-  // }
-
-  // public void runAutomatic() {
-  //   double elapsedTime = m_Timer.get();
-  //   if (m_Profilebot.isFinished(elapsedTime)) {
-  //     setpointbot = new TrapezoidProfile.State(m_setpointbot, 0.0);
-  //   }
-  //   else {
-  //     setpointbot = m_Profilebot.calculate(elapsedTime, setpointbot, goalbot);
-  //   }
-
-  //   // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
-  //   m_basecontrol.setReference(setpointbot.position, ControlType.kPosition);
-  // }
-
+  /**
+   * 
+   */
   public void up() {
     if (getbottomswitch()) {
       halt();
@@ -129,31 +82,59 @@ public class ArmTilt extends SubsystemBase {
     }
   }
 
+  /**
+   * 
+   */
   public void down() {
     m_armtilt.set(-Tilt.kspeedDown);
   }
 
+  /**
+   * 
+   */
   public void halt() {
     m_armtilt.set(0.0); 
   }
 
+  /**
+   * 
+   * @return
+   */
   public boolean getbottomswitch(){
     return !m_baseExtendLimit.get();
   }
 
+  /**
+   * 
+   */
   public void resetBaseEncoder() {
     m_baseencoder.setPosition(0);
   }
 
+  /**
+   * 
+   * @return
+   */
   public double getPosition(){
     return m_baseencoder.getPosition();
   }
 
+  /**
+   * 
+   * @param posID
+   */
   public void setArmPosition(int posID)
   {
     m_basecontrol.setReference(kposition.setpoint[posID][0], ControlType.kPosition);
   }
 
+  /**
+   * 
+   */
+  public void setSmartPosition(int posID)
+  {
+    m_basecontrol.setReference(kposition.setpoint[posID][0], ControlType.kMAXMotionPositionControl);
+  }
 
 
   @Override

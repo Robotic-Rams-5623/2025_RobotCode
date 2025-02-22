@@ -10,9 +10,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -34,12 +32,6 @@ public class ArmLength extends SubsystemBase {
   private final SparkMaxConfig m_configmotor;
   // Create Limit Switch Objects
   private final DigitalInput m_topRetractLimit;
-  // Create Trapezoidal closed loop profile Objects
-  // private TrapezoidProfile m_Profiletop;
-  // private TrapezoidProfile.State goaltop;
-  // private TrapezoidProfile.State setpointtop;
-  // private Timer m_Timer;
-  // private double m_setpointtop;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
@@ -58,9 +50,10 @@ public class ArmLength extends SubsystemBase {
         .openLoopRampRate(0.1)
         .closedLoopRampRate(0.1);
     m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
-    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_NEO);
+    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
     m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
     m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
+    m_configmotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Top);
 
     // Apply the motor configurations to the motors
     m_armtop.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
@@ -73,77 +66,8 @@ public class ArmLength extends SubsystemBase {
 
     // Configure the LOWER LIMIT limit switch.
     m_topRetractLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
-
-    // Configure the items needed for trapezoidal profiling
-    // m_Timer = new Timer();
-    // m_Timer.start();
-    // m_Timer.reset();
-    
-    // m_setpointtop = kposition.setpoint[0][1];
-
-    // m_Profiletop = new TrapezoidProfile(Length.kArmMotionConstraint);
-    // goaltop = new TrapezoidProfile.State();
-    // setpointtop = new TrapezoidProfile.State();
-
-    // Update the current motion profile with the current position.
-    // updateMotionprofile();
   } 
 
-  // public void setTargetPosition(double setTop) {
-  //   if (setTop != m_setpointtop) {
-  //     m_setpointtop = setTop;
-  //     updateMotionprofile();
-  //   }
-  // }
-
-  // private void updateMotionprofile(){
-  //   TrapezoidProfile.State statetop = new TrapezoidProfile.State(m_topEncoder.getPosition(), m_topEncoder.getVelocity());
-  //   TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpointtop, 0.0);
-
-  //   m_Timer.reset();
-  // }
-
-  // public void runAutomatic() {
-  //     double elapsedTime = m_Timer.get();
-  //     if (m_Profiletop.isFinished(elapsedTime)) {
-  //       setpointtop = new TrapezoidProfile.State(m_setpointtop, 0.0);
-  //     }
-  //     else {
-  //       setpointtop = m_Profiletop.calculate(elapsedTime, setpointtop, goaltop);
-  //     }
-  
-  //     // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
-  //     m_topcontrol.setReference(setpointtop.position, ControlType.kPosition);
-  //   }
-
-
-
-  // public void setPositionState(
-  //     TrapezoidProfile.State current,
-  //     TrapezoidProfile.State next) {
-    
-  //   m_armtop.setReference(current, ControlType.kPosition)
-  // }
-  
-  // public Command profiledMovePosition(double position) {
-  //   return startRun(
-  //     () -> { // START COMMAND
-  //       // Reset timer so setpoints start at the beginning
-  //       m_Timer.restart();
-  //       resetTopEncoder();
-  //     },
-  //     () -> { // RUN COMMAND
-  //       var currentTime = m_Timer.get();
-  //       var currentSetpoint = m_Profiletop.calculate(currentTime, new State(), new State(position, 0));
-  //       var nextSetpoint = m_Profiletop.calculate(currentTime + .02, new State(), new State(position, 0));
-  //       setDriveStates(currentSetpoint, currentSetpoint, nextSetpoint, nextSetpoint);
-  //     }
-  //   ).until(() -> m_Profiletop.isFinished(0));
-  // }
-
-
-
-  
   /**
    *
    */
@@ -205,9 +129,10 @@ public class ArmLength extends SubsystemBase {
   }
 
   public void setSmartPosition(int posID) {
-    // m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kMAXMotionPositionControl);
+    m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kMAXMotionPositionControl);
   }
 
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

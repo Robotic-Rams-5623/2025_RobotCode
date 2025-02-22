@@ -4,9 +4,8 @@
 
 package frc.robot;
 
-import java.lang.module.FindException;
-
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.AlternateEncoderConfig;
 import com.revrobotics.spark.config.SignalsConfig;
 import com.revrobotics.spark.config.SoftLimitConfig;
@@ -241,27 +240,27 @@ public final class Constants
           .positionWrappingEnabled(false)
           .pidf(kPIDF_NEO[0], kPIDF_NEO[1], kPIDF_NEO[2], kPIDF_NEO[3]);
 
-     // public static final ClosedLoopConfig kMotorLoopConfig_Bot = new ClosedLoopConfig()
-       //   .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-         // .outputRange(kLoopRange_Bot[0], kLoopRange_Bot[1])
-          //.iZone(kIzone_Bot)
-          //.positionWrappingEnabled(false)
-          //.pidf(kPIDF_Bot[0], kPIDF_Bot[1], kPIDF_Bot[2], kPIDF_Bot[3])
-          //.maxMotion
-            //.maxVelocity(kmaxVel_Bot)
-            //.maxAcceleration(kmaxAcc_Bot)
-            //.allowedClosedLoopError(kallowedError_Bot);
+      public static final ClosedLoopConfig kMotorLoopConfig_Bot = new ClosedLoopConfig()
+         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+         .outputRange(kLoopRange_Bot[0], kLoopRange_Bot[1])
+          .iZone(kIzone_Bot)
+          .positionWrappingEnabled(false)
+          .pidf(kPIDF_Bot[0], kPIDF_Bot[1], kPIDF_Bot[2], kPIDF_Bot[3]);
+      public static final MAXMotionConfig kMotorSmartMotion_Bot = new MAXMotionConfig()
+            .maxVelocity(kmaxVel_Bot)
+            .maxAcceleration(kmaxAcc_Bot)
+            .allowedClosedLoopError(kallowedError_Bot);
       
-      // public static final ClosedLoopConfig kMotorLoopConfig_Top = new ClosedLoopConfig()
-      //     .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      //     .outputRange(kLoopRange_Top[0], kLoopRange_Top[1])
-      //     .iZone(kIzone_Top)
-      //     .positionWrappingEnabled(false)
-      //     .pidf(kPIDF_Top[0], kPIDF_Top[1], kPIDF_Top[2], kPIDF_Top[3])
-      //     .maxMotion
-      //       .maxVelocity(kmaxVel_Top)
-      //       .maxAcceleration(kmaxAcc_Top)
-      //       .allowedClosedLoopError(kallowedError_Top);
+      public static final ClosedLoopConfig kMotorLoopConfig_Top = new ClosedLoopConfig()
+          .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+          .outputRange(kLoopRange_Top[0], kLoopRange_Top[1])
+          .iZone(kIzone_Top)
+          .positionWrappingEnabled(false)
+          .pidf(kPIDF_Top[0], kPIDF_Top[1], kPIDF_Top[2], kPIDF_Top[3]);
+      public static final MAXMotionConfig kMotorSmartMotion_Top = new MAXMotionConfig()
+          .maxVelocity(kmaxVel_Top)
+          .maxAcceleration(kmaxAcc_Top)
+          .allowedClosedLoopError(kallowedError_Top);
       
       public static final ClosedLoopConfig kMotorLoopConfig_HD = new ClosedLoopConfig()
           .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)

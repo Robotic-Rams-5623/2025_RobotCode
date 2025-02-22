@@ -2,10 +2,10 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -13,16 +13,12 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 import frc.robot.Constants.HandTiltConstants.Tilt;
 import frc.robot.Constants.HandTiltConstants.Grab;
 import frc.robot.Constants.CANSignals;
-import frc.robot.Constants.HandTiltConstants;
+import frc.robot.Constants.ArmConst.kposition;
 
 public class HandTilt extends SubsystemBase {
   /* THIS SECTION CREATES ALL THE EMPTY OBJECTS FOR THIS SUBSYTEM */
@@ -41,12 +37,6 @@ public class HandTilt extends SubsystemBase {
   private final SparkMaxConfig m_configgrabright;
   // Create Limit Switch Objects
   private final DigitalInput m_tiltlimit;
-  // Create Trapezoidal closed loop profile Objects
-  // private TrapezoidProfile m_Profiletop;
-  // private TrapezoidProfile.State goaltop;
-  // private TrapezoidProfile.State setpointtop;
-  // private Timer m_Timer;
-  // private double m_setpointtop;
 
   /* CREATE A NEW HandTilt SUBSYSTEM */
   public HandTilt() {
@@ -93,49 +83,32 @@ public class HandTilt extends SubsystemBase {
 
     // Configure the LOWER LIMIT limit switch.
     m_tiltlimit = new DigitalInput(Tilt.kDIOtiltdownswitch);
-
-    // Configure the items needed for trapezoidal profiling
-    // m_Timer = new Timer();
-    // m_Timer.start();
-    // m_Timer.reset();
-    
-    // m_setpoint = kposition.setpoint[0][3];
-
-    // m_Profile = new TrapezoidProfile(Tilt.kArmMotionConstraint);
-    // goal = new TrapezoidProfile.State();
-    // setpoint = new TrapezoidProfile.State();
-
-    // Update the current motion profile with the current position.
-    // updateMotionprofile();
   }
 
-  // public void setTargetPosition(double set) {
-  //   if (set != m_setpoint) {
-  //     m_setpoint = set;
-  //     updateMotionprofile();
-  //   }
-  // }
-
-  // private void updateMotionprofile(){
-  //   TrapezoidProfile.State statetop = new TrapezoidProfile.State(getangle(), getspeed());
-  //   TrapezoidProfile.State goaltop = new TrapezoidProfile.State(m_setpoint, 0.0);
-
-  //   m_Timer.reset();
-  // }
-
-  // public void runAutomatic() {
-  //     double elapsedTime = m_Timer.get();
-  //     if (m_Profile.isFinished(elapsedTime)) {
-  //       setpoint = new TrapezoidProfile.State(m_setpoint, 0.0);
-  //     }
-  //     else {
-  //       setpoint = m_Profile.calculate(elapsedTime, setpoint, goal);
-  //     }
+  /**
+   * GRABBER
+   */
+  public void open() {
+    m_grableft.set(Grab.kSpeedUp);
+  }
   
-  //     // feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
-  //     m_tiltcontrol.setReference(setpoint.position, ControlType.kPosition);
-  //   }
+  /**
+   * GRABBER
+   */
+  public void close() {
+    m_grableft.set(-Grab.kSpeedDown);
+  }
 
+  /**
+   * GRABBER
+   */
+  public void halt() {
+    m_grableft.set(0.0);
+  }
+
+  /**
+   * HAND TILT
+   */
   public void up() {
     if (getswitch()) {
       stop();
@@ -144,46 +117,58 @@ public class HandTilt extends SubsystemBase {
     }
   }
 
+  /**
+   * HAND TILT
+   */
   public void down() {
     m_handtilt.set(-Tilt.kSpeedDown);
   }
 
+  /**
+   * HAND TILT
+   */
   public void stop() {
     m_handtilt.set(0.0);
   }
 
-  // public void setAngle(double angle) {
-  //   m_tiltcontrol.setReference(angle, ControlType.kPosition);
-  // }
-
-  public void open() {
-    m_grableft.set(Grab.kSpeedUp);
-  }
-  
-  public void close() {
-    m_grableft.set(-Grab.kSpeedDown);
-  }
-
-  public void halt() {
-    m_grableft.set(0.0);
-  }
-
+  /**
+   * HAND TILT
+   * @return
+   */
   public double getangle(){
     return m_tiltencoder.getPosition();
   }
 
+  /**
+   * HAND TILT
+   * @return
+   */
   public double getspeed() {
     return m_tiltencoder.getVelocity();
   }
 
+  /**
+   * HAND TILT
+   * @return
+   */
   public boolean getswitch(){
     return !m_tiltlimit.get(); // Lower tilt limit
   }
 
+  /**
+   * HAND TILT
+   */
   public void resetAngle() {
     m_tiltencoder.setPosition(0.0);
   }
 
+  /**
+   * HAND TILT
+   */
+  public void setSmartPosition(int posID)
+  {
+    m_tiltcontrol.setReference(kposition.setpoint[posID][3], ControlType.kMAXMotionPositionControl);
+  }
 
 
   @Override
