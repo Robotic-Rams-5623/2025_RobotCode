@@ -54,7 +54,8 @@ public class ArmTilt extends SubsystemBase {
         .openLoopRampRate(0.1)
         .closedLoopRampRate(0.1);
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
-    m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_NEO);
+    m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Bot);
+    m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Bot);
     m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
 
@@ -62,7 +63,7 @@ public class ArmTilt extends SubsystemBase {
     m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
      // Reset Encoder to Zero
-    m_baseencoder.setPosition(2.25); // Set the current position as the starting position
+    m_baseencoder.setPosition(kposition.setpoint[0][0]); // Set the current position as the starting position
 
     // Get the closed loop controllers from the motors
     m_basecontrol = m_armtilt.getClosedLoopController();
@@ -108,7 +109,7 @@ public class ArmTilt extends SubsystemBase {
    * 
    */
   public void resetBaseEncoder() {
-    m_baseencoder.setPosition(0);
+    m_baseencoder.setPosition(kposition.setpoint[0][0]);
   }
 
   /**
@@ -147,7 +148,6 @@ public class ArmTilt extends SubsystemBase {
 
     if (proxSwitch) {
       resetBaseEncoder();
-      halt();
     }
   }
 }

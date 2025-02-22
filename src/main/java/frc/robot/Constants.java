@@ -52,7 +52,7 @@ public final class Constants
       public static final double kIzone = 5; // DERGREES
       public static final double kPIDF[] = {.01, 0, 0, 0};
       public static final double kPosConversion = 180/30;
-      public static final double kVelConversion = (180/30)/60; 
+      public static final double kVelConversion = 0.1; // (180/30)/60
       public static final int kCPR = 28;
       public static final double ktiltLimit = 200.0;
     
@@ -101,7 +101,7 @@ public final class Constants
      * the desired position. The second int parameter in the array
      * corresponds to one of three reference positions for one of
      * three closed loop controlers, one for each motor in the system.
-     * [0][] - Position 0 - STARTING POSITION (Base is 2.25" forward of sensor, everything else is at zero sensor mark)
+     * [0][] - Position 0 - STARTING POSITION (Base is 2.7" forward of sensor, everything else is at zero sensor mark)
      * [1][] - Position 1 - Coral Pickup, Human Player
      * [2][] - Position 2 - Reef Base
      * [3][] - Position 3 - Reef Low
@@ -118,8 +118,8 @@ public final class Constants
       public static final double setpoint[][] = 
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
-        {2.25,    0.00,   0.00,   0.00},     // POSITION 0 (STARTING POSITION)
-        {0.00,    0.00,   0.00,   40.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
+        {2.7,    0.0,   0.0,   0.0},     // POSITION 0 (STARTING POSITION)
+        {0.00,    0.00,   0.00,   20.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
         {0.00,    1.00,   0.00,   150},      // POSITION 2 (REEF BASE)
         {0.00,    2.00,   0.00,   150},      // POSITION 3 (REEF LOW)
         {0.00,    3.00,   0.00,   150},      // POSITION 4 (REEF MID)

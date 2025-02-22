@@ -77,6 +77,7 @@ public class HandTilt extends SubsystemBase {
     m_grabright.configure(m_configgrabright, ResetMode.kNoResetSafeParameters,  PersistMode.kPersistParameters);
 
     // Reset Encoder to Zero
+    m_tiltencoder.setPosition(kposition.setpoint[0][3]);
 
     // Get the closed loop controllers from the motors
     m_tiltcontrol = m_handtilt.getClosedLoopController();
@@ -159,7 +160,7 @@ public class HandTilt extends SubsystemBase {
    * HAND TILT
    */
   public void resetAngle() {
-    m_tiltencoder.setPosition(0.0);
+    m_tiltencoder.setPosition(kposition.setpoint[0][3]);
   }
 
   /**

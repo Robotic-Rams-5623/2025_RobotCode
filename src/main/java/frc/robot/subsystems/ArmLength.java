@@ -59,7 +59,7 @@ public class ArmLength extends SubsystemBase {
     m_armtop.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     // Reset Encoder to Zero
-    m_topEncoder.setPosition(0.0); // Set the current position as zero (Should be home position but can be corrected by hitting retract limit switch 
+    m_topEncoder.setPosition(kposition.setpoint[0][1]); // Set the current position as zero (Should be home position but can be corrected by hitting retract limit switch 
     
     // Get the closed loop controllers from the motors
     m_topcontrol = m_armtop.getClosedLoopController();
@@ -104,7 +104,7 @@ public class ArmLength extends SubsystemBase {
    * Reset the encoder of the top linear actuator to its zeroed home position.
    */
   public void resetTopEncoder() {
-    m_topEncoder.setPosition(0.0);
+    m_topEncoder.setPosition(kposition.setpoint[0][1]);
   }
 
   /**
@@ -142,9 +142,6 @@ public class ArmLength extends SubsystemBase {
     SmartDashboard.putNumber("get arm length top", position);
     SmartDashboard.putBoolean("arm top switch", proxSwitch);
 
-    if (proxSwitch) {
-      resetTopEncoder();
-      Halt();
-    }
+    if (proxSwitch) {resetTopEncoder();}
   }
 }

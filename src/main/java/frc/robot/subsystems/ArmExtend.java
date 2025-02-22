@@ -61,7 +61,7 @@ public class ArmExtend extends SubsystemBase {
     m_extend.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
     
     // Reset Encoder to Zero
-    m_encoder.setPosition(0.0);
+    m_encoder.setPosition(kposition.setpoint[0][2]);
 
     // Get the closed loop controllers from the motors
     m_control = m_extend.getClosedLoopController();
@@ -99,7 +99,7 @@ public class ArmExtend extends SubsystemBase {
    * 
    */
   public void resetencoder(){
-    m_encoder.setPosition(0);
+    m_encoder.setPosition(kposition.setpoint[0][2]);
   }
 
   /**
@@ -145,6 +145,6 @@ public class ArmExtend extends SubsystemBase {
     SmartDashboard.putNumber("arm extend position", position);
     SmartDashboard.putBoolean("arm extend switch", proxSwitch);
 
-    if (proxSwitch) {resetencoder(); stop();}
+    if (proxSwitch) {resetencoder();}
   }
 }
