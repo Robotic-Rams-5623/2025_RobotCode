@@ -1,54 +1,54 @@
-//package frc.robot.subsystems.swervedrive;
-//
-//import static edu.wpi.first.units.Units.Microseconds;
-//import static edu.wpi.first.units.Units.Milliseconds;
-//import static edu.wpi.first.units.Units.Seconds;
-//
-//import edu.wpi.first.apriltag.AprilTagFieldLayout;
-//import edu.wpi.first.apriltag.AprilTagFields;
-//import edu.wpi.first.math.Matrix;
-//import edu.wpi.first.math.VecBuilder;
-//import edu.wpi.first.math.geometry.Pose2d;
-//import edu.wpi.first.math.geometry.Pose3d;
-//import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.math.geometry.Rotation3d;
-//import edu.wpi.first.math.geometry.Transform2d;
-//import edu.wpi.first.math.geometry.Transform3d;
-//import edu.wpi.first.math.geometry.Translation3d;
-//import edu.wpi.first.math.numbers.N1;
-//import edu.wpi.first.math.numbers.N3;
-//import edu.wpi.first.math.util.Units;
-//import edu.wpi.first.networktables.NetworkTablesJNI;
-//import edu.wpi.first.wpilibj.Alert;
-//import edu.wpi.first.wpilibj.Alert.AlertType;
-//import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-//import frc.robot.Robot;
-//import java.awt.Desktop;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.function.Supplier;
-//import org.photonvision.EstimatedRobotPose;
-//import org.photonvision.PhotonCamera;
-//import org.photonvision.PhotonPoseEstimator;
-//import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-//import org.photonvision.PhotonUtils;
-//import org.photonvision.simulation.PhotonCameraSim;
-//import org.photonvision.simulation.SimCameraProperties;
-//import org.photonvision.simulation.VisionSystemSim;
-//import org.photonvision.targeting.PhotonPipelineResult;
-//import org.photonvision.targeting.PhotonTrackedTarget;
-//import swervelib.SwerveDrive;
-//import swervelib.telemetry.SwerveDriveTelemetry;
-//
-//
-/// **
+// package frc.robot.subsystems.swervedrive;
+
+// import static edu.wpi.first.units.Units.Microseconds;
+// import static edu.wpi.first.units.Units.Milliseconds;
+// import static edu.wpi.first.units.Units.Seconds;
+
+// import edu.wpi.first.apriltag.AprilTagFieldLayout;
+// import edu.wpi.first.apriltag.AprilTagFields;
+// import edu.wpi.first.math.Matrix;
+// import edu.wpi.first.math.VecBuilder;
+// import edu.wpi.first.math.geometry.Pose2d;
+// import edu.wpi.first.math.geometry.Pose3d;
+// import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.geometry.Rotation3d;
+// import edu.wpi.first.math.geometry.Transform2d;
+// import edu.wpi.first.math.geometry.Transform3d;
+// import edu.wpi.first.math.geometry.Translation3d;
+// import edu.wpi.first.math.numbers.N1;
+// import edu.wpi.first.math.numbers.N3;
+// import edu.wpi.first.math.util.Units;
+// import edu.wpi.first.networktables.NetworkTablesJNI;
+// import edu.wpi.first.wpilibj.Alert;
+// import edu.wpi.first.wpilibj.Alert.AlertType;
+// import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+// import frc.robot.Robot;
+// import java.awt.Desktop;
+// import java.util.ArrayList;
+// import java.util.List;
+// import java.util.Optional;
+// import java.util.function.Supplier;
+// import org.photonvision.EstimatedRobotPose;
+// import org.photonvision.PhotonCamera;
+// import org.photonvision.PhotonPoseEstimator;
+// import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+// import org.photonvision.PhotonUtils;
+// import org.photonvision.simulation.PhotonCameraSim;
+// import org.photonvision.simulation.SimCameraProperties;
+// import org.photonvision.simulation.VisionSystemSim;
+// import org.photonvision.targeting.PhotonPipelineResult;
+// import org.photonvision.targeting.PhotonTrackedTarget;
+// import swervelib.SwerveDrive;
+// import swervelib.telemetry.SwerveDriveTelemetry;
+
+
+// / **
 // * Example PhotonVision class to aid in the pursuit of accurate odometry. Taken from
 // * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
 // */
-//public class Vision
-//{
-//
+// public class Vision
+// {
+
 //  /**
 //   * April Tag Field Layout of the year.
 //   */
@@ -74,8 +74,8 @@
 //   * Field from {@link swervelib.SwerveDrive#field}
 //   */
 //  private             Field2d             field2d;
-//
-//
+
+
 //  /**
 //   * Constructor for the Vision class.
 //   *
@@ -86,21 +86,21 @@
 //  {
 //    this.currentPose = currentPose;
 //    this.field2d = field;
-//
+
 //    if (Robot.isSimulation())
 //    {
 //      visionSim = new VisionSystemSim("Vision");
 //      visionSim.addAprilTags(fieldLayout);
-//
+
 //      for (Cameras c : Cameras.values())
 //      {
 //        c.addToVisionSim(visionSim);
 //      }
-//
+
 //      openSimCameraViews();
 //    }
 //  }
-//
+
 //  /**
 //   * Calculates a target pose relative to an AprilTag on the field.
 //   *
@@ -119,9 +119,9 @@
 //    {
 //      throw new RuntimeException("Cannot get AprilTag " + aprilTag + " from field " + fieldLayout.toString());
 //    }
-//
+
 //  }
-//
+
 //  /**
 //   * Update the pose estimation inside of {@link SwerveDrive} with all of the given poses.
 //   *
@@ -151,9 +151,9 @@
 //                                         camera.curStdDevs);
 //      }
 //    }
-//
+
 //  }
-//
+
 //  /**
 //   * Generates the estimated robot pose. Returns empty if:
 //   * <ul>
@@ -181,8 +181,8 @@
 //    }
 //    return poseEst;
 //  }
-//
-//
+
+
 //  /**
 //   * Filter pose via the ambiguity and find best estimate between all of the camera's throwing out distances more than
 //   * 10m for a short amount of time.
@@ -209,12 +209,12 @@
 //      {
 //        return Optional.empty();
 //      }
-//
+
 //      //est pose is very far from recorded robot pose
 //      if (PhotonUtils.getDistanceToPose(currentPose.get(), pose.get().estimatedPose.toPose2d()) > 1)
 //      {
 //        longDistangePoseEstimationCount++;
-//
+
 //        //if it calculates that were 10 meter away for more than 10 times in a row its probably right
 //        if (longDistangePoseEstimationCount < 10)
 //        {
@@ -228,8 +228,8 @@
 //    }
 //    return Optional.empty();
 //  }
-//
-//
+
+
 //  /**
 //   * Get distance of the robot from the AprilTag pose.
 //   *
@@ -241,7 +241,7 @@
 //    Optional<Pose3d> tag = fieldLayout.getTagPose(id);
 //    return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPose.get(), pose3d.toPose2d())).orElse(-1.0);
 //  }
-//
+
 //  /**
 //   * Get tracked target from a camera of AprilTagID
 //   *
@@ -266,9 +266,9 @@
 //      }
 //    }
 //    return target;
-//
+
 //  }
-//
+
 //  /**
 //   * Vision simulation.
 //   *
@@ -278,7 +278,7 @@
 //  {
 //    return visionSim;
 //  }
-//
+
 //  /**
 //   * Open up the photon vision camera streams on the localhost, assumes running photon vision on localhost.
 //   */
@@ -286,19 +286,19 @@
 //  {
 //    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
 //    {
-/// /      try /      { /        Desktop.getDesktop().browse(new URI("http://localhost:1182/")); /
-/// Desktop.getDesktop().browse(new URI("http://localhost:1184/")); /        Desktop.getDesktop().browse(new
-/// URI("http://localhost:1186/")); /      } catch (IOException | URISyntaxException e) /      { /
-/// e.printStackTrace(); /      }
+// / /      try /      { /        Desktop.getDesktop().browse(new URI("http://localhost:1182/")); /
+// / Desktop.getDesktop().browse(new URI("http://localhost:1184/")); /        Desktop.getDesktop().browse(new
+// / URI("http://localhost:1186/")); /      } catch (IOException | URISyntaxException e) /      { /
+// / e.printStackTrace(); /      }
 //    }
 //  }
-//
+
 //  /**
 //   * Update the {@link Field2d} to include tracked targets/
 //   */
 //  public void updateVisionField()
 //  {
-//
+
 //    List<PhotonTrackedTarget> targets = new ArrayList<PhotonTrackedTarget>();
 //    for (Cameras c : Cameras.values())
 //    {
@@ -311,7 +311,7 @@
 //        }
 //      }
 //    }
-//
+
 //    List<Pose2d> poses = new ArrayList<>();
 //    for (PhotonTrackedTarget target : targets)
 //    {
@@ -321,10 +321,10 @@
 //        poses.add(targetPose);
 //      }
 //    }
-//
+
 //    field2d.getObject("tracked targets").setPoses(poses);
 //  }
-//
+
 //  /**
 //   * Camera Enum to select each camera
 //   */
@@ -357,7 +357,7 @@
 //                                 Units.inchesToMeters(-10.687),
 //                                 Units.inchesToMeters(16.129)),
 //               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
-//
+
 //    /**
 //     * Latency alert to use when high latency is detected.
 //     */
@@ -402,7 +402,7 @@
 //     * Last read from the camera timestamp to prevent lag due to slow data fetches.
 //     */
 //    private       double                       lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
-//
+
 //    /**
 //     * Construct a Photon Camera class with help. Standard deviations are fake values, experiment and determine
 //     * estimation noise on an actual robot.
@@ -417,20 +417,20 @@
 //            Matrix<N3, N1> singleTagStdDevs, Matrix<N3, N1> multiTagStdDevsMatrix)
 //    {
 //      latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.", AlertType.kWarning);
-//
+
 //      camera = new PhotonCamera(name);
-//
+
 //      // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html
 //      robotToCamTransform = new Transform3d(robotToCamTranslation, robotToCamRotation);
-//
+
 //      poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
 //                                              PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
 //                                              robotToCamTransform);
 //      poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-//
+
 //      this.singleTagStdDevs = singleTagStdDevs;
 //      this.multiTagStdDevs = multiTagStdDevsMatrix;
-//
+
 //      if (Robot.isSimulation())
 //      {
 //        SimCameraProperties cameraProp = new SimCameraProperties();
@@ -443,12 +443,12 @@
 //        // The average and standard deviation in milliseconds of image data latency.
 //        cameraProp.setAvgLatencyMs(35);
 //        cameraProp.setLatencyStdDevMs(5);
-//
+
 //        cameraSim = new PhotonCameraSim(camera, cameraProp);
 //        cameraSim.enableDrawWireframe(true);
 //      }
 //    }
-//
+
 //    /**
 //     * Add camera to {@link VisionSystemSim} for simulated photon vision.
 //     *
@@ -461,7 +461,7 @@
 //        systemSim.addCamera(cameraSim, robotToCamTransform);
 //      }
 //    }
-//
+
 //    /**
 //     * Get the result with the least ambiguity from the best tracked target within the Cache. This may not be the most
 //     * recent result!
@@ -474,7 +474,7 @@
 //      {
 //        return Optional.empty();
 //      }
-//
+
 //      PhotonPipelineResult bestResult       = resultsList.get(0);
 //      double               amiguity         = bestResult.getBestTarget().getPoseAmbiguity();
 //      double               currentAmbiguity = 0;
@@ -489,7 +489,7 @@
 //      }
 //      return Optional.of(bestResult);
 //    }
-//
+
 //    /**
 //     * Get the latest result from the current cache.
 //     *
@@ -499,7 +499,7 @@
 //    {
 //      return resultsList.isEmpty() ? Optional.empty() : Optional.of(resultsList.get(0));
 //    }
-//
+
 //    /**
 //     * Get the estimated robot pose. Updates the current robot pose estimation, standard deviations, and flushes the
 //     * cache of results.
@@ -511,7 +511,7 @@
 //      updateUnreadResults();
 //      return estimatedRobotPose;
 //    }
-//
+
 //    /**
 //     * Update the latest results, cached with a maximum refresh rate of 1req/15ms. Sorts the list by timestamp.
 //     */
@@ -538,7 +538,7 @@
 //        }
 //      }
 //    }
-//
+
 //    /**
 //     * The latest estimated robot pose on the field from vision data. This may be empty. This should only be called once
 //     * per loop.
@@ -559,7 +559,7 @@
 //      }
 //      estimatedRobotPose = visionEst;
 //    }
-//
+
 //    /**
 //     * Calculates new standard deviations This algorithm is a heuristic that creates dynamic standard deviations based
 //     * on number of tags, estimation strategy, and distance from the tags.
@@ -574,14 +574,14 @@
 //      {
 //        // No pose input. Default to single-tag std devs
 //        curStdDevs = singleTagStdDevs;
-//
+
 //      } else
 //      {
 //        // Pose present. Start running Heuristic
 //        var    estStdDevs = singleTagStdDevs;
 //        int    numTags    = 0;
 //        double avgDist    = 0;
-//
+
 //        // Precalculation - see how many tags we found, and calculate an average-distance metric
 //        for (var tgt : targets)
 //        {
@@ -598,7 +598,7 @@
 //                  .getTranslation()
 //                  .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
 //        }
-//
+
 //        if (numTags == 0)
 //        {
 //          // No tags visible. Default to single-tag std devs
@@ -624,8 +624,8 @@
 //        }
 //      }
 //    }
-//
-//
+
+
 //  }
-//
-//}
+
+// }

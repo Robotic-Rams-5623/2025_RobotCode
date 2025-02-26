@@ -139,30 +139,30 @@ public class RobotContainer
       * BACK = No Command
       */
     driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
-    driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
-    driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
+    //driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
+    //driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
     driverXbox.x().whileTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
-    driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
+    //driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
     driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));
     driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
 
-    /* COMPETITION/PRACTICE CONTROLS
-      * A = ZERO GYRO
-      * B = DO A 180!!!
-      * 
-      * X = LOCK DRIVE BASE
-      * Y = Drive Straight 2 Meters (Testing)
-      * 
-      * Left Bump = CLIMB UP / TILT COLUMN FORWARD
-      * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
-      *
-      * START = None
-      * BACK = None
-    */
-    // driverXbox.a().whileTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
-    // driverXbox.b().whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
+    // /* */ COMPETITION/PRACTICE CONTROLS
+    //   * A = ZERO GYRO
+    //   * B = DO A 180!!!
+    //   * 
+    //   * X = LOCK DRIVE BASE
+    //    Y = Drive Straight 2 Meters (Testing)
+    //   * 
+    //   * Left Bump = CLIMB UP / TILT COLUMN FORWARD
+    //   * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
+    //   *
+    //   * START = None
+    //   * BACK = None
+    // */
+    driverXbox.a().whileTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
+     driverXbox.b().whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
     // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-    // driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
+     driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
     // driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
     // driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
     // driverXbox.start().whileTrue(Commands.none());

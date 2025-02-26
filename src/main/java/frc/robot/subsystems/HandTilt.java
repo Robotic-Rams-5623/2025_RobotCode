@@ -63,7 +63,6 @@ public class HandTilt extends SubsystemBase {
     m_configgrableft = new SparkMaxConfig();
     m_configgrableft
         .inverted(false)
-        .secondaryCurrentLimit(3.0)
         .idleMode(IdleMode.kBrake);
     m_configgrableft.signals.apply(CANSignals.HandMotors.kMotorSignalConfig_Dumb);
     //m_configgrableft.softLimit.apply(); // Set current limiting
