@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.util.PixelFormat;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.cscore.MjpegServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -51,10 +54,18 @@ public class Robot extends TimedRobot
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
 
-    if (isSimulation())
-    {
-      DriverStation.silenceJoystickConnectionWarning(true);
-    }
+    // Create a camera and a MJPEG server and set the source of the server as the camera so it can
+    // be viewed by the driverstation.
+    UsbCamera usbCamera = new UsbCamera("USB Cam 0", 0);
+    usbCamera.setBrightness(50); // Range is 0-100
+    usbCamera.setExposureAuto(); // or use setExposureManual(int); // Range is 0-100
+    usbCamera.setWhiteBalanceAuto(); // or use setWhiteBalanceManual(int);
+    usbCamera.setVideoMode(PixelFormat.kMJPEG, 480, 480, 24); // (MJPEG, Image Width, Image Height, FPS)
+    MjpegServer mjpegServer1 = new MjpegServer("Cam 0 Mjpeg Server", 1181);
+    mjpegServer1.setSource(usbCamera);
+    // mjpegServer1.setCompression(int quality); // MAY NEED THESE BUT NOT SURE IF THE CAMERA SETTINGS OVERIDE AT ALL.
+    // mjpegServer1.setFPS(int fps);
+    // mjpegServer1.setResolution(int width, int height)
   }
 
   /**
