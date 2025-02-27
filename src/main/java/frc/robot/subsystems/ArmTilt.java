@@ -17,6 +17,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.MathUtil;
 
 import frc.robot.Constants.ArmConst.Tilt;
 import frc.robot.Constants.ArmConst.MotorConfigs;
@@ -29,13 +30,17 @@ public class ArmTilt extends SubsystemBase {
   private final SparkMax m_armtilt;
   // Create Encoder Objects
   // private final RelativeEncoder m_baseencoder;
-  private final RelativeEncoder m_baseencoder;
+  private final RelativeEncoder m_encoder;
   // Create Closed Loop Controller Objects
-  private final SparkClosedLoopController m_basecontrol;
+  private final SparkClosedLoopController m_control;
   // Create Motor Configuration Objects
   private final SparkMaxConfig m_configMotor;
   // Create Limit Switch Objects
-  private final DigitalInput m_baseExtendLimit;
+  private final DigitalInput m_backwardLimit;
+  // private final DigitalInput m_forwardLimit;
+
+  // Subsystem Variables
+  private boolean proxSwitch_lastState;
 
   /* CREATE A NEW ArmTilt SUBSYSTEM */
   public ArmTilt() {
@@ -44,7 +49,7 @@ public class ArmTilt extends SubsystemBase {
     m_armtilt = new SparkMax(Tilt.kIDArmTiltMotor, MotorType.kBrushless);
 
     // Define the encoders (Rev Throughbore quadrature encoders plugged into the Alt Encoder Data Port of Spark Max)
-    m_baseencoder = m_armtilt.getAlternateEncoder();
+    m_encoder = m_armtilt.getAlternateEncoder();
     
     // Define the motors configuration
     m_configMotor = new SparkMaxConfig();
@@ -63,19 +68,22 @@ public class ArmTilt extends SubsystemBase {
     m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
      // Reset Encoder to Zero
-    m_baseencoder.setPosition(kposition.setpoint[0][0]); // Set the current position as the starting position
+    m_encoder.setPosition(kposition.setpoint[0][0]); // Set the current position as the starting position
 
     // Get the closed loop controllers from the motors
-    m_basecontrol = m_armtilt.getClosedLoopController();
+    m_control = m_armtilt.getClosedLoopController();
 
     // Configure the LOWER LIMIT limit switch.
-    m_baseExtendLimit = new DigitalInput(Tilt.kDIOBaseExtendSwitch);
+    m_backwardLimit = new DigitalInput(Tilt.kDIOBaseExtendSwitch);
+    // m_forwardLimit = new DigitalInput(Tilt.kDIOBaseRetractSwitch);
   }
 
+  
   /**
    * 
    */
-  public void up() {
+  public void up()  // Change name to backwards()
+  {
     if (getbottomswitch()) {
       halt();
     } else {
@@ -85,40 +93,30 @@ public class ArmTilt extends SubsystemBase {
 
   /**
    * 
-   */
-  public void down() {
-    m_armtilt.set(Tilt.kspeedDown);
-  }
+   */ // change name to forwards()
+  public void down() { m_armtilt.set(Tilt.kspeedDown); }
 
   /**
    * 
    */
-  public void halt() {
-    m_armtilt.set(0.0); 
-  }
+  public void halt() { m_armtilt.set(0.0); }
+
+  /**
+   * 
+   * @return
+   */ // change to getSwitch()
+  public boolean getbottomswitch() { return !m_backwardLimit.get(); }
+
+  /**
+   * 
+   */ // change to resetEncoder()
+  public void resetBaseEncoder() { m_encoder.setPosition(0.0); }
 
   /**
    * 
    * @return
    */
-  public boolean getbottomswitch(){
-    return !m_baseExtendLimit.get();
-  }
-
-  /**
-   * 
-   */
-  public void resetBaseEncoder() {
-    m_baseencoder.setPosition(0.0);
-  }
-
-  /**
-   * 
-   * @return
-   */
-  public double getPosition(){
-    return m_baseencoder.getPosition();
-  }
+  public double getPosition() { return m_encoder.getPosition(); }
 
   /**
    * 
@@ -126,7 +124,7 @@ public class ArmTilt extends SubsystemBase {
    */
   public void setArmPosition(int posID)
   {
-    m_basecontrol.setReference(kposition.setpoint[posID][0], ControlType.kPosition);
+    m_control.setReference(kposition.setpoint[posID][0], ControlType.kPosition);
   }
 
   /**
@@ -134,7 +132,7 @@ public class ArmTilt extends SubsystemBase {
    */
   public void setSmartPosition(int posID)
   {
-    m_basecontrol.setReference(kposition.setpoint[posID][0], ControlType.kMAXMotionPositionControl);
+    m_control.setReference(kposition.setpoint[posID][0], ControlType.kMAXMotionPositionControl);
   }
 
 
@@ -142,12 +140,18 @@ public class ArmTilt extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double position = getPosition();
-    boolean proxSwitch = getbottomswitch();
-    SmartDashboard.putNumber("get arm length bot ", position);
-    SmartDashboard.putBoolean("arm bottom switch", proxSwitch);
+    boolean proxSwitch_B = getbottomswitch();
+    
+    SmartDashboard.putNumber("Arm Tilt Position", position);
+    SmartDashboard.putBoolean("Arm Tilt Switch Backward", proxSwitch_B);
+    // SmartDashboard.putBoolean("Arm Tilt Switch Forward", proxSwitch_F);
 
-    if (proxSwitch) {
-      resetBaseEncoder();
-    }
+    // Reset the encoder to zero when switch is triggered. Don't just keep resetting the switch because
+    // that appears to mess up the motion profile when it can't calculate the velocity. The best way will
+    // be to monitor the current and last state of the proxSwitch. If the previous state was false and it
+    // just turned true, then zero. If it stays true or stays false or turns from true to false, don't do
+    // anything with the zeroing.
+    if (proxSwitch_B && !proxSwitch_lastState) { resetBaseEncoder(); }
+    proxSwitch_lastState = proxSwitch_B;
   }
 }
