@@ -38,7 +38,7 @@ public class ArmTilt extends SubsystemBase {
   // Create Limit Switch Objects
   private final DigitalInput m_backwardLimit;
   // private final DigitalInput m_forwardLimit;
-
+ 
   // Subsystem Variables
   private boolean proxSwitch_lastState;
 
@@ -63,7 +63,7 @@ public class ArmTilt extends SubsystemBase {
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Bot);
     m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
-
+    
     // Apply the motor configurations to the motors
     m_armtilt.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
@@ -84,7 +84,7 @@ public class ArmTilt extends SubsystemBase {
    */
   public void backwards()  // Change name to backwards()
   {
-    if (getbottomswitch()) {
+    if (getSwitch()) {
       halt();
     } else {
       m_armtilt.set(-Tilt.kSpeedUp);
@@ -151,7 +151,7 @@ public class ArmTilt extends SubsystemBase {
     // be to monitor the current and last state of the proxSwitch. If the previous state was false and it
     // just turned true, then zero. If it stays true or stays false or turns from true to false, don't do
     // anything with the zeroing.
-    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); }
+    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); halt(); }
     proxSwitch_lastState = proxSwitch_B;
   }
 }

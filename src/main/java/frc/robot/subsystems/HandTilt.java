@@ -37,6 +37,8 @@ public class HandTilt extends SubsystemBase {
   private final SparkMaxConfig m_configgrabright;
   // Create Limit Switch Objects
   private final DigitalInput m_tiltlimit;
+  // Subsystem Variables
+  private boolean proxSwitch_lastState;
 
   /* CREATE A NEW HandTilt SUBSYSTEM */
   public HandTilt() {
@@ -91,14 +93,14 @@ public class HandTilt extends SubsystemBase {
    * GRABBER
    */
   public void open() {
-    m_grableft.set(Grab.kSpeedUp);
+    m_grableft.set(-Grab.kSpeedUp);
   }
   
   /**
    * GRABBER
    */
   public void close() {
-    m_grableft.set(-Grab.kSpeedDown);
+    m_grableft.set(Grab.kSpeedDown);
   }
 
   /**
@@ -112,7 +114,7 @@ public class HandTilt extends SubsystemBase {
    * GRABBER
    */
   public void hold() {
-    m_grableft.set(-0.2);
+    m_grableft.set(0.2);
   }
 
 
@@ -187,6 +189,7 @@ public class HandTilt extends SubsystemBase {
 
     // If the switch is hit and the angle isnt too far off, reset the encoder to zero.
     //
-    if (switchState && ((motorAngle <= 1) && (motorAngle >= -1))) {resetAngle();}
+    if (switchState && !proxSwitch_lastState) { resetAngle(); }
+    proxSwitch_lastState = switchState;
   }
 }

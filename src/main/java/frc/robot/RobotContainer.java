@@ -62,8 +62,8 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -1,
-                                                                () -> driverXbox.getLeftX() * -1)
+                                                                () -> driverXbox.getLeftY() * .9,
+                                                                () -> driverXbox.getLeftX() * .9)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -156,7 +156,7 @@ public class RobotContainer
       .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
       .onFalse(Commands.runOnce(armtilt::halt, armtilt));
     driverXbox.back()
-      .and(driverXbox.leftBumner())
+      .and(driverXbox.leftBumper())
       .onTrue(Commands.none())
       .onFalse(Commands.none());
     // driverXbox.start().whileTrue(Commands.none());
@@ -175,6 +175,7 @@ public class RobotContainer
      * Right Bump = HAND TILT DOWNWARDS
      * Left Trigger = ARM LENGTH UPWARDS
      * Right Trigger = ARM LENGTH DOWNWARDS
+     * BACK + TRIGGERS = ARM EXTEND
      *
      * BACK = CANCEL ALL COMMANDS (Prevent chaos if bad things happen)
      * START + BACK = Find Zeros and Go to Starting Positions
@@ -190,7 +191,7 @@ public class RobotContainer
     armXbox.a()
       .onTrue(Commands.runOnce(flywheel::in, flywheel)
           .until(coraltrigger))
-      .onFalse(Commands.runOnce(flywheel::stop, flywheel);
+      .onFalse(Commands.runOnce(flywheel::stop, flywheel));
     armXbox.b()
       .onTrue(Commands.runOnce(flywheel::out, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
@@ -201,23 +202,39 @@ public class RobotContainer
       .onTrue(Commands.runOnce(handtilt::open, handtilt))
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
     armXbox.leftTrigger()
+      .and(armXbox.back().negate())
       .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
     armXbox.rightTrigger()
+      .and(armXbox.back().negate())
       .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
+      armXbox.back()
+      .and(armXbox.leftTrigger())
+      .onTrue(Commands.runOnce(armExtend::out, armlength))
+      .onFalse(Commands.runOnce(armExtend::stop, armlength));
+    armXbox.back()
+      .and(armXbox.rightTrigger())
+      .onTrue(Commands.runOnce(armExtend::in, armlength))
+      .onFalse(Commands.runOnce(armExtend::stop, armlength));
     armXbox.leftBumper()
       .onTrue(Commands.runOnce(handtilt::up, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
     armXbox.rightBumper()
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-    armXbox.back()
-      .onTrue(CommandScheduler.cancelAll())
-      .onFalse(Commands.none());
+    // armXbox.back()
+    //   .onTrue(() -> CommandScheduler.getInstance().cancelAll())
+    //   .onFalse(Commands.none());
     armXbox.start()
       .and(armXbox.back())
-      .onTrue(Commands.none())
+      .onTrue(new SequentialCommandGroup(
+        new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(5),
+        new StartEndCommand(armExtend::in, armExtend::stop, armExtend).until(armExtend::getSwitch).withTimeout(10),
+        new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getSwitch).withTimeout(20),
+        new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(10.0).withTimeout(20),
+        new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getSwitch).withTimeout(10)
+      ))
       .onFalse(Commands.none());
 
     
@@ -247,10 +264,10 @@ public class RobotContainer
 
     armXbox.povDownRight().onTrue( // 6
       new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+        new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
       ));
     
     armXbox.povRight().onTrue(
