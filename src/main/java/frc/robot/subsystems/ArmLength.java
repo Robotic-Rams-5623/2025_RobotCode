@@ -25,13 +25,17 @@ public class ArmLength extends SubsystemBase {
   private final SparkMax m_armtop;
   // Create Encoder Objects
   // private final RelativeEncoder m_topEncoder;
-  private final RelativeEncoder m_topEncoder;
+  private final RelativeEncoder m_encoder;
   // Create Closed Loop Controller Objects
-  private final SparkClosedLoopController m_topcontrol;
+  private final SparkClosedLoopController m_control;
   // Create Motor Configuration Objects
-  private final SparkMaxConfig m_configmotor;
+  private final SparkMaxConfig m_configMotor;
   // Create Limit Switch Objects
-  private final DigitalInput m_topRetractLimit;
+  private final DigitalInput m_downLimit;
+  // private final DigitalInput m_upLimit;
+
+  // Subsystem Variables
+  private boolean proxSwitch_lastState;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
@@ -40,46 +44,45 @@ public class ArmLength extends SubsystemBase {
     m_armtop = new SparkMax(Length.kIDArmTopLength, MotorType.kBrushless);
 
     // Define the encoders (Rev Throughbore quadrature encoders plugged into the Alt Encoder Data Port of Spark Max)
-    m_topEncoder = m_armtop.getAlternateEncoder();
+    m_encoder = m_armtop.getAlternateEncoder();
     
     // Define the motors configuration
-    m_configmotor = new SparkMaxConfig();
-    m_configmotor
+    m_configMotor = new SparkMaxConfig();
+    m_configMotor
         .inverted(false)
         .idleMode(IdleMode.kBrake)
         .openLoopRampRate(0.1)
         .closedLoopRampRate(0.1);
-    m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Top);
-    m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
-    m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
-    m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
-    m_configmotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Top);
+    m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Top);
+    m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
+    m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
+    m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
+    m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Top);
 
     // Apply the motor configurations to the motors
-    m_armtop.configure(m_configmotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    m_armtop.configure(m_configMotor, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     // Reset Encoder to Zero
-    m_topEncoder.setPosition(kposition.setpoint[0][1]); // Set the current position as zero (Should be home position but can be corrected by hitting retract limit switch 
+    m_encoder.setPosition(kposition.setpoint[0][1]); // Set the current position as zero (Should be home position but can be corrected by hitting retract limit switch 
     
     // Get the closed loop controllers from the motors
-    m_topcontrol = m_armtop.getClosedLoopController();
+    m_control = m_armtop.getClosedLoopController();
 
     // Configure the LOWER LIMIT limit switch.
-    m_topRetractLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
+    m_downLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
+    // m_topLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
   } 
 
   /**
    *
-   */
-  public void Up(){
-    m_armtop.set(Length.kSpeedUp);
-  }
+   */ // Change name to up()
+  public void Up() { m_armtop.set(Length.kSpeedUp); }
   
   /**
    *
-   */
+   */ // Change name to down()
   public void Down(){
-    if (gettopswitch()) {
+    if (getSwitch()) {
       Halt();
     } else {
       m_armtop.set(-Length.kspeedDown);
@@ -88,32 +91,24 @@ public class ArmLength extends SubsystemBase {
 
   /**
    *
-   */
-  public void Halt(){
-    m_armtop.set(0.0);
-  }
+   */ // change name to halt()
+  public void Halt() { m_armtop.set(0.0); }
   
   /**
    *
    */
-  public boolean gettopswitch(){
-    return !m_topRetractLimit.get();
-  }
+  public boolean getSwitch() { return !m_downLimit.get(); }
 
   /**
    * Reset the encoder of the top linear actuator to its zeroed home position.
    */
-  public void resetTopEncoder() {
-    m_topEncoder.setPosition(kposition.setpoint[0][1]);
-  }
+  public void resetEncoder() { m_encoder.setPosition(kposition.setpoint[0][1]); }
 
   /**
    * Get the current positions of both encoders.
    * @return Double Array of size two containing base and top encoder positions
    */
-  public double getPosition() {
-    return m_topEncoder.getPosition();
-  }
+  public double getPosition() { return m_encoder.getPosition(); }
   
   /**
    * Activate the closed loop control for the arm positions
@@ -121,15 +116,11 @@ public class ArmLength extends SubsystemBase {
    */
   public void setArmPosition(int posID)
   {
-    /**
-     * Set the position of both arms simultaneously to move in fluid motion to desired position.
-     * A feedforward could be calculated and added to the top control if gravity starts to fight us.
-     */
-    m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kPosition);
+    m_control.setReference(kposition.setpoint[posID][1], ControlType.kPosition);
   }
 
   public void setSmartPosition(int posID) {
-    m_topcontrol.setReference(kposition.setpoint[posID][1], ControlType.kMAXMotionPositionControl);
+    m_control.setReference(kposition.setpoint[posID][1], ControlType.kMAXMotionPositionControl);
   }
 
   
@@ -137,12 +128,14 @@ public class ArmLength extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double position = getPosition();
-    boolean proxSwitch = gettopswitch();
+    boolean proxSwitch_B = getSwitch();
 
-    SmartDashboard.putNumber("get arm length top", position);
-    SmartDashboard.putBoolean("arm top switch", proxSwitch);
-    SmartDashboard.putNumber("Arm Top Current", m_armtop.getOutputCurrent());
+    SmartDashboard.putNumber("Arm Length Position", position);
+    SmartDashboard.putBoolean("Arm Length Switch Down", proxSwitch_B);
+    // SmartDashboard.putBoolean("Arm Length Switch Up", proxSwitch_T);
+    // SmartDashboard.putNumber("Arm Top Current", m_armtop.getOutputCurrent());
 
-    if (proxSwitch) {resetTopEncoder();}
+    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); }
+    proxSwitch_lastState = proxSwitch_B;
   }
 }
