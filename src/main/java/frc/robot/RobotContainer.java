@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ArmConst.kposition;
 import frc.robot.subsystems.ArmExtend;
@@ -125,80 +126,44 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-    /* TEST CONTROLS
-      * A = GRAB ALGEA
-      * B = RELEASE ALGEA
+    /* COMPETITION/PRACTICE CONTROLS
+      * A = ZERO GYRO
+      * B = DO A 180!!!
       * 
-      * X = ARM LENGTH UP
-      * Y = ARM LENGTH DOWN
+      * X = LOCK DRIVE BASE
+      * Y = None
       * 
-      * Left Bump = ARM TILT BACKWARDS
-      * Right Bump = ARM TILT FORWARD
+      * Left Bump = CLIMB UP / TILT COLUMN FORWARD
+      * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
       *
-      * START = Zero Gyro
-      * BACK = No Command
-      */
-    driverXbox.start().whileTrue(Commands.runOnce(drivebase::zeroGyro));
-    //driverXbox.a().whileTrue(Commands.startEnd(handtilt::close, handtilt::halt, handtilt));
-    //driverXbox.b().whileTrue(Commands.startEnd(handtilt::open, handtilt::halt,  handtilt));
-    driverXbox.x().whileTrue(Commands.startEnd(armlength::Up, armlength::Halt, armlength));
-    //driverXbox.y().whileTrue(Commands.startEnd(armlength::Down, armlength::Halt, armlength));
-    driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));
-    driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
-
-    // /* */ COMPETITION/PRACTICE CONTROLS
-    //   * A = ZERO GYRO
-    //   * B = DO A 180!!!
-    //   * 
-    //   * X = LOCK DRIVE BASE
-    //    Y = Drive Straight 2 Meters (Testing)
-    //   * 
-    //   * Left Bump = CLIMB UP / TILT COLUMN FORWARD
-    //   * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
-    //   *
-    //   * START = None
-    //   * BACK = None
-    // */
-    driverXbox.a().whileTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
-     driverXbox.b().whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
-    // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-     driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
-    // driverXbox.leftBumper().whileTrue(Commands.startEnd(armtilt::up, armtilt::halt, armtilt));  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
-    // driverXbox.rightBumper().whileTrue(Commands.startEnd(armtilt::down, armtilt::halt, armtilt));
+      * START = None
+      * BACK = (FUTURE) OVERIDE TILT LIMIT SWITCH
+    */
+    driverXbox.a()
+      .onTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
+    driverXbox.b()
+      .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
+    driverXbox.x()
+      .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    // driverXbox.y()
+    //   .whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
+    driverXbox.leftBumper()
+      // .and(driverXbox.back().negate())
+      .onTrue(Commands.runOnce(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
+      .onFalse(Commands.runOnce(armtilt::halt, armtilt));
+    driverXbox.rightBumper()
+      // .and(driverXbox.back().negate())
+      .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
+      .onFalse(Commands.runOnce(armtilt::halt, armtilt));
+    driverXbox.back()
+      .and(driverXbox.leftBumner())
+      .onTrue(Commands.none())
+      .onFalse(Commands.none());
     // driverXbox.start().whileTrue(Commands.none());
-    // driverXbox.back().whileTrue(Commands.none());
   }
 
   public void configureBindingsOper()
   {
-    /* TESTING
-     * A = CAPTURE CORAL
-     * B = RELEASE CORAL
-     * 
-     * X = ARM EXTEND IN
-     * Y = ARM EXTEND OUT
-     * 
-     * Left Bump = HAND TILT DOWN
-     * Right Bump = HAND TILT UP
-     *
-     * START = Zero Gyro
-     * BACK = No Command
-     */
-    // FLYWHEEL CAPTURE CORAL
-    armXbox.a().whileTrue((Commands.startEnd(flywheel::in, flywheel::stop, flywheel).until(coraltrigger)));
-    // FLYWHEEL RELEASE CORAL
-    armXbox.b().whileTrue((Commands.startEnd(flywheel::out, flywheel::stop, flywheel)));
-
-    //TILT HAND UPWARDS
-    armXbox.leftTrigger().whileTrue((Commands.startEnd(handtilt::up, handtilt::stop, handtilt)));
-    // TILT HAND DOWNWARDS
-    armXbox.rightTrigger().whileTrue((Commands.startEnd(handtilt::down, handtilt::stop, handtilt)));
-
-    // EXTEND OUTWARDS
-    armXbox.y().whileTrue((Commands.startEnd(armExtend::out, armExtend::stop, armExtend)));
-    // EXTEND INWARDS
-    armXbox.x().whileTrue((Commands.startEnd(armExtend::in, armExtend::stop, armExtend)));
-
     /* COMPETITION PRACTICE
      * A = CAPTURE CORAL
      * B = RELEASE CORAL
@@ -206,34 +171,64 @@ public class RobotContainer
      * X = CAPTURE ALGEA
      * Y = RELEASE ALGEA
      * 
-     * Left Bump = None
-     * Right Bump = None
+     * Left Bump = HAND TILT UPWARDS
+     * Right Bump = HAND TILT DOWNWARDS
+     * Left Trigger = ARM LENGTH UPWARDS
+     * Right Trigger = ARM LENGTH DOWNWARDS
      *
-     * START = CANCEL ARM COMMANDS
-     * BACK = MOVE TO START POSITION
+     * BACK = CANCEL ALL COMMANDS (Prevent chaos if bad things happen)
+     * START + BACK = Find Zeros and Go to Starting Positions
      * 
      * DPAD DOWN = LOW REEF CORAL
-     * DPAD DOWN RIGHT = !!!
+     * DPAD DOWN RIGHT = LOWER REEF ALGEA (NOT CONFIGURED)
      * DPAD RIGHT = MID REEF CORAL
-     * DPAD UP RIGHT = !!!
+     * DPAD UP RIGHT = HIGHER REEF ALGEA (NOT CONFIGURED)
      * DPAD UP = TOP REEF CORAL
-     * DPAD UP LEFT = !!!
+     * DPAD UP LEFT = BARGE (NOT CONFIGURED)
      * DPAD LEFT = HOME/HUMAN PLAYER POSITION
-     * DPAD CENTER = MAKE THIS DEFAULT HOME???
      */
-    armXbox.a().onTrue((Commands.startEnd(flywheel::in, flywheel::stop, flywheel).until(coraltrigger)));
-      // coraltrigger.onTrue(Commands.none()); IF WE ARENT PICKING FROM GROUND THIS IS USELESS
-      // coraltrigger.onFalse(Commands.runOnce(flywheel::stop, flywheel));
-    armXbox.b().whileTrue(Commands.startEnd(flywheel::out, flywheel::stop, flywheel));
-    armXbox.x().whileTrue(Commands.startEnd(handtilt::close, handtilt::hold, handtilt));
-    armXbox.y().whileTrue(Commands.startEnd(handtilt::open, handtilt::stop, handtilt));
-    // armXbox.povCenter().onTrue(
-    //   new ParallelCommandGroup(
-    //     new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-    //     new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    //     new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    //     new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    //   ));
+    armXbox.a()
+      .onTrue(Commands.runOnce(flywheel::in, flywheel)
+          .until(coraltrigger))
+      .onFalse(Commands.runOnce(flywheel::stop, flywheel);
+    armXbox.b()
+      .onTrue(Commands.runOnce(flywheel::out, flywheel))
+      .onFalse(Commands.runOnce(flywheel::stop, flywheel));
+    armXbox.x()
+      .onTrue(Commands.runOnce(handtilt::close, handtilt))
+      .onFalse(Commands.runOnce(handtilt::hold, handtilt));
+    armXbox.y()
+      .onTrue(Commands.runOnce(handtilt::open, handtilt))
+      .onFalse(Commands.runOnce(handtilt::halt, handtilt));
+    armXbox.leftTrigger()
+      .onTrue(Commands.runOnce(armlength::Up, armlength))
+      .onFalse(Commands.runOnce(armlength::Halt, armlength));
+    armXbox.rightTrigger()
+      .onTrue(Commands.runOnce(armlength::Down, armlength))
+      .onFalse(Commands.runOnce(armlength::Halt, armlength));
+    armXbox.leftBumper()
+      .onTrue(Commands.runOnce(handtilt::up, handtilt))
+      .onFalse(Commands.runOnce(handtilt::stop, handtilt));
+    armXbox.rightBumper()
+      .onTrue(Commands.runOnce(handtilt::down, handtilt))
+      .onFalse(Commands.runOnce(handtilt::stop, handtilt));
+    armXbox.back()
+      .onTrue(CommandScheduler.cancelAll())
+      .onFalse(Commands.none());
+    armXbox.start()
+      .and(armXbox.back())
+      .onTrue(Commands.none())
+      .onFalse(Commands.none());
+
+    
+     // * DPAD DOWN = LOW REEF CORAL
+     // * DPAD DOWN RIGHT = LOWER REEF ALGEA
+     // * DPAD RIGHT = MID REEF CORAL
+     // * DPAD UP RIGHT = HIGHER REEF ALGEA
+     // * DPAD UP = TOP REEF CORAL
+     // * DPAD UP LEFT = BARGE
+     // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
+     // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
     armXbox.povLeft().onTrue(
       new ParallelCommandGroup(
         new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
@@ -241,6 +236,7 @@ public class RobotContainer
         new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
         new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
       ));
+    
     armXbox.povDown().onTrue(
       new ParallelCommandGroup(
         new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
@@ -248,6 +244,15 @@ public class RobotContainer
         new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
         new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
       ));
+
+    armXbox.povDownRight().onTrue( // 6
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+      ));
+    
     armXbox.povRight().onTrue(
       new ParallelCommandGroup(
         new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
@@ -255,12 +260,29 @@ public class RobotContainer
         new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
         new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
       ));
+
+    armXbox.povUpRight().onTrue( // 7
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+      ));
+
     armXbox.povUp().onTrue(
       new ParallelCommandGroup(
         new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
         new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
         new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
         new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+      ));
+
+    armXbox.povUpLeft().onTrue( // 8
+      new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
       ));
   }
 
@@ -281,33 +303,3 @@ public class RobotContainer
   }
 
 }
-
-
-      /* DRIVER 0
-       * A = GRAB ALGEA
-       * B = RELEASE ALGEA
-       * 
-       * X = ARM LENGTH UP
-       * Y = ARM LENGTH DOWN
-       * 
-       * Left Bump = ARM TILT BACKWARDS
-       * Right Bump = ARM TILT FORWARD
-       *
-       * START = Zero Gyro
-       * BACK = No Command
-       */
-
-     /* DRIVER 1
-      * A = CAPTURE CORAL
-      * B = RELEASE ALGEA
-      * 
-      * X = ARM EXTEND IN
-      * Y = ARM EXTEND OUT
-      * 
-      * Left Bump = HAND TILT DOWN
-      * Right Bump = HAND TILT UP
-      *
-      * START = Zero Gyro
-      * BACK = No Command
-      * DPADS = SEE ABOVE
-      */
