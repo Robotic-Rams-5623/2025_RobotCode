@@ -82,7 +82,7 @@ public class ArmTilt extends SubsystemBase {
   /**
    * 
    */
-  public void up()  // Change name to backwards()
+  public void backwards()  // Change name to backwards()
   {
     if (getbottomswitch()) {
       halt();
@@ -94,7 +94,7 @@ public class ArmTilt extends SubsystemBase {
   /**
    * 
    */ // change name to forwards()
-  public void down() { m_armtilt.set(Tilt.kspeedDown); }
+  public void forwards() { m_armtilt.set(Tilt.kspeedDown); }
 
   /**
    * 
@@ -105,12 +105,12 @@ public class ArmTilt extends SubsystemBase {
    * 
    * @return
    */ // change to getSwitch()
-  public boolean getbottomswitch() { return !m_backwardLimit.get(); }
+  public boolean getSwitch() { return !m_backwardLimit.get(); }
 
   /**
    * 
    */ // change to resetEncoder()
-  public void resetBaseEncoder() { m_encoder.setPosition(0.0); }
+  public void resetEncoder() { m_encoder.setPosition(0.0); }
 
   /**
    * 
@@ -122,7 +122,7 @@ public class ArmTilt extends SubsystemBase {
    * 
    * @param posID
    */
-  public void setArmPosition(int posID)
+  public void setPosition(int posID)
   {
     m_control.setReference(kposition.setpoint[posID][0], ControlType.kPosition);
   }
@@ -140,7 +140,7 @@ public class ArmTilt extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double position = getPosition();
-    boolean proxSwitch_B = getbottomswitch();
+    boolean proxSwitch_B = getSwitch();
     
     SmartDashboard.putNumber("Arm Tilt Position", position);
     SmartDashboard.putBoolean("Arm Tilt Switch Backward", proxSwitch_B);
@@ -151,7 +151,7 @@ public class ArmTilt extends SubsystemBase {
     // be to monitor the current and last state of the proxSwitch. If the previous state was false and it
     // just turned true, then zero. If it stays true or stays false or turns from true to false, don't do
     // anything with the zeroing.
-    if (proxSwitch_B && !proxSwitch_lastState) { resetBaseEncoder(); }
+    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); }
     proxSwitch_lastState = proxSwitch_B;
   }
 }
