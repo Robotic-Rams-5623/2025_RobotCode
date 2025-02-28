@@ -41,6 +41,8 @@ public class ArmTilt extends SubsystemBase {
  
   // Subsystem Variables
   private boolean proxSwitch_lastState;
+  private double position;
+  private boolean proxSwitch_B;
 
   /* CREATE A NEW ArmTilt SUBSYSTEM */
   public ArmTilt() {
@@ -138,8 +140,8 @@ public class ArmTilt extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double position = getPosition();
-    boolean proxSwitch_B = getSwitch();
+    position = getPosition();
+    proxSwitch_B = getSwitch();
     
     SmartDashboard.putNumber("Arm Tilt Position", position);
     SmartDashboard.putBoolean("Arm Tilt Switch Backward", proxSwitch_B);
@@ -151,6 +153,7 @@ public class ArmTilt extends SubsystemBase {
     // just turned true, then zero. If it stays true or stays false or turns from true to false, don't do
     // anything with the zeroing.
     if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); halt(); }
+    
     proxSwitch_lastState = proxSwitch_B;
   }
 }
