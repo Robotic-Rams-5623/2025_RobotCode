@@ -37,6 +37,10 @@ public class ArmExtend extends SubsystemBase {
   private final SparkMaxConfig m_configmotor;
   // Create Limit Switch Objects
   private DigitalInput m_retractlimit;
+  // Subsystem Variables
+  private double position;
+  private double velocity;
+  private boolean proxSwitch;
   
   /* CREATE A NEW ArmExtend SUBSYSTEM */
   public ArmExtend() {
@@ -55,7 +59,7 @@ public class ArmExtend extends SubsystemBase {
     m_configmotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Extend);
     m_configmotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Extend);
     m_configmotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Extend);
-    m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Extend);
+    // m_configmotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Extend);
     m_configmotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     
     // Apply the motor configurations to the motors
@@ -92,27 +96,24 @@ public class ArmExtend extends SubsystemBase {
   /**
    * 
    */
-  public void stop(){
-    m_extend.set(0.0);
-  }
+  public void stop() { m_extend.set(0.0); }
 
   /**
    * 
    */
-  public void resetencoder(){
-    m_encoder.setPosition(kposition.setpoint[0][2]);
-  }
+  public void resetencoder() { m_encoder.setPosition(kposition.setpoint[0][2]); }
 
   /**
    * 
    * @return
    */
-  public double getPosition() {
-    return m_encoder.getPosition();
-  }
-  public double getVelocity() {
-    return m_encoder.getVelocity();
-  }
+  public double getPosition() { return m_encoder.getPosition(); }
+
+  /**
+   *
+   * @return
+   */
+  public double getVelocity() { return m_encoder.getVelocity(); }
 
   /**
    * 
@@ -135,23 +136,21 @@ public class ArmExtend extends SubsystemBase {
    * 
    * @return
    */
-  public boolean getSwitch(){
-    return !m_retractlimit.get();
-  }
+  public boolean getSwitch() { return !m_retractlimit.get(); }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double position = getPosition();
-    double velocity = getVelocity();
-    boolean proxSwitch = getSwitch();
-
+    position = getPosition();
+    proxSwitch = getSwitch();
+    // velocity = getVelocity();
+    
     SmartDashboard.putNumber("arm extend position", position);
-    SmartDashboard.putNumber("arm extend velocity", velocity);
     SmartDashboard.putBoolean("arm extend switch", proxSwitch);
-    SmartDashboard.putNumber("Extend Current", m_extend.getOutputCurrent());
+    // SmartDashboard.putNumber("arm extend velocity", velocity);
+    // SmartDashboard.putNumber("Extend Current", m_extend.getOutputCurrent());
 
-    if (proxSwitch) {resetencoder();}
+    if (proxSwitch) { resetencoder(); }
   }
 }
