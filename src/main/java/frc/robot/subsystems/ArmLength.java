@@ -36,6 +36,8 @@ public class ArmLength extends SubsystemBase {
 
   // Subsystem Variables
   private boolean proxSwitch_lastState;
+  private boolean proxSwitch_B;
+  private double position;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
   public ArmLength() {
@@ -55,7 +57,7 @@ public class ArmLength extends SubsystemBase {
         .closedLoopRampRate(0.1);
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Top);
     m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
-    m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
+    // m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Top);
 
@@ -127,15 +129,15 @@ public class ArmLength extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double position = getPosition();
-    boolean proxSwitch_B = getSwitch();
+    position = getPosition();
+    proxSwitch_B = getSwitch();
 
     SmartDashboard.putNumber("Arm Length Position", position);
     SmartDashboard.putBoolean("Arm Length Switch Down", proxSwitch_B);
     // SmartDashboard.putBoolean("Arm Length Switch Up", proxSwitch_T);
-    // SmartDashboard.putNumber("Arm Top Current", m_armtop.getOutputCurrent());
 
     if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); }
+    
     proxSwitch_lastState = proxSwitch_B;
   }
 }
