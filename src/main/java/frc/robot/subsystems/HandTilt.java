@@ -39,6 +39,8 @@ public class HandTilt extends SubsystemBase {
   private final DigitalInput m_tiltlimit;
   // Subsystem Variables
   private boolean proxSwitch_lastState;
+  private boolean switchState;
+  private double motorAngle;
 
   /* CREATE A NEW HandTilt SUBSYSTEM */
   public HandTilt() {
@@ -59,7 +61,7 @@ public class HandTilt extends SubsystemBase {
     m_configMotor.alternateEncoder.apply(Tilt.kTiltEncoderConfig);
     m_configMotor.closedLoop.apply(Tilt.kTiltLoopConfig);
     m_configMotor.closedLoop.maxMotion.apply(Tilt.kMotorSmartMotion_Tilt);
-    m_configMotor.softLimit.apply(Tilt.kTiltSoftLimitConfig);
+    // m_configMotor.softLimit.apply(Tilt.kTiltSoftLimitConfig);
     m_configMotor.signals.apply(CANSignals.HandMotors.kMotorSignalConfig_Tilt);
     
     m_configgrableft = new SparkMaxConfig();
@@ -180,8 +182,8 @@ public class HandTilt extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    boolean switchState = getswitch();
-    double motorAngle = getangle();
+    switchState = getswitch();
+    motorAngle = getangle();
     
     SmartDashboard.putNumber("Tilt Angle", motorAngle);
     SmartDashboard.putBoolean("Tilt Dow Limit", switchState);
@@ -190,6 +192,7 @@ public class HandTilt extends SubsystemBase {
     // If the switch is hit and the angle isnt too far off, reset the encoder to zero.
     //
     if (switchState && !proxSwitch_lastState) { resetAngle(); }
+    
     proxSwitch_lastState = switchState;
   }
 }
