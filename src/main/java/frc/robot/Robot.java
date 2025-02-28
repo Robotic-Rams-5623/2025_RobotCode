@@ -36,18 +36,13 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+  
   Thread m_visionThread;
 
 
-  public Robot()
-  {
-    instance = this;
-  }
+  public Robot() { instance = this; }
 
-  public static Robot getInstance()
-  {
-    return instance;
-  }
+  public static Robot getInstance() { return instance; }
 
   /**
    * This function is run when the robot is first started up and should be used for any initialization code.
@@ -87,17 +82,6 @@ public class Robot extends TimedRobot
     //   });
     //   m_visionThread.setDaemon(true);
     //   m_visionThread.start();
-    // usbCamera.setBrightness(50); // Range is 0-100
-    // usbCamera.setExposureAuto(); // or use setExposureManual(int); // Range is 0-100
-    // usbCamera.setWhiteBalanceAuto(); // or use setWhiteBalanceManual(int);
-    // usbCamera.setVideoMode(PixelFormat.kMJPEG, 480, 480, 24); // (MJPEG, Image Width, Image Height, FPS)
-    // CameraServer.startAutomaticCapture();
-    // CameraServer.
-    // MjpegServer mjpegServer1 = new edu.wpi.first.cscore.MjpegServer("Cam 0 Mjpeg Server", 1181);
-    // mjpegServer1.setSource(usbCamera);
-    // mjpegServer1.setCompression(int quality); // MAY NEED THESE BUT NOT SURE IF THE CAMERA SETTINGS OVERIDE AT ALL.
-    // mjpegServer1.setFPS(int fps);
-    // mjpegServer1.setResolution(int width, int height)
   }
 
   /**
@@ -158,9 +142,7 @@ public class Robot extends TimedRobot
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic()
-  {
-  }
+  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit()
@@ -182,9 +164,7 @@ public class Robot extends TimedRobot
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic()
-  {
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit()
@@ -197,23 +177,17 @@ public class Robot extends TimedRobot
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic()
-  {
-  }
+  public void testPeriodic() {}
 
   /**
    * This function is called once when the robot is first started up.
    */
   @Override
-  public void simulationInit()
-  {
-  }
+  public void simulationInit() {}
 
   /**
    * This function is called periodically whilst in simulation.
    */
   @Override
-  public void simulationPeriodic()
-  {
-  }
+  public void simulationPeriodic() {}
 }
