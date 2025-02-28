@@ -141,17 +141,15 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-    if (visionDriveTest)
-    {
-      swerveDrive.updateOdometry();
-//      vision.updatePoseEstimation(swerveDrive);
-    }
-  }
+  //   if (visionDriveTest)
+  //   {
+  //     swerveDrive.updateOdometry();
+  //     // vision.updatePoseEstimation(swerveDrive);
+  //   }
+  // }
 
   @Override
-  public void simulationPeriodic()
-  {
-  }
+  public void simulationPeriodic() {}
 
   /**
    * Setup AutoBuilder for PathPlanner.
@@ -253,12 +251,9 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @param pathName PathPlanner path name.
    * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
+   * // Create a path following command using AutoBuilder. This will also trigger event markers.
    */
-  public Command getAutonomousCommand(String pathName)
-  {
-    // Create a path following command using AutoBuilder. This will also trigger event markers.
-    return new PathPlannerAuto(pathName);
-  }
+  public Command getAutonomousCommand(String pathName) { return new PathPlannerAuto(pathName); }
 
   /**
    * Use PathPlanner Path finding to go to a point on the field.
