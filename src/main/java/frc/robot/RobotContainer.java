@@ -186,48 +186,81 @@ public class RobotContainer
      * DPAD UP LEFT = BARGE (NOT CONFIGURED)
      * DPAD LEFT = HOME/HUMAN PLAYER POSITION
      */
+
+    // new InstantCommand(runnable, requirement) will initialize, execute, and end on the same iteration of the command scheduler.
+    // Commands.runOnce(runnable, requirement) 
     armXbox.a()
       .onTrue(Commands.runOnce(flywheel::in, flywheel)
-          .until(coraltrigger))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
+      // .onTrue(new InstantCommand(flywheel::in, flywheel))
+      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
+    
     armXbox.b()
       .onTrue(Commands.runOnce(flywheel::out, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
+      // .onTrue(new InstantCommand(flywheel::out, flywheel))
+      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
+    
     armXbox.x()
       .onTrue(Commands.runOnce(handtilt::close, handtilt))
       .onFalse(Commands.runOnce(handtilt::hold, handtilt));
+      // .onTrue(new InstantCommand(handtilt::close, handtilt))
+      // .onFalse(new InstantCommand(handtilt::hold, handtilt));
+    
     armXbox.y()
       .onTrue(Commands.runOnce(handtilt::open, handtilt))
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
+      // .onTrue(new InstantCommand(handtilt::open, handtilt))
+      // .onFalse(new InstantCommand(handtilt::halt, handtilt));
+    
     armXbox.leftTrigger()
       .and(armXbox.back().negate())
       .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
+      // .onTrue(new InstantCommand(armlength::Down, armlength))
+      // .onFalse(new InstantCommand(armlength::Halt, armlength));
+    
     armXbox.rightTrigger()
       .and(armXbox.back().negate())
       .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
+      // .onTrue(new InstantCommand(armlength::Up, armlength))
+      // .onFalse(new InstantCommand(armlength::Halt, armlength));
+    
       armXbox.back()
       .and(armXbox.leftTrigger())
       .onTrue(Commands.runOnce(armExtend::out, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
+      // .onTrue(new InstantCommand(armExtend::out, armlength))
+      // .onFalse(new InstantCommand(armExtend::stop, armlength));
+    
     armXbox.back()
       .and(armXbox.rightTrigger())
       .onTrue(Commands.runOnce(armExtend::in, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
+      // .onTrue(new InstantCommand(armExtend::in, armlength))
+      // .onFalse(new InstantCommand(armExtend::stop, armlength));
+    
     armXbox.leftBumper()
       .onTrue(Commands.runOnce(handtilt::up, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
+      // .onTrue(new InstantCommand(handtilt::up, handtilt))
+      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
+    
     armXbox.rightBumper()
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
+      // .onTrue(new InstantCommand(handtilt::down, handtilt))
+      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
+
+    // Zero out all the sensors and go to the starting position.
     armXbox.start()
       .and(armXbox.back())
       .onTrue(new SequentialCommandGroup(
         new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(5),
         new StartEndCommand(armExtend::in, armExtend::stop, armExtend).until(armExtend::getSwitch).withTimeout(10),
         new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getSwitch).withTimeout(20),
-        new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(10.0).withTimeout(20),
+        new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(20.0),
         new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getSwitch).withTimeout(10)
       ));
 
