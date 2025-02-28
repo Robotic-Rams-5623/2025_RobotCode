@@ -48,7 +48,7 @@ public final class Constants
 
       public static final double kLoopRange[] = {-.8, .8};
       public static final double kIzone = 1.0; // DERGREES
-      public static final double kPIDF[] = {500, 0, 0, 0};
+      public static final double kPIDF[] = {400, 0, 0, 0};
       public static final double kPosConversion = 1.0;//180/32.7857
       public static final double kVelConversion = 1.0; // (180/30)/60
       public static final int kCPR = 28;
@@ -126,10 +126,10 @@ public final class Constants
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
         {2.5,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
-        {0.00,    0.0,   0.00,   0.1},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP) CHANGE LATER
-        {0.00,    6.00,   8.25,   10},      // POSITION 2 (REEF BASE)
-        {0.00,    3.0,   0.00,   30.0},      // POSITION 3 (REEF LOW)
-        {0.00,    4.9,   0.00,   35.0},      // POSITION 4 (REEF MID)
+        {0.00,    0.6,   0.00,   15.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP) CHANGE LATER
+        {0.00,    5.6,   8.25,   10},      // POSITION 2 (REEF BASE)
+        {0.00,    3.0,   0.00,   32.0},      // POSITION 3 (REEF LOW)
+        {0.00,    4.8,   0.00,   32},      // POSITION 4 (REEF MID)
         {0.00,    8.6,   10.0,   0.0},      // POSITION 5 (REEF HIGH)
 
         {0.00,    2.4,   0.00,   0.1},     // POSITION 6

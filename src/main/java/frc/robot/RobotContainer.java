@@ -18,9 +18,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.ArmConst.kposition;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
@@ -52,7 +50,7 @@ public class RobotContainer
 
   //* TRIGGERS */
   private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
-  private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
+  // private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
   // private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
   // private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
   // private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
@@ -72,28 +70,28 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
-                                                                                             driverXbox::getRightY)
-                                                           .headingWhile(true);
+  // SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
+  //                                                                                            driverXbox::getRightY)
+  //                                                          .headingWhile(true);
 
 
-  SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                   () -> -driverXbox.getLeftY(),
-                                                                   () -> -driverXbox.getLeftX())
-                                                               .withControllerRotationAxis(() -> driverXbox.getRawAxis(2))
-                                                               .deadband(OperatorConstants.DEADBAND)
-                                                               .scaleTranslation(0.8)
-                                                               .allianceRelativeControl(true);
-  // Derive the heading axis with math!
-  SwerveInputStream driveDirectAngleSim     = driveAngularVelocitySim.copy()
-                                                                     .withControllerHeadingAxis(() -> Math.sin(
-                                                                                                    driverXbox.getRawAxis(
-                                                                                                        2) * Math.PI) * (Math.PI * 2),
-                                                                                                () -> Math.cos(
-                                                                                                    driverXbox.getRawAxis(
-                                                                                                        2) * Math.PI) *
-                                                                                                      (Math.PI * 2))
-                                                                     .headingWhile(true);
+  // SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
+  //                                                                  () -> -driverXbox.getLeftY(),
+  //                                                                  () -> -driverXbox.getLeftX())
+  //                                                              .withControllerRotationAxis(() -> driverXbox.getRawAxis(2))
+  //                                                              .deadband(OperatorConstants.DEADBAND)
+  //                                                              .scaleTranslation(0.8)
+  //                                                              .allianceRelativeControl(true);
+  // // Derive the heading axis with math!
+  // SwerveInputStream driveDirectAngleSim     = driveAngularVelocitySim.copy()
+  //                                                                    .withControllerHeadingAxis(() -> Math.sin(
+  //                                                                                                   driverXbox.getRawAxis(
+  //                                                                                                       2) * Math.PI) * (Math.PI * 2),
+  //                                                                                               () -> Math.cos(
+  //                                                                                                   driverXbox.getRawAxis(
+  //                                                                                                       2) * Math.PI) *
+  //                                                                                                     (Math.PI * 2))
+  //                                                                    .headingWhile(true);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -203,11 +201,11 @@ public class RobotContainer
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
     armXbox.leftTrigger()
       .and(armXbox.back().negate())
-      .onTrue(Commands.runOnce(armlength::Up, armlength))
+      .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
     armXbox.rightTrigger()
       .and(armXbox.back().negate())
-      .onTrue(Commands.runOnce(armlength::Down, armlength))
+      .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
       armXbox.back()
       .and(armXbox.leftTrigger())
@@ -223,9 +221,6 @@ public class RobotContainer
     armXbox.rightBumper()
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-    // armXbox.back()
-    //   .onTrue(() -> CommandScheduler.getInstance().cancelAll())
-    //   .onFalse(Commands.none());
     armXbox.start()
       .and(armXbox.back())
       .onTrue(new SequentialCommandGroup(
@@ -234,8 +229,7 @@ public class RobotContainer
         new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getSwitch).withTimeout(20),
         new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(10.0).withTimeout(20),
         new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getSwitch).withTimeout(10)
-      ))
-      .onFalse(Commands.none());
+      ));
 
     
      // * DPAD DOWN = LOW REEF CORAL

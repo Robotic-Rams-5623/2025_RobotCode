@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -12,6 +17,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.MjpegServer;
 
 /**
@@ -28,6 +36,7 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+  Thread m_visionThread;
 
 
   public Robot()
@@ -56,13 +65,34 @@ public class Robot extends TimedRobot
 
     // Create a camera and a MJPEG server and set the source of the server as the camera so it can
     // be viewed by the driverstation.
-    UsbCamera usbCamera = new UsbCamera("USB Cam 0", 0);
-    
+    // UsbCamera usbCamera = new UsbCamera("USB Cam 0", 1);
+    // m_visionThread = new Thread(
+    //   () -> {
+    //     UsbCamera camera = CameraServer.startAutomaticCapture();
+    //     camera.setResolution(320, 240);
+    //     camera.setFPS(24);
+    //     camera.setPixelFormat(PixelFormat.kMJPEG);
+    //     CvSink cvSink = CameraServer.getVideo();
+    //     CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240);
+    //     Mat mat = new Mat();
+    //     while (!Thread.interrupted()) {
+    //       if (cvSink.grabFrame(mat) == 0) {
+    //         outputStream.notifyError(cvSink.getError());
+    //         continue;
+    //       }
+    //       Imgproc.rectangle(mat, new Point(80, 100), new Point(220, 175), new Scalar(255, 0, 0), 2);
+    //       Imgproc.rectangle(mat, new Point(90, 110), new Point(230, 175), new Scalar(255, 0, 0), 2);
+    //       outputStream.putFrame(mat);
+    //     }
+    //   });
+    //   m_visionThread.setDaemon(true);
+    //   m_visionThread.start();
     // usbCamera.setBrightness(50); // Range is 0-100
     // usbCamera.setExposureAuto(); // or use setExposureManual(int); // Range is 0-100
     // usbCamera.setWhiteBalanceAuto(); // or use setWhiteBalanceManual(int);
-    usbCamera.setVideoMode(PixelFormat.kMJPEG, 480, 480, 24); // (MJPEG, Image Width, Image Height, FPS)
-    CameraServer.startAutomaticCapture(usbCamera);
+    // usbCamera.setVideoMode(PixelFormat.kMJPEG, 480, 480, 24); // (MJPEG, Image Width, Image Height, FPS)
+    // CameraServer.startAutomaticCapture();
+    // CameraServer.
     // MjpegServer mjpegServer1 = new edu.wpi.first.cscore.MjpegServer("Cam 0 Mjpeg Server", 1181);
     // mjpegServer1.setSource(usbCamera);
     // mjpegServer1.setCompression(int quality); // MAY NEED THESE BUT NOT SURE IF THE CAMERA SETTINGS OVERIDE AT ALL.

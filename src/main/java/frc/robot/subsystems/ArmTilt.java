@@ -56,12 +56,11 @@ public class ArmTilt extends SubsystemBase {
     m_configMotor
         .inverted(true)
         .idleMode(IdleMode.kBrake)
-        .openLoopRampRate(0.1)
-        .closedLoopRampRate(0.0);
+        .openLoopRampRate(0.1);
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
     m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Bot);
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Bot);
-    m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
+    // m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     
     // Apply the motor configurations to the motors
