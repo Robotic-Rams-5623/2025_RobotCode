@@ -125,16 +125,18 @@ public final class Constants
       public static final double setpoint[][] = 
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
-        {2.5,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
-        {0.00,    0.6,   0.00,   15.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP) CHANGE LATER
-        {0.00,    5.6,   8.25,   10},      // POSITION 2 (REEF BASE)
-        {0.00,    3.0,   0.00,   32.0},      // POSITION 3 (REEF LOW)
-        {0.00,    4.8,   0.00,   32},      // POSITION 4 (REEF MID)
-        {0.00,    8.6,   10.0,   0.0},      // POSITION 5 (REEF HIGH)
+        {2.35,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
+        {0.00,    2.0,   0.00,   18},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
+        {0.00,    3.0,   8.25,   10},      // POSITION 2 (REEF BASE)
+        {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
+        {0.00,    4.3,   0.00,   30.5},      // POSITION 4 (REEF MID)
+        {0.00,    8.2,   9.0,   0.0},      // POSITION 5 (REEF HIGH)
 
-        {0.00,    2.4,   0.00,   0.1},     // POSITION 6
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 7
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 8
+        {0.00,    2.4,   0.00,   0.1},     // POSITION 6 (ALGEA LOW)
+        {0.00,    5.00,   0.00,   0.1},       // POSITION 7 (ALGEA HIGH)
+
+        {0.00,    0.02,   0.00,   0.0},       // POSITION 8 (WALL HP)
+
         {0.00,    5.00,   0.00,   30.0},       // POSITION 9
         {0.00,    5.00,   0.00,   30.0},       // POSITION 10
         {0.00,    5.00,   0.00,   30.0},       // POSITION 11
@@ -331,7 +333,7 @@ public final class Constants
     public static final double ROBOT_MASS = Units.lbsToKilograms(120); // 32lbs * kg per pound
     public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(7)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final double MAX_SPEED  = 2.5; // Max speed of 2024 Chassis is ~5 m/s
+    public static final double MAX_SPEED  = 2.1; // Max speed of 2024 Chassis is ~5 m/s
     // Maximum speed of the robot in meters per second, used to limit acceleration.
   }
 
@@ -342,10 +344,10 @@ public final class Constants
   {
 
     // Joystick Deadband
-    public static final double DEADBAND        = 0.1;
-    public static final double LEFT_Y_DEADBAND = 0.1;
-    public static final double RIGHT_X_DEADBAND = 0.1;
-    public static final double TURN_CONSTANT    = 3;
+    public static final double DEADBAND        = 0.12;
+    public static final double LEFT_Y_DEADBAND = 0.12;
+    public static final double RIGHT_X_DEADBAND = 0.12;
+    public static final double TURN_CONSTANT    = 2.5;
   }
 
   //  public static final class AutonConstants

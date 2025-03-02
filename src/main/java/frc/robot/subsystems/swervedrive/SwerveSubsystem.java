@@ -146,7 +146,7 @@ public class SwerveSubsystem extends SubsystemBase
   //     swerveDrive.updateOdometry();
   //     // vision.updatePoseEstimation(swerveDrive);
   //   }
-  // }
+ }
 
   @Override
   public void simulationPeriodic() {}

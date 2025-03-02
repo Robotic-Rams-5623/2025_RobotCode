@@ -9,6 +9,8 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import com.pathplanner.lib.commands.FollowPathCommand;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -58,17 +60,16 @@ public class Robot extends TimedRobot
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
 
-    // Create a camera and a MJPEG server and set the source of the server as the camera so it can
-    // be viewed by the driverstation.
-    // UsbCamera usbCamera = new UsbCamera("USB Cam 0", 1);
+    /** CAMERA STUFF ON INTIT */
     // m_visionThread = new Thread(
     //   () -> {
-    //     UsbCamera camera = CameraServer.startAutomaticCapture();
-    //     camera.setResolution(320, 240);
-    //     camera.setFPS(24);
-    //     camera.setPixelFormat(PixelFormat.kMJPEG);
+        UsbCamera camera = CameraServer.startAutomaticCapture();
+        camera.setResolution(320, 240);
+        camera.setFPS(24);
+        camera.setPixelFormat(PixelFormat.kMJPEG);
+        
     //     CvSink cvSink = CameraServer.getVideo();
-    //     CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240);
+        //CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240); //
     //     Mat mat = new Mat();
     //     while (!Thread.interrupted()) {
     //       if (cvSink.grabFrame(mat) == 0) {
@@ -129,6 +130,7 @@ public class Robot extends TimedRobot
   public void autonomousInit()
   {
     m_robotContainer.setMotorBrake(true);
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

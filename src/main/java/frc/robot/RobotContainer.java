@@ -4,12 +4,18 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.swervedrive.auto.Autos;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
@@ -40,6 +47,22 @@ public class RobotContainer
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController armXbox = new CommandXboxController(1);
 
+  private final Trigger driveA = driverXbox.a();
+  private final Trigger driveX = driverXbox.x();
+  private final Trigger driveLB = driverXbox.leftBumper();
+  private final Trigger driveRB = driverXbox.rightBumper();
+
+  private final Trigger armA = armXbox.a();
+  private final Trigger armB = armXbox.b();
+  private final Trigger armX = armXbox.x();
+  private final Trigger armY = armXbox.y();
+  private final Trigger armLB = armXbox.leftBumper();
+  private final Trigger armRB = armXbox.rightBumper();
+  private final Trigger armLT = armXbox.leftTrigger();
+  private final Trigger armRT = armXbox.rightTrigger();
+  private final Trigger armSTRT = armXbox.start();
+  private final Trigger armSLCT = armXbox.back();
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   private final ArmLength armlength = new ArmLength();
@@ -49,19 +72,26 @@ public class RobotContainer
   private final FlyWheel flywheel = new FlyWheel();
 
   //* TRIGGERS */
-  private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
+  // private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
   // private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
   // private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
   // private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
   // private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
 
+  /** AUTOS */
+  private static final String kDefaultAuto = "Default";
+  private static final String kStraight = "Straight";
+  private static final String kStraightL2 = "Straight Drop L2";
+  private static final String kStraightL4 = "Straight Drop L4";
+  private String autoScheduled;
+  private final SendableChooser<String> mChooser = new SendableChooser<>();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * .9,
-                                                                () -> driverXbox.getLeftX() * .9)
+                                                                () -> driverXbox.getLeftY() * -.9,
+                                                                () -> driverXbox.getLeftX() * -.9)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -98,6 +128,26 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    /** AUTOS */
+    mChooser.setDefaultOption("Default", kDefaultAuto);
+    mChooser.addOption("Straight", kStraight);
+    mChooser.addOption("Straight Drop L2", kStraightL2);
+    // mChooser.addOption("Straight Drop L4", kStraightL4);
+
+    new EventTrigger("Open").onTrue(new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt));
+    new EventTrigger("Spit").onTrue(new StartEndCommand(flywheel::out, flywheel::stop, flywheel).withTimeout(6));
+    new EventTrigger("L2").onTrue(new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt))
+    );
+
+    SmartDashboard.putData("Auto Select", mChooser);
+
+
+
+
     // Configure the trigger bindings
     configureBindingsDrive();
     configureBindingsOper();
@@ -126,7 +176,7 @@ public class RobotContainer
 
     /* COMPETITION/PRACTICE CONTROLS
       * A = ZERO GYRO
-      * B = DO A 180!!!
+      * B = 
       * 
       * X = LOCK DRIVE BASE
       * Y = None
@@ -137,26 +187,31 @@ public class RobotContainer
       * START = None
       * BACK = (FUTURE) OVERIDE TILT LIMIT SWITCH
     */
-    driverXbox.a()
-      .onTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
-    driverXbox.b()
-      .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
-    driverXbox.x()
-      .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    driveA
+      // .onTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
+      .onTrue(new InstantCommand(drivebase::zeroGyro, drivebase));
+    // driverXbox.b()
+    //   .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
+    driveX
+      // .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      .whileTrue(new InstantCommand(drivebase::lock, drivebase).repeatedly());
     // driverXbox.y()
     //   .whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
-    driverXbox.leftBumper()
+    driveLB
       // .and(driverXbox.back().negate())
-      .onTrue(Commands.runOnce(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
-      .onFalse(Commands.runOnce(armtilt::halt, armtilt));
-    driverXbox.rightBumper()
+      // .onTrue(Commands.runOnce(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
+      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
+      .onTrue(new InstantCommand(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
+      .onFalse(new InstantCommand(armtilt::halt, armtilt));
+    driveRB
       // .and(driverXbox.back().negate())
-      .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
-      .onFalse(Commands.runOnce(armtilt::halt, armtilt));
-    driverXbox.back()
-      .and(driverXbox.leftBumper())
-      .onTrue(Commands.none())
-      .onFalse(Commands.none());
+      // .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
+      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
+      .onTrue(new InstantCommand(armtilt::forwards, armtilt))
+      .onFalse(new InstantCommand(armtilt::halt, armtilt));
+    // driverXbox.back()
+    //   .and(driverXbox.leftBumper())
+    //   .onTrue(Commands.none())
     // driverXbox.start().whileTrue(Commands.none());
   }
 
@@ -189,73 +244,73 @@ public class RobotContainer
 
     // new InstantCommand(runnable, requirement) will initialize, execute, and end on the same iteration of the command scheduler.
     // Commands.runOnce(runnable, requirement) 
-    armXbox.a()
-      .onTrue(Commands.runOnce(flywheel::in, flywheel)
+    armA
+      .onTrue(Commands.runOnce(flywheel::in, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
       // .onTrue(new InstantCommand(flywheel::in, flywheel))
       // .onFalse(new InstantCommand(flywheel::stop, flywheel));
     
-    armXbox.b()
+    armB
       .onTrue(Commands.runOnce(flywheel::out, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
       // .onTrue(new InstantCommand(flywheel::out, flywheel))
       // .onFalse(new InstantCommand(flywheel::stop, flywheel));
     
-    armXbox.x()
+    armX
       .onTrue(Commands.runOnce(handtilt::close, handtilt))
       .onFalse(Commands.runOnce(handtilt::hold, handtilt));
       // .onTrue(new InstantCommand(handtilt::close, handtilt))
       // .onFalse(new InstantCommand(handtilt::hold, handtilt));
     
-    armXbox.y()
+    armY
       .onTrue(Commands.runOnce(handtilt::open, handtilt))
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
       // .onTrue(new InstantCommand(handtilt::open, handtilt))
       // .onFalse(new InstantCommand(handtilt::halt, handtilt));
     
-    armXbox.leftTrigger()
-      .and(armXbox.back().negate())
+    armLT
+      .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
       // .onTrue(new InstantCommand(armlength::Down, armlength))
       // .onFalse(new InstantCommand(armlength::Halt, armlength));
     
-    armXbox.rightTrigger()
-      .and(armXbox.back().negate())
+    armRT
+      .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
       // .onTrue(new InstantCommand(armlength::Up, armlength))
       // .onFalse(new InstantCommand(armlength::Halt, armlength));
     
-      armXbox.back()
-      .and(armXbox.leftTrigger())
+      armSLCT
+      .and(armLT)
       .onTrue(Commands.runOnce(armExtend::out, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
       // .onTrue(new InstantCommand(armExtend::out, armlength))
       // .onFalse(new InstantCommand(armExtend::stop, armlength));
     
-    armXbox.back()
-      .and(armXbox.rightTrigger())
+    armSLCT
+      .and(armRT)
       .onTrue(Commands.runOnce(armExtend::in, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
       // .onTrue(new InstantCommand(armExtend::in, armlength))
       // .onFalse(new InstantCommand(armExtend::stop, armlength));
     
-    armXbox.leftBumper()
+    armLB
       .onTrue(Commands.runOnce(handtilt::up, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
       // .onTrue(new InstantCommand(handtilt::up, handtilt))
       // .onFalse(new InstantCommand(handtilt::stop, handtilt));
     
-    armXbox.rightBumper()
+    armRB
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
       // .onTrue(new InstantCommand(handtilt::down, handtilt))
       // .onFalse(new InstantCommand(handtilt::stop, handtilt));
 
-    // Zero out all the sensors and go to the starting position.
-    armXbox.start()
-      .and(armXbox.back())
+   // Zero out all the sensors and go to the starting position.
+    armSTRT
+      .and(armSLCT)
       .onTrue(new SequentialCommandGroup(
         new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(5),
         new StartEndCommand(armExtend::in, armExtend::stop, armExtend).until(armExtend::getSwitch).withTimeout(10),
@@ -267,6 +322,7 @@ public class RobotContainer
     
      // * DPAD DOWN = LOW REEF CORAL
      // * DPAD DOWN RIGHT = LOWER REEF ALGEA
+
      // * DPAD RIGHT = MID REEF CORAL
      // * DPAD UP RIGHT = HIGHER REEF ALGEA
      // * DPAD UP = TOP REEF CORAL
@@ -275,60 +331,72 @@ public class RobotContainer
      // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
     armXbox.povLeft().onTrue(
       new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-      ));
+      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    ));
+
+    armXbox.povDownLeft().onTrue(
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
+    ));
     
     armXbox.povDown().onTrue(
       new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
-      ));
+      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
+    ));
 
-    armXbox.povDownRight().onTrue( // 6
-      new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
-      ));
+    // armXbox.povDownRight().onTrue( // 6
+    // new ParallelCommandGroup(
+    //   new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
+    //   new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
+    //   new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
+    //   new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
+    // ));
     
     armXbox.povRight().onTrue(
       new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
-      ));
+      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+    ));
 
-    armXbox.povUpRight().onTrue( // 7
-      new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-      ));
+    // armXbox.povUpRight().onTrue( // 7
+    // new ParallelCommandGroup(
+    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    // ));
 
     armXbox.povUp().onTrue(
       new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
-      ));
+      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+    ));
 
-    armXbox.povUpLeft().onTrue( // 8
-      new ParallelCommandGroup(
-        new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-        new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-        new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-        new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-      ));
+    // armXbox.povUpLeft().onTrue( // 8
+    // new ParallelCommandGroup(
+    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    // ));
   }
+
+
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -338,12 +406,24 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return drivebase.getAutonomousCommand(mChooser.getSelected());
   }
+
+
+
 
   public void setMotorBrake(boolean brake)
   {
     drivebase.setMotorBrake(brake);
+  }
+
+  public Command setPositions(int id) {
+    return new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    );
   }
 
 }
