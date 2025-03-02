@@ -116,7 +116,7 @@ public class HandTilt extends SubsystemBase {
    * GRABBER
    */
   public void hold() {
-    m_grableft.set(0.2);
+    m_grableft.set(0.5);
   }
 
 

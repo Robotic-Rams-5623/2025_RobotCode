@@ -132,6 +132,7 @@ public class RobotContainer
     mChooser.setDefaultOption("Default", kDefaultAuto);
     mChooser.addOption("Straight", kStraight);
     mChooser.addOption("Straight Drop L2", kStraightL2);
+    mChooser.addOption("Straight L4", kStraightL4);
     // mChooser.addOption("Straight Drop L4", kStraightL4);
 
     new EventTrigger("Open").onTrue(new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt));
@@ -141,6 +142,12 @@ public class RobotContainer
       new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt))
+    );
+    new EventTrigger("L4").onTrue(new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt))
     );
 
     SmartDashboard.putData("Auto Select", mChooser);
@@ -312,7 +319,7 @@ public class RobotContainer
     armSTRT
       .and(armSLCT)
       .onTrue(new SequentialCommandGroup(
-        new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(5),
+        new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(3),
         new StartEndCommand(armExtend::in, armExtend::stop, armExtend).until(armExtend::getSwitch).withTimeout(10),
         new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getSwitch).withTimeout(20),
         new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(20.0),
@@ -329,28 +336,37 @@ public class RobotContainer
      // * DPAD UP LEFT = BARGE
      // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
      // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
-    armXbox.povLeft().onTrue(
+
+    armXbox.povLeft().onTrue( // DPAD LEFT - ALGEA
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt), // WAS 1
+      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
     ));
 
-    armXbox.povDownLeft().onTrue(
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
-    ));
+    armXbox.start().and(armXbox.povLeft()).onTrue( // DPAD LEFT - CORAL
+    new ParallelCommandGroup(
+    new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt), // WAS 1
+    new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+    new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+    new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+  ));
+
+    // armXbox.povDownLeft().onTrue(
+    //   new ParallelCommandGroup(
+    //   new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt), // WAS 8
+    //   new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
+    //   new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
+    //   new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
+    // ));
     
-    armXbox.povDown().onTrue(
+    armXbox.povDown().onTrue( // PICK UP ALGEA FROM FLOOR
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),  // 3
+      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
     ));
 
     // armXbox.povDownRight().onTrue( // 6
@@ -363,10 +379,10 @@ public class RobotContainer
     
     armXbox.povRight().onTrue(
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(2);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(2);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(2);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt)
     ));
 
     // armXbox.povUpRight().onTrue( // 7
@@ -379,10 +395,10 @@ public class RobotContainer
 
     armXbox.povUp().onTrue(
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
     ));
 
     // armXbox.povUpLeft().onTrue( // 8

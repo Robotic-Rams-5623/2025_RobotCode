@@ -91,8 +91,8 @@ public final class Constants
       public static final int kIDGrabbyThingy = 24;
       public static final int kIDGrabbyThingy2 = 25;
 
-      public static final double kSpeedUp = 0.5;
-      public static final double kSpeedDown = 0.5;
+      public static final double kSpeedUp = 0.6; // OPEN
+      public static final double kSpeedDown = 0.6; // CLOSE
     }
   }
 
@@ -122,15 +122,35 @@ public final class Constants
      * [][] - Position  - 
      * [][] - Position  - 
      */
+    //   public static final double setpoint[][] = 
+    //   {
+    //  // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
+    //     {2.00,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
+    //     {0.00,    2.0,   0.00,   18},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
+    //     {0.00,    3.0,   8.25,   10},      // POSITION 2 (REEF BASE)
+    //     {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
+    //     {0.00,    4.8,   0.00,   30.5},      // POSITION 4 (REEF MID)
+    //     {0.00,    8.2,   8.75,   0.0},      // POSITION 5 (REEF HIGH)
+    //     {0.00,    2.4,   0.00,   0.1},     // POSITION 6 (ALGEA LOW)
+    //     {0.00,    5.00,   0.00,   0.1},       // POSITION 7 (ALGEA HIGH)
+
+    //     {0.00,    0.02,   0.00,   0.0},       // POSITION 8 (WALL HP)
+    //     {0.00,    5.00,   0.00,   30.0},       // POSITION 9
+    //     {0.00,    5.00,   0.00,   30.0},       // POSITION 10
+    //     {0.00,    5.00,   0.00,   30.0},       // POSITION 11
+    //     {0.00,    5.00,   0.00,   30.0},       // POSITION 12
+    //   };
+
+      /** PLAYOFF SETPOINTS **/
       public static final double setpoint[][] = 
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
-        {2.35,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
-        {0.00,    2.0,   0.00,   18},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
-        {0.00,    3.0,   8.25,   10},      // POSITION 2 (REEF BASE)
-        {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
-        {0.00,    4.3,   0.00,   30.5},      // POSITION 4 (REEF MID)
-        {0.00,    8.2,   9.0,   0.0},      // POSITION 5 (REEF HIGH)
+        {2.00,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
+        {0.00,    1.5,   0.00,   2},     // POSITION 1 (SAFE/HOME POSITION)
+        {0.00,    3.7,   0.0,   2},      // POSITION 2 (REEF ALGEA LOW)
+        {0.00,    5.3,   0.00,   2},      // POSITION 3 (REEF ALGEA HIGH)
+        {0.3,    0.7,   0.00,   13},      // POSITION 4 (ALGEA CARRY)
+        {2.0,    .86,   2.9,   2},      // POSITION 5 (ALGEA FLOOR)
 
         {0.00,    2.4,   0.00,   0.1},     // POSITION 6 (ALGEA LOW)
         {0.00,    5.00,   0.00,   0.1},       // POSITION 7 (ALGEA HIGH)
