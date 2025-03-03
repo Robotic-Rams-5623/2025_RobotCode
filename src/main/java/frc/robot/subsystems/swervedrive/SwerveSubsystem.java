@@ -129,24 +129,8 @@ public class SwerveSubsystem extends SubsystemBase
                                              Rotation2d.fromDegrees(0)));
   }
 
-//  /**
-//   * Setup the photon vision class.
-//   */
-//  public void setupPhotonVision()
-//  {
-//    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
-//  }
-
   @Override
-  public void periodic()
-  {
-    // When vision is enabled we must manually update odometry in SwerveDrive
-  //   if (visionDriveTest)
-  //   {
-  //     swerveDrive.updateOdometry();
-  //     // vision.updatePoseEstimation(swerveDrive);
-  //   }
- }
+  public void periodic() {}
 
   @Override
   public void simulationPeriodic() {}
@@ -221,30 +205,6 @@ public class SwerveSubsystem extends SubsystemBase
     // IF USING CUSTOM PATHFINDER ADD BEFORE THIS LINE
     PathfindingCommand.warmupCommand().schedule();
   }
-
-//  /**
-//   * Aim the robot at the target returned by PhotonVision.
-//   *
-//   * @return A {@link Command} which will run the alignment.
-//   */
-//  public Command aimAtTarget(Cameras camera)
-//  {
-//
-//    return run(() -> {
-//      Optional<PhotonPipelineResult> resultO = camera.getBestResult();
-//      if (resultO.isPresent())
-//      {
-//        var result = resultO.get();
-//        if (result.hasTargets())
-//        {
-//          drive(getTargetSpeeds(0,
-//                                0,
-//                                Rotation2d.fromDegrees(result.getBestTarget()
-//                                                             .getYaw()))); // Not sure if this will work, more math may be required.
-//        }
-//      }
-//    });
-//  }
 
   /**
    * Get the path follower with events.
@@ -331,7 +291,6 @@ public class SwerveSubsystem extends SubsystemBase
     return Commands.none();
 
   }
-
 
   /**
    * Command to characterize the robot drive motors using SysId
