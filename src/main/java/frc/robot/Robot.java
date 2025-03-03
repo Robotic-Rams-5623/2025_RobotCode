@@ -4,11 +4,6 @@
 
 package frc.robot;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-
 import com.pathplanner.lib.commands.FollowPathCommand;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -19,10 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoMode;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.MjpegServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -32,15 +23,10 @@ import edu.wpi.first.cscore.MjpegServer;
 public class Robot extends TimedRobot
 {
 
-  private static Robot   instance;
-  private        Command m_autonomousCommand;
-
-  private RobotContainer m_robotContainer;
-
-  private Timer disabledTimer;
-  
-  Thread m_visionThread;
-
+  private static Robot          instance;
+  private        Command        m_autonomousCommand;
+  private        RobotContainer m_robotContainer;
+  private        Timer          disabledTimer;
 
   public Robot() { instance = this; }
 
@@ -60,35 +46,19 @@ public class Robot extends TimedRobot
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
 
-    /** CAMERA STUFF ON INTIT */
-    // m_visionThread = new Thread(
-    //   () -> {
-        UsbCamera camera = CameraServer.startAutomaticCapture();
-        camera.setResolution(320, 240);
-        camera.setFPS(24);
-        camera.setPixelFormat(PixelFormat.kMJPEG);
-        
-    //     CvSink cvSink = CameraServer.getVideo();
-        //CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240); //
-    //     Mat mat = new Mat();
-    //     while (!Thread.interrupted()) {
-    //       if (cvSink.grabFrame(mat) == 0) {
-    //         outputStream.notifyError(cvSink.getError());
-    //         continue;
-    //       }
-    //       Imgproc.rectangle(mat, new Point(80, 100), new Point(220, 175), new Scalar(255, 0, 0), 2);
-    //       Imgproc.rectangle(mat, new Point(90, 110), new Point(230, 175), new Scalar(255, 0, 0), 2);
-    //       outputStream.putFrame(mat);
-    //     }
-    //   });
-    //   m_visionThread.setDaemon(true);
-    //   m_visionThread.start();
+    // Start up the USB camera on robot initiation so it is ready to go. Frame rate and resolution could
+    // be adjusted as desired but beware of bandwidth limitations of the FMS suring competitions.
+    // Vivid bridge allows for 7 Mbits/s, ~100 Kbits worth used robot communications. Try to keep camera
+    // usage to about 3-5 Mbits/s. Look at 2024 code for how to add a rectangle to the camera image.
+    UsbCamera camera = CameraServer.startAutomaticCapture();
+    camera.setResolution(320, 240);
+    camera.setFPS(32);
+    camera.setPixelFormat(PixelFormat.kMJPEG);
   }
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
-   *
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
@@ -131,13 +101,11 @@ public class Robot extends TimedRobot
   {
     m_robotContainer.setMotorBrake(true);
 
+    // Get the auto command from the robotcontainer method that gets it from the dashboard selection.
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null)
-    {
-      m_autonomousCommand.schedule();
-    }
+    // schedule the recieved auto command
+    if (m_autonomousCommand != null) { m_autonomousCommand.schedule(); }
   }
 
   /**
@@ -153,13 +121,8 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null)
-    {
-      m_autonomousCommand.cancel();
-    } else
-    {
-      CommandScheduler.getInstance().cancelAll();
-    }
+    if (m_autonomousCommand != null) { m_autonomousCommand.cancel(); }
+    else { CommandScheduler.getInstance().cancelAll(); }
   }
 
   /**
