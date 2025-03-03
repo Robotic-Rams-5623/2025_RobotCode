@@ -12,6 +12,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,14 +25,17 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.Autos;
+
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.HandTilt;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -42,11 +46,19 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
-
-  /* XBOX CONTROLLERS */
+  /** DECLARE THE CONTROLLERS 
+   * Team 5623 convention is that the drivebase controls should always be
+   * in the USB 0 slot of the driverstation and the secondary controls should
+   * always be in the USB 1 slot of the driverstation.
+   */
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController armXbox = new CommandXboxController(1);
 
+  /** DECLARE THE BUTTONS OF THE CONTROLLERS
+   * This technique appears to have resolved the issue seen prior to compentition
+   * where the robot was randomly disabling itself because of a watchdog not fed
+   * error that was a result of the robot.periodic loop overunning the 20ms loop time.
+   */
   private final Trigger driveA = driverXbox.a();
   private final Trigger driveX = driverXbox.x();
   private final Trigger driveLB = driverXbox.leftBumper();
@@ -63,7 +75,12 @@ public class RobotContainer
   private final Trigger armSTRT = armXbox.start();
   private final Trigger armSLCT = armXbox.back();
 
-  // The robot's subsystems and commands are defined here...
+  /** DECLARE THE SUBSYSTEMS OF THE ROBOT
+   * Every subsystem in use should be declared here. For troubleshooting purposes
+   * it is possible to disable one or more of these subsystem calls to isolate
+   * any errors that arise or to just use select portions of the robot. Remember
+   * to also comment out any place that it may be used later down the line.
+   */
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   private final ArmLength armlength = new ArmLength();
   private final ArmTilt armtilt = new ArmTilt();
@@ -71,14 +88,21 @@ public class RobotContainer
   private final HandTilt handtilt = new HandTilt();
   private final FlyWheel flywheel = new FlyWheel();
 
-  //* TRIGGERS */
+  /** DECLARE THE TRIGGERS ON THE ROBOT 
+   * If using any sensors or condtions from any of the robot subsystems as
+   * triggers, then declare those here after the subsystems.
+   **/
   // private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
   // private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
   // private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
   // private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
   // private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
 
-  /** AUTOS */
+  /** DECLARE THE AUTO MODES AND DASHBBOARD SENDABLE CHOOSER
+   * Start by creating a default string variable that will be autoselected if nothing else
+   * is. Best practice is to have this option be a do nothing or a very minimal movement as
+   * to not cause issues in a last minute selection.
+   */
   private static final String kDefaultAuto = "Default";
   private static final String kStraight = "Straight";
   private static final String kStraightL2 = "Straight Drop L2";
@@ -86,7 +110,7 @@ public class RobotContainer
   private String autoScheduled;
   private final SendableChooser<String> mChooser = new SendableChooser<>();
 
-  /**
+  /** DECLARE THE DEFAULT ROBOT DRIVING SCHEME
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
@@ -95,46 +119,26 @@ public class RobotContainer
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
 
-  /**
-   * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
-   */
-  // SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
-  //                                                                                            driverXbox::getRightY)
-  //                                                          .headingWhile(true);
-
-
-  // SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
-  //                                                                  () -> -driverXbox.getLeftY(),
-  //                                                                  () -> -driverXbox.getLeftX())
-  //                                                              .withControllerRotationAxis(() -> driverXbox.getRawAxis(2))
-  //                                                              .deadband(OperatorConstants.DEADBAND)
-  //                                                              .scaleTranslation(0.8)
-  //                                                              .allianceRelativeControl(true);
-  // // Derive the heading axis with math!
-  // SwerveInputStream driveDirectAngleSim     = driveAngularVelocitySim.copy()
-  //                                                                    .withControllerHeadingAxis(() -> Math.sin(
-  //                                                                                                   driverXbox.getRawAxis(
-  //                                                                                                       2) * Math.PI) * (Math.PI * 2),
-  //                                                                                               () -> Math.cos(
-  //                                                                                                   driverXbox.getRawAxis(
-  //                                                                                                       2) * Math.PI) *
-  //                                                                                                     (Math.PI * 2))
-  //                                                                    .headingWhile(true);
-
-  /**
+  
+  /** CREATE A ROBOTCONTAINER
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer()
   {
-    /** AUTOS */
+    /** SEND THE AUTO OPTIONS TO THE DASHBOARD **/
     mChooser.setDefaultOption("Default", kDefaultAuto);
     mChooser.addOption("Straight", kStraight);
-    mChooser.addOption("Straight Drop L2", kStraightL2);
-    mChooser.addOption("Straight L4", kStraightL4);
-    // mChooser.addOption("Straight Drop L4", kStraightL4);
+    // mChooser.addOption("Straight Drop L2", kStraightL2); DONT WORK WITH ALGEA CONTROLS
+    // mChooser.addOption("Straight Drop L4", kStraightL4); DONT WORK WITH ALGEA CONTROLS
 
+    /** CREATE PATHPLANNER EVENT TRIGGERS
+     * Path planner requires that the event triggers used in paths and the named commands
+     * that are used in autos, be declared prior to the sendable chooser and swerve subsystem
+     * being assigned to minimize problems. The event triggers seemed to work at comp when
+     * declared right here.
+     */
     new EventTrigger("Open").onTrue(new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt));
     new EventTrigger("Spit").onTrue(new StartEndCommand(flywheel::out, flywheel::stop, flywheel).withTimeout(6));
     new EventTrigger("L2").onTrue(new ParallelCommandGroup(
@@ -150,19 +154,23 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt))
     );
 
+    /** PUT ALL THE AUTO DATA TO THE DASHBOARD
+     * Do this after the path planner stuff but before the control bindings.
+     */
     SmartDashboard.putData("Auto Select", mChooser);
 
-
-
-
-    // Configure the trigger bindings
+    /** CONFIGURE THE BUTTON BINDINGS TO COMMANDS
+     * The drivebase and secondary control bindings were seperated into seperate methods to clean
+     * up the code and make it easier to find things.
+     */
     configureBindingsDrive();
     configureBindingsOper();
 
+    // If a joystick is not connected to the driver station for some reason this will silent all the warnings that pop up.
     DriverStation.silenceJoystickConnectionWarning(true);
   }
 
-  /**
+  /** DRIVER BINDINGS
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
    * named factories in {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
@@ -171,152 +179,73 @@ public class RobotContainer
    */
   private void configureBindingsDrive()
   {
-    // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
-    // Command driveSetpointGen                      = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
-    // Command driveFieldOrientedDirectAngleSim      = drivebase.driveFieldOriented(driveDirectAngleSim);
-    // Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
-    // Command driveSetpointGenSim                   = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
-
-    // SET THE DRIVE TYPE
+    /** SET THE DEFAULT COMMAND FOR THE DRIVE BASE
+     * This will set the default command for the subsystem when not interrupted by the command scheduler.
+     * Drivers are used to driving with the driveFieldOriented using the Angular Velocity method. for the
+     * Week 1 competition.
+     */
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-    /* COMPETITION/PRACTICE CONTROLS
-      * A = ZERO GYRO
-      * B = 
-      * 
-      * X = LOCK DRIVE BASE
-      * Y = None
-      * 
-      * Left Bump = CLIMB UP / TILT COLUMN FORWARD
-      * Right Bump = CLIMB DOWN / TILT COLUMN BACKWARD
-      *
-      * START = None
-      * BACK = (FUTURE) OVERIDE TILT LIMIT SWITCH
-    */
     driveA
-      // .onTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
       .onTrue(new InstantCommand(drivebase::zeroGyro, drivebase));
-    // driverXbox.b()
-    //   .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
     driveX
-      // .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       .whileTrue(new InstantCommand(drivebase::lock, drivebase).repeatedly());
-    // driverXbox.y()
-    //   .whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
     driveLB
       // .and(driverXbox.back().negate())
-      // .onTrue(Commands.runOnce(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
-      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
       .onTrue(new InstantCommand(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
       .onFalse(new InstantCommand(armtilt::halt, armtilt));
     driveRB
       // .and(driverXbox.back().negate())
-      // .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
-      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
       .onTrue(new InstantCommand(armtilt::forwards, armtilt))
       .onFalse(new InstantCommand(armtilt::halt, armtilt));
-    // driverXbox.back()
-    //   .and(driverXbox.leftBumper())
-    //   .onTrue(Commands.none())
-    // driverXbox.start().whileTrue(Commands.none());
   }
 
+  /** SECONDARY CONTROL BINDINGS
+   * Use this method to define your trigger->command mappings. Triggers can be created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
+   * named factories in {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
+   * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
+   */
   public void configureBindingsOper()
   {
-    /* COMPETITION PRACTICE
-     * A = CAPTURE CORAL
-     * B = RELEASE CORAL
-     * 
-     * X = CAPTURE ALGEA
-     * Y = RELEASE ALGEA
-     * 
-     * Left Bump = HAND TILT UPWARDS
-     * Right Bump = HAND TILT DOWNWARDS
-     * Left Trigger = ARM LENGTH UPWARDS
-     * Right Trigger = ARM LENGTH DOWNWARDS
-     * BACK + TRIGGERS = ARM EXTEND
-     *
-     * BACK = CANCEL ALL COMMANDS (Prevent chaos if bad things happen)
-     * START + BACK = Find Zeros and Go to Starting Positions
-     * 
-     * DPAD DOWN = LOW REEF CORAL
-     * DPAD DOWN RIGHT = LOWER REEF ALGEA (NOT CONFIGURED)
-     * DPAD RIGHT = MID REEF CORAL
-     * DPAD UP RIGHT = HIGHER REEF ALGEA (NOT CONFIGURED)
-     * DPAD UP = TOP REEF CORAL
-     * DPAD UP LEFT = BARGE (NOT CONFIGURED)
-     * DPAD LEFT = HOME/HUMAN PLAYER POSITION
-     */
-
-    // new InstantCommand(runnable, requirement) will initialize, execute, and end on the same iteration of the command scheduler.
-    // Commands.runOnce(runnable, requirement) 
-    armA
+    armA // Intake a coral
       .onTrue(Commands.runOnce(flywheel::in, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
-      // .onTrue(new InstantCommand(flywheel::in, flywheel))
-      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
-    
-    armB
+    armB // Drop a coral
       .onTrue(Commands.runOnce(flywheel::out, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
-      // .onTrue(new InstantCommand(flywheel::out, flywheel))
-      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
-    
-    armX
+    armX // Grab an algea
       .onTrue(Commands.runOnce(handtilt::close, handtilt))
       .onFalse(Commands.runOnce(handtilt::hold, handtilt));
-      // .onTrue(new InstantCommand(handtilt::close, handtilt))
-      // .onFalse(new InstantCommand(handtilt::hold, handtilt));
-    
-    armY
+    armY // Release an algea
       .onTrue(Commands.runOnce(handtilt::open, handtilt))
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
-      // .onTrue(new InstantCommand(handtilt::open, handtilt))
-      // .onFalse(new InstantCommand(handtilt::halt, handtilt));
-    
-    armLT
+    armLT // Lower the arm length
       .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
-      // .onTrue(new InstantCommand(armlength::Down, armlength))
-      // .onFalse(new InstantCommand(armlength::Halt, armlength));
-    
-    armRT
+    armRT // Raise the arm length
       .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
-      // .onTrue(new InstantCommand(armlength::Up, armlength))
-      // .onFalse(new InstantCommand(armlength::Halt, armlength));
-    
-      armSLCT
+    armSLCT // Extend the arm
       .and(armLT)
       .onTrue(Commands.runOnce(armExtend::out, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
-      // .onTrue(new InstantCommand(armExtend::out, armlength))
-      // .onFalse(new InstantCommand(armExtend::stop, armlength));
-    
-    armSLCT
+    armSLCT // Retract the arm
       .and(armRT)
       .onTrue(Commands.runOnce(armExtend::in, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
-      // .onTrue(new InstantCommand(armExtend::in, armlength))
-      // .onFalse(new InstantCommand(armExtend::stop, armlength));
-    
-    armLB
+    armLB // Raise the hand finger thing
       .onTrue(Commands.runOnce(handtilt::up, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-      // .onTrue(new InstantCommand(handtilt::up, handtilt))
-      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
-    
-    armRB
+    armRB // Lower the hand finger thing
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-      // .onTrue(new InstantCommand(handtilt::down, handtilt))
-      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
 
-   // Zero out all the sensors and go to the starting position.
-    armSTRT
+    armSTRT // Zero out all the sensors and go to the starting configuration position.
       .and(armSLCT)
       .onTrue(new SequentialCommandGroup(
         new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(3),
@@ -326,120 +255,75 @@ public class RobotContainer
         new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getSwitch).withTimeout(10)
       ));
 
+    armXbox.povLeft() // DPAD LEFT - ALGEA SAFE CARRY
+      .onTrue( 
+        new ParallelCommandGroup(
+          new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
+          new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
+          new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
+          new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+      ));
+    // armSTRT
+    //   .and(armXbox.povLeft())
+    //   .onTrue( // DPAD LEFT + START - CORAL HOME / HP DANGEROUS PICKUP
+    //     new ParallelCommandGroup(
+    //       new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+    //       new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+    //       new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+    //       new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    //   ));
     
-     // * DPAD DOWN = LOW REEF CORAL
-     // * DPAD DOWN RIGHT = LOWER REEF ALGEA
-
-     // * DPAD RIGHT = MID REEF CORAL
-     // * DPAD UP RIGHT = HIGHER REEF ALGEA
-     // * DPAD UP = TOP REEF CORAL
-     // * DPAD UP LEFT = BARGE
-     // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
-     // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
-
-    armXbox.povLeft().onTrue( // DPAD LEFT - ALGEA
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt), // WAS 1
-      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
-    ));
-
-    armXbox.start().and(armXbox.povLeft()).onTrue( // DPAD LEFT - CORAL
-    new ParallelCommandGroup(
-    new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt), // WAS 1
-    new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-  ));
-
-    // armXbox.povDownLeft().onTrue(
-    //   new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt), // WAS 8
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
-    // ));
+    armXbox.povDown() // DPAD DOWN - ALGEA FLOOR PICKUP
+      .onTrue( 
+        new ParallelCommandGroup(
+        new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),  // WAS 3 FOR CORAL
+        new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+        new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+      ));
     
-    armXbox.povDown().onTrue( // PICK UP ALGEA FROM FLOOR
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),  // 3
-      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
-    ));
+    armXbox.povRight() // DPAD RIGHT - ALGEA REEF LOW PICKUP
+      .onTrue(
+        new ParallelCommandGroup(
+          new InstantCommand(() -> {handtilt.setSmartPosition(2);}, handtilt),
+          new InstantCommand(() -> {armExtend.setSmartPosition(2);}, armExtend),
+          new InstantCommand(() -> {armlength.setSmartPosition(2);}, armlength),
+          new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt)
+      ));
 
-    // armXbox.povDownRight().onTrue( // 6
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
-    // ));
-    
-    armXbox.povRight().onTrue(
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(2);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(2);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(2);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt)
-    ));
-
-    // armXbox.povUpRight().onTrue( // 7
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    // ));
-
-    armXbox.povUp().onTrue(
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
-    ));
-
-    // armXbox.povUpLeft().onTrue( // 8
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    // ));
+    armXbox.povUp() // DPAD UP - ALGEA REEF HIGH PICKUP
+      .onTrue(
+        new ParallelCommandGroup(
+          new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
+          new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
+          new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
+          new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
+      ));
   }
-
-
-
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
+   * 
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand()
-  {
-    // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand(mChooser.getSelected());
-  }
+  public Command getAutonomousCommand() { return drivebase.getAutonomousCommand(mChooser.getSelected()); }
 
+  /**
+   * Use this method to enable/disable the drivebase brake, which switches the
+   * motor controller configuration between brake and coast modes.
+   */ 
+  public void setMotorBrake(boolean brake) { drivebase.setMotorBrake(brake); }
 
-
-
-  public void setMotorBrake(boolean brake)
-  {
-    drivebase.setMotorBrake(brake);
-  }
-
+  /**
+   * Use this command to set all the arm/hand positions to a smart controlled position
+   * using the MaxMotion motion profiler. Pass through the id of the pre-configured location to use.
+   */
   public Command setPositions(int id) {
     return new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(id);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(id);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(id);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(id);}, armtilt)
     );
   }
-
 }
