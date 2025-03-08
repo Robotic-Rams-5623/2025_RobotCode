@@ -32,11 +32,14 @@ public class ArmLength extends SubsystemBase {
   private final SparkMaxConfig m_configMotor;
   // Create Limit Switch Objects
   private final DigitalInput m_downLimit;
-  // private final DigitalInput m_upLimit;
+  private final DigitalInput m_midLimit;
+  // private final DigitalInput m_topLimit;
 
   // Subsystem Variables
   private boolean proxSwitch_lastState;
+  private boolean proxSwitch_lastState_M;
   private boolean proxSwitch_B;
+  private boolean proxSwitch_M;
   private double position;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
@@ -72,6 +75,7 @@ public class ArmLength extends SubsystemBase {
 
     // Configure the LOWER LIMIT limit switch.
     m_downLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
+    m_midLimit = new DigitalInput(Length.kDIOMidRetractSwitch);
     // m_topLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
   } 
 
@@ -101,10 +105,12 @@ public class ArmLength extends SubsystemBase {
    */
   public boolean getSwitch() { return !m_downLimit.get(); }
 
+  public boolean getMidSwitch() { return !m_midLimit.get(); }
+
   /**
    * Reset the encoder of the top linear actuator to its zeroed home position.
    */
-  public void resetEncoder() { m_encoder.setPosition(kposition.setpoint[0][1]); }
+  public void resetEncoder(double pos) { m_encoder.setPosition(pos); }
 
   /**
    * Get the current positions of both encoders.
@@ -131,13 +137,17 @@ public class ArmLength extends SubsystemBase {
     // This method will be called once per scheduler run
     position = getPosition();
     proxSwitch_B = getSwitch();
+    proxSwitch_M = getMidSwitch();
 
     SmartDashboard.putNumber("Arm Length Position", position);
     SmartDashboard.putBoolean("Arm Length Switch Down", proxSwitch_B);
     // SmartDashboard.putBoolean("Arm Length Switch Up", proxSwitch_T);
 
-    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); }
+    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(kposition.setpoint[0][1]); }
+    if (proxSwitch_M && !proxSwitch_lastState_M) { resetEncoder(4.0); }
+
     
     proxSwitch_lastState = proxSwitch_B;
+    proxSwitch_lastState_M = proxSwitch_M;
   }
 }

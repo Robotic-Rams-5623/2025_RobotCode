@@ -90,19 +90,20 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -.9,
-                                                                () -> driverXbox.getLeftX() * -.9)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
+                                                                () -> driverXbox.getLeftY() * -1.0,
+                                                                () -> driverXbox.getLeftX() * -1.0)
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * -.8)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  // SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
-  //                                                                                            driverXbox::getRightY)
-  //                                                          .headingWhile(true);
+  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
+                                                                                             driverXbox::getRightY)
+                                                           .headingWhile(true);
+
 
 
   // SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
@@ -137,17 +138,23 @@ public class RobotContainer
 
     new EventTrigger("Open").onTrue(new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt));
     new EventTrigger("Spit").onTrue(new StartEndCommand(flywheel::out, flywheel::stop, flywheel).withTimeout(6));
-    new EventTrigger("L2").onTrue(new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt))
+    new EventTrigger("L1").onTrue(new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(2);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(2);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(2);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt))
     );
     new EventTrigger("L4").onTrue(new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt))
+    );
+    new EventTrigger("Home").onTrue(new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt))
     );
 
     SmartDashboard.putData("Auto Select", mChooser);
@@ -171,7 +178,6 @@ public class RobotContainer
    */
   private void configureBindingsDrive()
   {
-    // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
     // Command driveSetpointGen                      = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
     // Command driveFieldOrientedDirectAngleSim      = drivebase.driveFieldOriented(driveDirectAngleSim);
     // Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
@@ -180,6 +186,8 @@ public class RobotContainer
     // SET THE DRIVE TYPE
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
+    // drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
 
     /* COMPETITION/PRACTICE CONTROLS
       * A = ZERO GYRO
@@ -337,77 +345,66 @@ public class RobotContainer
      // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
      // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
 
-    armXbox.povLeft().onTrue( // DPAD LEFT - ALGEA
+    armSTRT.and(armXbox.povLeft()).onTrue( // DPAD LEFT + START - ALGEA SAFE TRAVEL
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt), // WAS 1
-      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
     ));
-
-    armXbox.start().and(armXbox.povLeft()).onTrue( // DPAD LEFT - CORAL
-    new ParallelCommandGroup(
-    new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt), // WAS 1
-    new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-  ));
-
-    // armXbox.povDownLeft().onTrue(
-    //   new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt), // WAS 8
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
-    // ));
+    armXbox.povLeft().onTrue( // DPAD LEFT - CORAL PICKUP
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
+    ));
     
-    armXbox.povDown().onTrue( // PICK UP ALGEA FROM FLOOR
+    armSTRT.and(armXbox.povDown()).onTrue( // DPAD DOWN + START - ALGEA REEF LOW
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),  // 3
-      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+      new InstantCommand(() -> {handtilt.setSmartPosition(7);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(7);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(7);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(7);}, armtilt)
     ));
-
-    // armXbox.povDownRight().onTrue( // 6
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
-    // ));
-    
-    armXbox.povRight().onTrue(
-      new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(2);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(2);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(2);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt)
-    ));
-
-    // armXbox.povUpRight().onTrue( // 7
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    // ));
-
-    armXbox.povUp().onTrue(
+    armXbox.povDown().onTrue( // DPAD DOWN DROP CORAL L2
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(3);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
     ));
+    
+    armSTRT.and(armXbox.povRight()).onTrue( // DPAD RIGHT + START - ALGEA REEF HIGH
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
+    ));
+    armXbox.povRight().onTrue( // DPAD RIGHT - CORAL L3
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(4);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
+    ));
 
-    // armXbox.povUpLeft().onTrue( // 8
-    // new ParallelCommandGroup(
-    //   new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
-    //   new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
-    //   new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
-    //   new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
-    // ));
+    armSTRT.and(armXbox.povUp()).onTrue( // DPAD UP + START - ALGEA BARGE
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(9);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(9);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(9);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(9);}, armtilt)
+    ));
+    armXbox.povUp().onTrue( // DPAD UP - CORAL L4
+      new ParallelCommandGroup(
+      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
+      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+    ));
+
   }
 
 

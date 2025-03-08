@@ -13,13 +13,25 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 1.0
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Straight Drop"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Straight Drop - Reverse"
           }
         }
       ]

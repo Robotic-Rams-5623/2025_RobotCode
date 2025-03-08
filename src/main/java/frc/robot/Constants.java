@@ -126,19 +126,15 @@ public final class Constants
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
         {2.00,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
-        {0.00,    2.0,   0.00,   18},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
-        {0.00,    3.0,   8.25,   10},      // POSITION 2 (REEF BASE)
+        {0.00,    0.02,   0.00,   1.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
+        {0.00,    1.8,   0.00,   27},      // POSITION 2 (REEF BASE)
         {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
         {0.00,    4.8,   0.00,   30.5},      // POSITION 4 (REEF MID)
-        {0.00,    8.2,   8.75,   0.0},      // POSITION 5 (REEF HIGH)
-        {0.00,    2.4,   0.00,   0.1},     // POSITION 6 (ALGEA LOW)
-        {0.00,    5.00,   0.00,   0.1},       // POSITION 7 (ALGEA HIGH)
-
-        {0.00,    0.02,   0.00,   0.0},       // POSITION 8 (WALL HP)
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 9
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 10
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 11
-        {0.00,    5.00,   0.00,   30.0},       // POSITION 12
+        {0.00,    8.4,   8.75,   0.0},      // POSITION 5 (REEF HIGH)
+        {0.3,    0.7,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
+        {0.00,    3.7,   0.0,   2},       // POSITION 7 (ALGEA LOW)
+        {0.00,    0.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
+        {0.00,    8.4,   11.0,   27},       // POSITION 9 (ALGEA BARGE)
       };
 
       /** PLAYOFF SETPOINTS **/
@@ -187,8 +183,9 @@ public final class Constants
       // IDs
       public static final int kIDArmTopLength = 23; // CAN ID
       public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
+      public static final int kDIOMidRetractSwitch = 5;
       // Speeds
-      public static final double kSpeedUp = 0.5;    // Manual Speed to Lift Upper Arm Mechanism
+      public static final double kSpeedUp = 0.9;    // Manual Speed to Lift Upper Arm Mechanism
       public static final double kspeedDown = 0.2;  // Manual Speed to Lower Upper Arm Mechanism
       // Trapezoid Profile Constant
       public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
@@ -201,7 +198,7 @@ public final class Constants
       public static final int kIDextend = 28;
       public static final int kDIOextendretractswitch = 2;
       // Speeds
-      public static final double kSpeedUp = 0.5;    // Manual Speed to Extend Upper Arm Mechanism
+      public static final double kSpeedUp = 0.9;    // Manual Speed to Extend Upper Arm Mechanism
       public static final double kspeedDown = 0.5;  // Manual Speed to Retract Upper Arm Mechanism
       // Trapezoid Profile Constant
       public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
@@ -212,7 +209,7 @@ public final class Constants
     {
       // ENCODER CONFIG CONSTANTS
       public static final double kPosConversion_NEO = 0.5;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * (0.5 inch / 1 rot)
-      public static final double kVelConversion_NEO = 0.5/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * (0.5 inch / 1 rev) * (1 min/ 60 sec)
+      public static final double kVelConversion_NEO = kPosConversion_NEO/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * (0.5 inch / 1 rev) * (1 min/ 60 sec)
       public static final double kPosConversion_HD = 8.25/182;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * ~~~~
       public static final double kVelConversion_HD = kPosConversion_HD/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * ~~~~
       public static final int kCPR_RevBore = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
@@ -235,18 +232,20 @@ public final class Constants
       public static final double kmaxAcc_Bot = (kmaxVel_Bot/60.0) / kVelConversion_NEO;              // [Max Inch/Sec/Sec]
       public static final double kallowedError_Bot = 0.1;        // [Inches] -> Affected by PosConversionFactor
       
+
       public static final double[] kLoopRange_Top = {-0.8,0.8}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Top = {15, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kPIDF_Top = {30, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_Top = 0.1;              // Integral Constant Zone
-      public static final double kmaxVel_Top = 50.0 / kVelConversion_NEO;              // [Max Inch/Sec] -> Affected by VelConversionFactor
-      public static final double kmaxAcc_Top = (4.0) / kVelConversion_NEO;              // [Max Inch/Sec/Sec]
+      public static final double kmaxVel_Top = 2.0 / (kVelConversion_NEO);              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxAcc_Top = 0.5 / (kVelConversion_NEO/60.0);              // [Max Inch/Sec/Sec]
       public static final double kallowedError_Top = 0.1;        // [Inches] -> Affected by PosConversionFactor
 
+
       public static final double[] kLoopRange_Extend = {-0.8,0.8}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Extend = {30, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kPIDF_Extend = {220, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_Extend = 0.1;              // Integral Constant Zone
-      public static final double kmaxVel_Extend = 40.0 / kVelConversion_NEO;              // [Max Inch/Sec] -> Affected by VelConversionFactor
-      public static final double kmaxAcc_Extend = (5.0) / kVelConversion_NEO;              // [Max Inch/Sec/Sec]
+      public static final double kmaxVel_Extend = 2.5 / (kVelConversion_HD);              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxAcc_Extend = 2.0 / (kVelConversion_HD/60);              // [Max Inch/Sec/Sec]
       public static final double kallowedError_Extend = 0.1;        // [Inches] -> Affected by PosConversionFactor
 
       // ALTERNATE ENCODER SPARK MAX CONFIGURATIONS
