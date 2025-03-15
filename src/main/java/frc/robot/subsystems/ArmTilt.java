@@ -37,12 +37,14 @@ public class ArmTilt extends SubsystemBase {
   private final SparkMaxConfig m_configMotor;
   // Create Limit Switch Objects
   private final DigitalInput m_backwardLimit;
-  // private final DigitalInput m_forwardLimit;
+  private final DigitalInput m_forwardSwitch;
  
   // Subsystem Variables
-  private boolean proxSwitch_lastState;
+  private boolean proxSwitchB_lastState;
+  private boolean proxSwitchF_lastState;
   private double position;
   private boolean proxSwitch_B;
+  private boolean proxSwitch_F;
 
   /* CREATE A NEW ArmTilt SUBSYSTEM */
   public ArmTilt() {
@@ -62,7 +64,7 @@ public class ArmTilt extends SubsystemBase {
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_NEO);
     m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Bot);
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Bot);
-    // m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
+    m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Base);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     
     // Apply the motor configurations to the motors
@@ -75,8 +77,8 @@ public class ArmTilt extends SubsystemBase {
     m_control = m_armtilt.getClosedLoopController();
 
     // Configure the LOWER LIMIT limit switch.
-    m_backwardLimit = new DigitalInput(Tilt.kDIOBaseExtendSwitch);
-    // m_forwardLimit = new DigitalInput(Tilt.kDIOBaseRetractSwitch);
+    m_backwardLimit = new DigitalInput(Tilt.kDIOBaseHomeSwitch);
+    m_forwardSwitch = new DigitalInput(Tilt.kDIOBaseStartSwitch);
   }
 
   
@@ -85,7 +87,7 @@ public class ArmTilt extends SubsystemBase {
    */
   public void backwards()  // Change name to backwards()
   {
-    if (getSwitch()) {
+    if (getHomeSwitch()) {
       halt();
     } else {
       m_armtilt.set(-Tilt.kSpeedUp);
@@ -106,12 +108,18 @@ public class ArmTilt extends SubsystemBase {
    * 
    * @return
    */ // change to getSwitch()
-  public boolean getSwitch() { return !m_backwardLimit.get(); }
+  public boolean getHomeSwitch() { return !m_backwardLimit.get(); }
+
+  /**
+   * 
+   * @return
+   */
+  public boolean getForwardSwitch() { return !m_forwardSwitch.get(); }
 
   /**
    * 
    */ // change to resetEncoder()
-  public void resetEncoder() { m_encoder.setPosition(0.0); }
+  public void setEncoder(double pos) { m_encoder.setPosition(pos); }
 
   /**
    * 
@@ -141,10 +149,12 @@ public class ArmTilt extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     position = getPosition();
-    proxSwitch_B = getSwitch();
+    proxSwitch_B = getHomeSwitch();
+    proxSwitch_F = getForwardSwitch();
     
     SmartDashboard.putNumber("Arm Tilt Position", position);
     SmartDashboard.putBoolean("Arm Tilt Switch Backward", proxSwitch_B);
+    SmartDashboard.putBoolean("Arm Tilt Switch Forward", proxSwitch_F);
     // SmartDashboard.putBoolean("Arm Tilt Switch Forward", proxSwitch_F);
 
     // Reset the encoder to zero when switch is triggered. Don't just keep resetting the switch because
@@ -152,8 +162,10 @@ public class ArmTilt extends SubsystemBase {
     // be to monitor the current and last state of the proxSwitch. If the previous state was false and it
     // just turned true, then zero. If it stays true or stays false or turns from true to false, don't do
     // anything with the zeroing.
-    if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(); halt(); }
+    if (proxSwitch_B && !proxSwitchB_lastState) { setEncoder(0.0); halt(); }
+    if (proxSwitch_F && !proxSwitchF_lastState) { setEncoder(1.5); }
     
-    proxSwitch_lastState = proxSwitch_B;
+    proxSwitchB_lastState = proxSwitch_B;
+    proxSwitchF_lastState = proxSwitch_F;
   }
 }

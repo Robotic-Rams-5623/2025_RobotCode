@@ -39,8 +39,9 @@ public class ArmExtend extends SubsystemBase {
   private DigitalInput m_retractlimit;
   // Subsystem Variables
   private double position;
-  private double velocity;
+
   private boolean proxSwitch;
+  private boolean proxSwitch_lastState;
   
   /* CREATE A NEW ArmExtend SUBSYSTEM */
   public ArmExtend() {
@@ -151,6 +152,8 @@ public class ArmExtend extends SubsystemBase {
     // SmartDashboard.putNumber("arm extend velocity", velocity);
     // SmartDashboard.putNumber("Extend Current", m_extend.getOutputCurrent());
 
-    if (proxSwitch) { resetencoder(); }
+    if (proxSwitch && !proxSwitch_lastState) { resetencoder(); }
+
+    proxSwitch_lastState = proxSwitch;
   }
 }

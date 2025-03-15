@@ -33,13 +33,15 @@ public class ArmLength extends SubsystemBase {
   // Create Limit Switch Objects
   private final DigitalInput m_downLimit;
   private final DigitalInput m_midLimit;
-  // private final DigitalInput m_topLimit;
+  private final DigitalInput m_topLimit;
 
   // Subsystem Variables
   private boolean proxSwitch_lastState;
   private boolean proxSwitch_lastState_M;
+  private boolean proxSwitch_lastState_T;
   private boolean proxSwitch_B;
   private boolean proxSwitch_M;
+  private boolean proxSwitch_T;
   private double position;
 
   /* CREATE A NEW ArmLength SUBSYSTEM */
@@ -60,7 +62,7 @@ public class ArmLength extends SubsystemBase {
         .closedLoopRampRate(0.1);
     m_configMotor.alternateEncoder.apply(MotorConfigs.kAltEncoderConfig_Top);
     m_configMotor.closedLoop.apply(MotorConfigs.kMotorLoopConfig_Top);
-    // m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
+    m_configMotor.softLimit.apply(MotorConfigs.kMotorSoftLimitConfig_Top);
     m_configMotor.signals.apply(CANSignals.ArmMotors.kMotorSignalConfig);
     m_configMotor.closedLoop.maxMotion.apply(MotorConfigs.kMotorSmartMotion_Top);
 
@@ -74,21 +76,28 @@ public class ArmLength extends SubsystemBase {
     m_control = m_armtop.getClosedLoopController();
 
     // Configure the LOWER LIMIT limit switch.
-    m_downLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
-    m_midLimit = new DigitalInput(Length.kDIOMidRetractSwitch);
-    // m_topLimit = new DigitalInput(Length.kDIOTopRetractSwitch);
+    m_downLimit = new DigitalInput(Length.kDIOHomeSwitch);
+    m_midLimit = new DigitalInput(Length.kDIOMidSwitch);
+    m_topLimit = new DigitalInput(Length.kDIOTopSwitch);
   } 
 
   /**
    *
    */ // Change name to up()
-  public void Up() { m_armtop.set(Length.kSpeedUp); }
+  public void Up() {
+    if (getTopSwitch()) {
+      Halt();
+    } else {
+      m_armtop.set(Length.kSpeedUp);
+    }
+  }
+    
   
   /**
    *
    */ // Change name to down()
   public void Down(){
-    if (getSwitch()) {
+    if (getBottomSwitch()) {
       Halt();
     } else {
       m_armtop.set(-Length.kspeedDown);
@@ -103,9 +112,11 @@ public class ArmLength extends SubsystemBase {
   /**
    *
    */
-  public boolean getSwitch() { return !m_downLimit.get(); }
+  public boolean getBottomSwitch() { return !m_downLimit.get(); }
 
   public boolean getMidSwitch() { return !m_midLimit.get(); }
+
+  public boolean getTopSwitch() { return !m_topLimit.get(); }
 
   /**
    * Reset the encoder of the top linear actuator to its zeroed home position.
@@ -136,12 +147,14 @@ public class ArmLength extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     position = getPosition();
-    proxSwitch_B = getSwitch();
+    proxSwitch_B = getBottomSwitch();
     proxSwitch_M = getMidSwitch();
+    proxSwitch_T = getTopSwitch();
 
     SmartDashboard.putNumber("Arm Length Position", position);
     SmartDashboard.putBoolean("Arm Length Switch Down", proxSwitch_B);
-    // SmartDashboard.putBoolean("Arm Length Switch Up", proxSwitch_T);
+    SmartDashboard.putBoolean("Arm Length Switch Middle", proxSwitch_M);
+    SmartDashboard.putBoolean("Arm Length Switch Up", proxSwitch_T);
 
     if (proxSwitch_B && !proxSwitch_lastState) { resetEncoder(kposition.setpoint[0][1]); }
     if (proxSwitch_M && !proxSwitch_lastState_M) { resetEncoder(4.0); }

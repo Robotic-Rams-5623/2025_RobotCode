@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.AlternateEncoderConfig;
 import com.revrobotics.spark.config.SignalsConfig;
@@ -13,7 +12,6 @@ import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
@@ -125,16 +123,16 @@ public final class Constants
       public static final double setpoint[][] = 
       {
      // {BOTTOM INCH, TOP INCH, EXTENSION INCH, HAND TILT DEGREES}
-        {2.00,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
+        {1.50,    0.0,   0.0,   0.1},     // POSITION 0 (STARTING POSITION)
         {0.00,    0.02,   0.00,   1.0},     // POSITION 1 (HUMAN PLAYER CORAL PICKUP)
         {0.00,    1.8,   0.00,   27},      // POSITION 2 (REEF BASE)
         {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
         {0.00,    4.8,   0.00,   30.5},      // POSITION 4 (REEF MID)
         {0.00,    8.4,   8.75,   0.0},      // POSITION 5 (REEF HIGH)
         {0.3,    0.7,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
-        {0.00,    3.7,   0.0,   2},       // POSITION 7 (ALGEA LOW)
-        {0.00,    0.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
-        {0.00,    8.4,   11.0,   27},       // POSITION 9 (ALGEA BARGE)
+        {0.00,    3.2,   0.0,   2},       // POSITION 7 (ALGEA LOW)
+        {0.00,    5.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
+        {0.00,    8.6,   11.0,   27},       // POSITION 9 (ALGEA BARGE)
       };
 
       /** PLAYOFF SETPOINTS **/
@@ -165,12 +163,11 @@ public final class Constants
     {
       // IDs
       public static final int kIDArmTiltMotor = 22; // CAN ID
-      public static final int kDIOBaseExtendSwitch = 4;     // RoboRIO DIO Port Number
+      public static final int kDIOBaseHomeSwitch = 4;     // DIO Port Number Zeroed Home Position Switch 0.0"
+      public static final int kDIOBaseStartSwitch = 6;    // DIO Port Number Starting Position Switch ~1.5"
       // Speeds
       public static final double kSpeedUp = 0.5;    // Manual Speed to Tilt Arm Mechanism Backwards
       public static final double kspeedDown = 0.5;  // Manual Speed to Tilt Arm Mechanism Forwards (ONLY FOR CLIMBING/RESET)
-      // Trapezoid Profile Constant
-      public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
       // Closed Loop Control
       public static final double[] kLoopRange = {-0.4,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
       public static final double[] kPIDF = {0.4, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
@@ -182,13 +179,12 @@ public final class Constants
     {
       // IDs
       public static final int kIDArmTopLength = 23; // CAN ID
-      public static final int kDIOTopRetractSwitch = 3;     // RoboRIO DIO Port Number
-      public static final int kDIOMidRetractSwitch = 5;
+      public static final int kDIOHomeSwitch = 3;     // RoboRIO DIO Port Number
+      public static final int kDIOMidSwitch = 5;
+      public static final int kDIOTopSwitch = 7;
       // Speeds
-      public static final double kSpeedUp = 0.9;    // Manual Speed to Lift Upper Arm Mechanism
+      public static final double kSpeedUp = 0.4;    // Manual Speed to Lift Upper Arm Mechanism
       public static final double kspeedDown = 0.2;  // Manual Speed to Lower Upper Arm Mechanism
-      // Trapezoid Profile Constant
-      public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
     }
     
     /* EXTEND ARM CONSTANTS */
@@ -200,8 +196,6 @@ public final class Constants
       // Speeds
       public static final double kSpeedUp = 0.9;    // Manual Speed to Extend Upper Arm Mechanism
       public static final double kspeedDown = 0.5;  // Manual Speed to Retract Upper Arm Mechanism
-      // Trapezoid Profile Constant
-      public static final TrapezoidProfile.Constraints kArmMotionConstraint = new TrapezoidProfile.Constraints(2.0, 2.0);
     }
 
     /* ARM MOTOR CONFIGURATIONS */
@@ -215,9 +209,12 @@ public final class Constants
       public static final int kCPR_RevBore = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
       public static final int kCPR_HD = 28;                // Encoder counts per revolution (HD Built-in Encoder AT MOTOR SHAFT = 28) // Doesnt include gear box
       // MOTOR SOFT LIMITS
-      public static final double kbaseExtendLimit = 4.0;  // Soft limit in inches as read from encoder
-      public static final double ktopRetractLimit = 4.0;  // Soft limit in inches as read from encoder
-      public static final double kextendExtendLimit = 5.0; // Soft limit in inches as read from encoder
+      public static final double kbaseBackLimit = -1.0;  // Soft limit in inches as read from encoder
+      public static final double kbaseForwardLimit = 8;  // Soft limit in inches as read from encoder
+      public static final double ktopDownLimit = -1.0;  // Soft limit in inches as read from encoder
+      public static final double ktopTopLimit = 8.5;  // Soft limit in inches as read from encoder
+      public static final double kextendExtendLimit = 12.0; // Soft limit in inches as read from encoder
+      public static final double kextendRetractLimit = 0.0; // Soft limit in inches as read from encoder
       // CLOSED LOOP CONSTANTS
 
       // DELETE THIS SECTION ONCE CONVERTED OVER TO BOT AND TOP //
@@ -321,20 +318,20 @@ public final class Constants
       
       // SOFT LIMIT SPARK MAX CONFIGURATIONS
       public static final SoftLimitConfig kMotorSoftLimitConfig_Base = new SoftLimitConfig()
-          .forwardSoftLimit(kbaseExtendLimit)
-          .forwardSoftLimitEnabled(false)
-          .reverseSoftLimit(0.0)
-          .reverseSoftLimitEnabled(false);
+          .forwardSoftLimit(kbaseForwardLimit)
+          .forwardSoftLimitEnabled(true)
+          .reverseSoftLimit(kbaseBackLimit)
+          .reverseSoftLimitEnabled(true);
       public static final SoftLimitConfig kMotorSoftLimitConfig_Top = new SoftLimitConfig()
-          .forwardSoftLimit(0.0)
-          .forwardSoftLimitEnabled(false)
-          .reverseSoftLimit(ktopRetractLimit)
+          .forwardSoftLimit(ktopTopLimit)
+          .forwardSoftLimitEnabled(true)
+          .reverseSoftLimit(ktopDownLimit)
           .reverseSoftLimitEnabled(false);
       public static final SoftLimitConfig kMotorSoftLimitConfig_Extend = new SoftLimitConfig()
           .forwardSoftLimit(kextendExtendLimit)
-          .forwardSoftLimitEnabled(false)
-          .reverseSoftLimit(0.0)
-          .reverseSoftLimitEnabled(false);
+          .forwardSoftLimitEnabled(true)
+          .reverseSoftLimit(kextendRetractLimit)
+          .reverseSoftLimitEnabled(true);
     }
 
     
@@ -352,7 +349,7 @@ public final class Constants
     public static final double ROBOT_MASS = Units.lbsToKilograms(120); // 32lbs * kg per pound
     public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(7)), ROBOT_MASS);
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final double MAX_SPEED  = 2.1; // Max speed of 2024 Chassis is ~5 m/s
+    public static final double MAX_SPEED  = 2.7; // Max speed of 2024 Chassis is ~5 m/s
     // Maximum speed of the robot in meters per second, used to limit acceleration.
   }
 

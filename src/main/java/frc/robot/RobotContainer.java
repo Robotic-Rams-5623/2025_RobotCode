@@ -51,6 +51,8 @@ public class RobotContainer
   private final Trigger driveX = driverXbox.x();
   private final Trigger driveLB = driverXbox.leftBumper();
   private final Trigger driveRB = driverXbox.rightBumper();
+  private final Trigger driveLT = driverXbox.leftTrigger(0.2);
+  private final Trigger driveRT = driverXbox.rightTrigger(0.2);
 
   private final Trigger armA = armXbox.a();
   private final Trigger armB = armXbox.b();
@@ -96,6 +98,14 @@ public class RobotContainer
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(false);
+
+  SwerveInputStream driveAngularVelocity_Slow = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                            () -> driverXbox.getLeftY() * -0.35,
+                                                            () -> driverXbox.getLeftX() * -0.35)
+                                                        .withControllerRotationAxis(() -> driverXbox.getRightX() * -.5)
+                                                        .deadband(OperatorConstants.DEADBAND)
+                                                        .scaleTranslation(0.8)
+                                                        .allianceRelativeControl(false);
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -145,8 +155,8 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(2);}, armtilt))
     );
     new EventTrigger("L4").onTrue(new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
       new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt))
     );
@@ -185,6 +195,7 @@ public class RobotContainer
 
     // SET THE DRIVE TYPE
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
+    Command driveFieldOrientedAnglularVelocity_Slow    = drivebase.driveFieldOriented(driveAngularVelocity_Slow);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
     // drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
@@ -224,6 +235,9 @@ public class RobotContainer
       // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
       .onTrue(new InstantCommand(armtilt::forwards, armtilt))
       .onFalse(new InstantCommand(armtilt::halt, armtilt));
+    driveLT
+      .or(driveRT)
+      .whileTrue(driveFieldOrientedAnglularVelocity_Slow);
     // driverXbox.back()
     //   .and(driverXbox.leftBumper())
     //   .onTrue(Commands.none())
@@ -329,9 +343,10 @@ public class RobotContainer
       .onTrue(new SequentialCommandGroup(
         new StartEndCommand(handtilt::up, handtilt::stop, handtilt).until(handtilt::getswitch).withTimeout(3),
         new StartEndCommand(armExtend::in, armExtend::stop, armExtend).until(armExtend::getSwitch).withTimeout(10),
-        new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getSwitch).withTimeout(20),
-        new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(20.0),
-        new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getSwitch).withTimeout(10)
+        new StartEndCommand(armtilt::backwards, armtilt::halt, armtilt).until(armtilt::getHomeSwitch).withTimeout(10),
+        new StartEndCommand(armtilt::forwards, armtilt::halt, armtilt).until(armtilt::getForwardSwitch).withTimeout(5),
+        // new InstantCommand(() -> {armtilt.setSmartPosition(0);}, armtilt).withTimeout(20.0),
+        new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getBottomSwitch).withTimeout(10)
       ));
 
     
@@ -360,7 +375,7 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
     ));
     
-    armSTRT.and(armXbox.povDown()).onTrue( // DPAD DOWN + START - ALGEA REEF LOW
+    armXbox.povDown().and(armSTRT).onTrue( // DPAD DOWN + START - ALGEA REEF LOW
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(7);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(7);}, armExtend),
@@ -399,10 +414,10 @@ public class RobotContainer
     ));
     armXbox.povUp().onTrue( // DPAD UP - CORAL L4
       new ParallelCommandGroup(
-      new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
-      new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
-      new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
-      new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
+        new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
+        new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
+        new InstantCommand(() -> {armlength.setSmartPosition(5);}, armlength),
+        new InstantCommand(() -> {armtilt.setSmartPosition(5);}, armtilt)
     ));
 
   }
