@@ -253,7 +253,10 @@ public class SwerveSubsystem extends SubsystemBase
    * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
    * // Create a path following command using AutoBuilder. This will also trigger event markers.
    */
-  public Command getAutonomousCommand(String pathName) { return new PathPlannerAuto(pathName); }
+  public Command getAutonomousCommand(String pathName) { 
+    if (pathName == "Default") { return new Commands.none(); }
+    else { return new PathPlannerAuto(pathName); }
+  }
 
   /**
    * Use PathPlanner Path finding to go to a point on the field.
