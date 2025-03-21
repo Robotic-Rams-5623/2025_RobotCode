@@ -17,9 +17,9 @@ public class AlignToCoralFeedTagRelative extends Command {
   private double tagID = -1;
 
   public AlignToReefTagRelative(boolean isRightFeed, SwerveSubsystem drivebase) {
-    xController = new PIDController(Constants.X_FEED_ALIGNMENT_P, 0.0, 0);  // Vertical movement
-    yController = new PIDController(Constants.Y_FEED_ALIGNMENT_P, 0.0, 0);  // Horitontal movement
-    rotController = new PIDController(Constants.ROT_FEED_ALIGNMENT_P, 0, 0);  // Rotation
+    xController = new PIDController(Constants.X_FEED_ALIGNMENT_P, 0.0, 0);  // Vertical movement (P,I,D)
+    yController = new PIDController(Constants.Y_FEED_ALIGNMENT_P, 0.0, 0);  // Horitontal movement (P,I,D)
+    rotController = new PIDController(Constants.ROT_FEED_ALIGNMENT_P, 0.0, 0);  // Rotation (P,I,D)
     this.isRightFeed = isRightFeed;
     this.drivebase = drivebase;
     addRequirements(drivebase);
@@ -38,7 +38,7 @@ public class AlignToCoralFeedTagRelative extends Command {
     xController.setSetpoint(Constants.X_SETPOINT_FEED_ALIGNMENT);
     xController.setTolerance(Constants.X_TOLERANCE_FEED_ALIGNMENT);
 
-    yController.setSetpoint(isRightFeed ? Constants.Y_SETPOINT_FEED_ALIGNMENT : -Constants.Y_SETPOINT_FEED_ALIGNMENT);
+    yController.setSetpoint(Constants.Y_SETPOINT_FEED_ALIGNMENT);
     yController.setTolerance(Constants.Y_TOLERANCE_FEED_ALIGNMENT);
 
     tagID = LimelightHelpers.getFiducialID("");
@@ -50,14 +50,13 @@ public class AlignToCoralFeedTagRelative extends Command {
       this.dontSeeTagTimer.reset();
 
       double[] postions = LimelightHelpers.getBotPose_TargetSpace("");
-      SmartDashboard.putNumber("x", postions[2]);
-
+      
       double xSpeed = xController.calculate(postions[2]);
-      SmartDashboard.putNumber("xspee", xSpeed);
       double ySpeed = -yController.calculate(postions[0]);
+      SmartDashboard.putNumber("y", postions[0]);
       double rotValue = -rotController.calculate(postions[4]);
 
-      drivebase.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+      drivebase.drive(new Translation2d(0.0, ySpeed), rotValue, false);
 
       if (!rotController.atSetpoint() ||
           !yController.atSetpoint() ||
