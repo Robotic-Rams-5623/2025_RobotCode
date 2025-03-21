@@ -351,6 +351,22 @@ public final class Constants
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED  = 2.4; // Max speed of 2024 Chassis is ~5 m/s
     // Maximum speed of the robot in meters per second, used to limit acceleration.
+
+    // DRIVEBASE CONSTANTS FOR AUTO ALIGNING TO THE CORAL HUMAN PLAYER STATION
+    public static final double X_FEED_ALIGNMENT_P = 3.3; //???
+    public static final double Y_FEED_ALIGNMENT_P = 3.3; //???
+    public static final double ROT_FEED_ALIGNMENT_P = 0.058; //???
+
+    public static final double ROT_SETPOINT_FEED_ALIGNMENT = 0;  // Rotation = RY from LL
+  	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 5; // ± Deg
+  	public static final double X_SETPOINT_FEED_ALIGNMENT = -0.34;  // Vertical pose = TX from LL
+  	public static final double X_TOLERANCE_FEED_ALIGNMENT = 0.06; // ± Tol
+  	public static final double Y_SETPOINT_FEED_ALIGNMENT = 0.16;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
+  	public static final double Y_TOLERANCE_FEED_ALIGNMENT = 0.06; // ± Tol
+
+    // LIMELIGHT APRIL TAG AUTO ALIGN CONSTANTS
+  	public static final double DONT_SEE_TAG_WAIT_TIME = 1;
+  	public static final double POSE_VALIDATION_TIME = 0.3;
   }
 
 
