@@ -353,14 +353,14 @@ public final class Constants
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     // DRIVEBASE CONSTANTS FOR AUTO ALIGNING TO THE CORAL HUMAN PLAYER STATION
-    public static final double X_FEED_ALIGNMENT_P = 3.3; //???
-    public static final double Y_FEED_ALIGNMENT_P = 3.3; //???
-    public static final double ROT_FEED_ALIGNMENT_P = 0.058; //???
+    public static final double X_FEED_ALIGNMENT_P = 1.0; // PID Proportional Value
+    public static final double Y_FEED_ALIGNMENT_P = 3.3; // PID Proportional Value
+    public static final double ROT_FEED_ALIGNMENT_P = 0.058; // PID Proportional Value
 
     public static final double ROT_SETPOINT_FEED_ALIGNMENT = 0;  // Rotation = RY from LL
-  	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 5; // ± Deg
-  	public static final double X_SETPOINT_FEED_ALIGNMENT = -0.34;  // Vertical pose = TX from LL
-  	public static final double X_TOLERANCE_FEED_ALIGNMENT = 0.06; // ± Tol
+  	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 15; // ± Deg
+  	public static final double X_SETPOINT_FEED_ALIGNMENT = -0.34;  // Vertical pose = TX from LL, It will essentially control the distance from the wall that we are
+  	public static final double X_TOLERANCE_FEED_ALIGNMENT = 0.10; // ± Tol (DONT NEED X)
   	public static final double Y_SETPOINT_FEED_ALIGNMENT = 0.16;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
   	public static final double Y_TOLERANCE_FEED_ALIGNMENT = 0.06; // ± Tol
 
