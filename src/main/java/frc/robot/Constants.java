@@ -128,7 +128,7 @@ public final class Constants
         {0.00,    1.8,   0.00,   27},      // POSITION 2 (REEF BASE)
         {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
         {0.00,    4.8,   0.00,   30.5},      // POSITION 4 (REEF MID)
-        {0.00,    8.4,   6.9,   0.0},      // POSITION 5 (REEF HIGH)
+        {0.00,    8.2,   6.3,   0.0},      // POSITION 5 (REEF HIGH)
         {0.3,    2.0,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
         {0.00,    2.7,   0.0,   2},       // POSITION 7 (ALGEA LOW)
         {0.00,    5.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
@@ -194,7 +194,7 @@ public final class Constants
       public static final int kIDextend = 28;
       public static final int kDIOextendretractswitch = 2;
       // Speeds
-      public static final double kSpeedUp = 0.9;    // Manual Speed to Extend Upper Arm Mechanism
+      public static final double kSpeedUp = 0.8;    // Manual Speed to Extend Upper Arm Mechanism
       public static final double kspeedDown = 0.5;  // Manual Speed to Retract Upper Arm Mechanism
     }
 
@@ -206,6 +206,8 @@ public final class Constants
       public static final double kVelConversion_NEO = kPosConversion_NEO/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * (0.5 inch / 1 rev) * (1 min/ 60 sec)
       public static final double kPosConversion_HD = 8.25/182;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * ~~~~
       public static final double kVelConversion_HD = kPosConversion_HD/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * ~~~~
+      public static final double kPosConversion_TEST = 0.0;    // (Default output is rotations) Inch = Rotation * PosConversion = Rot * ~~~~
+      public static final double kVelConversion_TEST = kPosConversion_HD/60;    // (Default output is RPM) Inch/Sec = RPM * VelConversion = RPM * ~~~~
       public static final int kCPR_RevBore = 8192;                // Encoder counts per revolution (Rev Throughbore = 8192)
       public static final int kCPR_HD = 28;                // Encoder counts per revolution (HD Built-in Encoder AT MOTOR SHAFT = 28) // Doesnt include gear box
       // MOTOR SOFT LIMITS
@@ -230,19 +232,19 @@ public final class Constants
       public static final double kallowedError_Bot = 0.1;        // [Inches] -> Affected by PosConversionFactor
       
 
-      public static final double[] kLoopRange_Top = {-0.8,0.8}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Top = {30, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kLoopRange_Top = {-0.65,0.65}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_Top = {10, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_Top = 0.1;              // Integral Constant Zone
-      public static final double kmaxVel_Top = 2.0 / (kVelConversion_NEO);              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxVel_Top = 1.75 / (kVelConversion_NEO);              // [Max Inch/Sec] -> Affected by VelConversionFactor
       public static final double kmaxAcc_Top = 0.5 / (kVelConversion_NEO/60.0);              // [Max Inch/Sec/Sec]
       public static final double kallowedError_Top = 0.1;        // [Inches] -> Affected by PosConversionFactor
 
 
-      public static final double[] kLoopRange_Extend = {-0.8,0.8}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Extend = {220, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
-      public static final double kIzone_Extend = 0.1;              // Integral Constant Zone
+      public static final double[] kLoopRange_Extend = {-0.8,0.9}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
+      public static final double[] kPIDF_Extend = {275, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double kIzone_Extend = 0.3;              // Integral Constant Zone
       public static final double kmaxVel_Extend = 2.5 / (kVelConversion_HD);              // [Max Inch/Sec] -> Affected by VelConversionFactor
-      public static final double kmaxAcc_Extend = 2.0 / (kVelConversion_HD/60);              // [Max Inch/Sec/Sec]
+      public static final double kmaxAcc_Extend = 2.5 / (kVelConversion_HD/60);              // [Max Inch/Sec/Sec]
       public static final double kallowedError_Extend = 0.1;        // [Inches] -> Affected by PosConversionFactor
 
       // ALTERNATE ENCODER SPARK MAX CONFIGURATIONS
@@ -353,16 +355,16 @@ public final class Constants
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     // DRIVEBASE CONSTANTS FOR AUTO ALIGNING TO THE CORAL HUMAN PLAYER STATION
-    public static final double X_FEED_ALIGNMENT_P = 1.0; // PID Proportional Value
-    public static final double Y_FEED_ALIGNMENT_P = 3.3; // PID Proportional Value
-    public static final double ROT_FEED_ALIGNMENT_P = 0.058; // PID Proportional Value
+    public static final double X_FEED_ALIGNMENT_P = 0.0; // PID Proportional Value
+    public static final double Y_FEED_ALIGNMENT_P = 3.5; // PID Proportional Value
+    public static final double ROT_FEED_ALIGNMENT_P = 0.0; // PID Proportional Value
 
     public static final double ROT_SETPOINT_FEED_ALIGNMENT = 0;  // Rotation = RY from LL
-  	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 15; // ± Deg
-  	public static final double X_SETPOINT_FEED_ALIGNMENT = -0.34;  // Vertical pose = TX from LL, It will essentially control the distance from the wall that we are
-  	public static final double X_TOLERANCE_FEED_ALIGNMENT = 0.10; // ± Tol (DONT NEED X)
-  	public static final double Y_SETPOINT_FEED_ALIGNMENT = 0.16;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
-  	public static final double Y_TOLERANCE_FEED_ALIGNMENT = 0.06; // ± Tol
+  	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 90; // ± Deg
+  	public static final double X_SETPOINT_FEED_ALIGNMENT = 25.8;  // Vertical pose = TX from LL, It will essentially control the distance from the wall that we are
+  	public static final double X_TOLERANCE_FEED_ALIGNMENT = 1.0; // ± Tol (DONT NEED X)
+  	public static final double Y_SETPOINT_FEED_ALIGNMENT = -6.1;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
+  	public static final double Y_TOLERANCE_FEED_ALIGNMENT = 1.0; // ± Tol
 
     // LIMELIGHT APRIL TAG AUTO ALIGN CONSTANTS
   	public static final double DONT_SEE_TAG_WAIT_TIME = 1;

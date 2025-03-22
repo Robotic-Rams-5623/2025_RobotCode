@@ -68,21 +68,21 @@ public class Robot extends TimedRobot
         camera.setFPS(24);
         camera.setPixelFormat(PixelFormat.kMJPEG);
         
-    //     CvSink cvSink = CameraServer.getVideo();
-        //CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240); //
-    //     Mat mat = new Mat();
-    //     while (!Thread.interrupted()) {
-    //       if (cvSink.grabFrame(mat) == 0) {
-    //         outputStream.notifyError(cvSink.getError());
-    //         continue;
-    //       }
-    //       Imgproc.rectangle(mat, new Point(80, 100), new Point(220, 175), new Scalar(255, 0, 0), 2);
-    //       Imgproc.rectangle(mat, new Point(90, 110), new Point(230, 175), new Scalar(255, 0, 0), 2);
-    //       outputStream.putFrame(mat);
-    //     }
-    //   });
-    //   m_visionThread.setDaemon(true);
-    //   m_visionThread.start();
+      //   CvSink cvSink = CameraServer.getVideo();
+      //   CvSource outputStream = CameraServer.putVideo("Rectangle", 320, 240); //
+      //   Mat mat = new Mat();
+      //   while (!Thread.interrupted()) {
+      //     if (cvSink.grabFrame(mat) == 0) {
+      //       outputStream.notifyError(cvSink.getError());
+      //       continue;
+      //     }
+      //     Imgproc.rectangle(mat, new Point(80, 80), new Point(220, 160), new Scalar(255, 105, 150), 2);
+      //     // Imgproc.rectangle(mat, new Point(90, 110), new Point(230, 175), new Scalar(255, 0, 0), 2);
+      //     outputStream.putFrame(mat);
+      //   }
+      // });
+      // m_visionThread.setDaemon(true);
+      // m_visionThread.start();
   }
 
   /**

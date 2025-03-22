@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.swervedrive.drivebase;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -6,21 +6,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class AlignToCoralFeedTagRelative extends Command {
-  private PIDController xController, yController, rotController;
-  private boolean isRightFeed;
+  private PIDController yController;
   private Timer dontSeeTagTimer, stopTimer;
   private SwerveSubsystem drivebase;
   private double tagID = -1;
+  private double ty = 0.0;
 
-  public AlignToReefTagRelative(boolean isRightFeed, SwerveSubsystem drivebase) {
-    xController = new PIDController(Constants.X_FEED_ALIGNMENT_P, 0.0, 0);  // Vertical movement (P,I,D)
-    yController = new PIDController(Constants.Y_FEED_ALIGNMENT_P, 0.0, 0);  // Horitontal movement (P,I,D)
-    rotController = new PIDController(Constants.ROT_FEED_ALIGNMENT_P, 0.0, 0);  // Rotation (P,I,D)
-    this.isRightFeed = isRightFeed;
+  public AlignToCoralFeedTagRelative(boolean isRightFeed, SwerveSubsystem drivebase) {
+    // xController = new PIDController(Constants.DrivebaseConstants.X_FEED_ALIGNMENT_P, 0.0, 0);  // Vertical movement (P,I,D)
+    yController = new PIDController(Constants.DrivebaseConstants.Y_FEED_ALIGNMENT_P, 0.0, 0);  // Horitontal movement (P,I,D)
+    // rotController = new PIDController(Constants.DrivebaseConstants.ROT_FEED_ALIGNMENT_P, 0.0, 0);  // Rotation (P,I,D)
     this.drivebase = drivebase;
     addRequirements(drivebase);
   }
@@ -32,37 +30,32 @@ public class AlignToCoralFeedTagRelative extends Command {
     this.dontSeeTagTimer = new Timer();
     this.dontSeeTagTimer.start();
 
-    rotController.setSetpoint(Constants.ROT_SETPOINT_FEED_ALIGNMENT);
-    rotController.setTolerance(Constants.ROT_TOLERANCE_FEED_ALIGNMENT);
+    // rotController.setSetpoint(Constants.DrivebaseConstants.ROT_SETPOINT_FEED_ALIGNMENT);
+    // rotController.setTolerance(Constants.DrivebaseConstants.ROT_TOLERANCE_FEED_ALIGNMENT);
 
-    xController.setSetpoint(Constants.X_SETPOINT_FEED_ALIGNMENT);
-    xController.setTolerance(Constants.X_TOLERANCE_FEED_ALIGNMENT);
+    // xController.setSetpoint(Constants.DrivebaseConstants.X_SETPOINT_FEED_ALIGNMENT);
+    // xController.setTolerance(Constants.DrivebaseConstants.X_TOLERANCE_FEED_ALIGNMENT);
 
-    yController.setSetpoint(Constants.Y_SETPOINT_FEED_ALIGNMENT);
-    yController.setTolerance(Constants.Y_TOLERANCE_FEED_ALIGNMENT);
+    yController.setSetpoint(Constants.DrivebaseConstants.Y_SETPOINT_FEED_ALIGNMENT);
+    yController.setTolerance(Constants.DrivebaseConstants.Y_TOLERANCE_FEED_ALIGNMENT);
 
-    tagID = LimelightHelpers.getFiducialID("");
+    tagID = SmartDashboard.getNumber("tid", tagID);
   }
 
   @Override
   public void execute() {
-    if (LimelightHelpers.getTV("") && LimelightHelpers.getFiducialID("") == tagID) {
+    if (SmartDashboard.getNumber("tid", tagID) >=0) {
       this.dontSeeTagTimer.reset();
-
-      double[] postions = LimelightHelpers.getBotPose_TargetSpace("");
+      ty = SmartDashboard.getNumber("ty", 0.0);
+    };
       
-      double xSpeed = xController.calculate(postions[2]);
-      double ySpeed = -yController.calculate(postions[0]);
-      SmartDashboard.putNumber("y", postions[0]);
-      double rotValue = -rotController.calculate(postions[4]);
+      double ySpeed = -yController.calculate(ty);
+      SmartDashboard.putNumber("CAMERA LL y", ty);
 
-      drivebase.drive(new Translation2d(0.0, ySpeed), rotValue, false);
+      drivebase.drive(new Translation2d(0.0, ySpeed), 0.0, false);
 
-      if (!rotController.atSetpoint() ||
-          !yController.atSetpoint() ||
-          !xController.atSetpoint()) {
+      if (!yController.atSetpoint()) {
         stopTimer.reset();
-      }
     } else {
       drivebase.drive(new Translation2d(), 0, false);
     }
@@ -72,13 +65,13 @@ public class AlignToCoralFeedTagRelative extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    drivebase.drive(new Translation2d(), 0, false);
+    drivebase.drive(new Translation2d(), 0.0, false);
   }
 
   @Override
   public boolean isFinished() {
     // Requires the robot to stay in the correct position for 0.3 seconds, as long as it gets a tag in the camera
-    return this.dontSeeTagTimer.hasElapsed(Constants.DONT_SEE_TAG_WAIT_TIME) ||
-        stopTimer.hasElapsed(Constants.POSE_VALIDATION_TIME);
+    return this.dontSeeTagTimer.hasElapsed(Constants.DrivebaseConstants.DONT_SEE_TAG_WAIT_TIME) ||
+        stopTimer.hasElapsed(Constants.DrivebaseConstants.POSE_VALIDATION_TIME);
   }
 }

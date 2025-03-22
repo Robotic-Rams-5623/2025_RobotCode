@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.Autos;
+// import frc.robot.commands.swervedrive.drivebase.AlignToCoralFeedTagRelative;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
@@ -48,6 +49,7 @@ public class RobotContainer
   final CommandXboxController armXbox = new CommandXboxController(1);
 
   private final Trigger driveA = driverXbox.a();
+  private final Trigger driveB = driverXbox.b();
   private final Trigger driveX = driverXbox.x();
   private final Trigger driveLB = driverXbox.leftBumper();
   private final Trigger driveRB = driverXbox.rightBumper();
@@ -64,6 +66,10 @@ public class RobotContainer
   private final Trigger armRT = armXbox.rightTrigger();
   private final Trigger armSTRT = armXbox.start();
   private final Trigger armSLCT = armXbox.back();
+  private final Trigger armPOVLeft = armXbox.povLeft();
+  private final Trigger armPOVDown = armXbox.povDown();
+  private final Trigger armPOVRight = armXbox.povRight();
+  private final Trigger armPOVUp = armXbox.povUp();
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
@@ -197,6 +203,9 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveFieldOrientedAnglularVelocity_Slow    = drivebase.driveFieldOriented(driveAngularVelocity_Slow);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+
+    // Command alignCoralFeed = new AlignToCoralFeedTagRelative(false, drivebase);
+
     // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
     // drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
 
@@ -218,6 +227,8 @@ public class RobotContainer
       .onTrue(new InstantCommand(drivebase::zeroGyro, drivebase));
     // driverXbox.b()
     //   .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
+    // driveB
+    //   .whileTrue(alignCoralFeed);
     driveX
       // .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       .whileTrue(new InstantCommand(drivebase::lock, drivebase).repeatedly());
@@ -360,14 +371,14 @@ public class RobotContainer
      // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
      // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
 
-    armSTRT.and(armXbox.povLeft()).onTrue( // DPAD LEFT + START - ALGEA SAFE TRAVEL
+     armPOVLeft.and(armSTRT).onTrue( // DPAD LEFT + START - ALGEA SAFE TRAVEL
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(6);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(6);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(6);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(6);}, armtilt)
     ));
-    armXbox.povLeft().onTrue( // DPAD LEFT - CORAL PICKUP
+    armPOVLeft.onTrue( // DPAD LEFT - CORAL PICKUP
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(1);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(1);}, armExtend),
@@ -375,14 +386,14 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
     ));
     
-    armXbox.povDown().and(armSTRT).onTrue( // DPAD DOWN + START - ALGEA REEF LOW
+    armSTRT.and(armPOVDown).onTrue( // DPAD DOWN + START - ALGEA REEF LOW
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(7);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(7);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(7);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(7);}, armtilt)
     ));
-    armXbox.povDown().onTrue( // DPAD DOWN DROP CORAL L2
+    armPOVDown.onTrue( // DPAD DOWN DROP CORAL L2
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(3);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(3);}, armExtend),
@@ -390,14 +401,14 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(3);}, armtilt)
     ));
     
-    armSTRT.and(armXbox.povRight()).onTrue( // DPAD RIGHT + START - ALGEA REEF HIGH
+    armPOVRight.and(armSTRT).onTrue( // DPAD RIGHT + START - ALGEA REEF HIGH
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(8);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(8);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(8);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(8);}, armtilt)
     ));
-    armXbox.povRight().onTrue( // DPAD RIGHT - CORAL L3
+    armPOVRight.onTrue( // DPAD RIGHT - CORAL L3
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(4);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(4);}, armExtend),
@@ -405,14 +416,14 @@ public class RobotContainer
       new InstantCommand(() -> {armtilt.setSmartPosition(4);}, armtilt)
     ));
 
-    armSTRT.and(armXbox.povUp()).onTrue( // DPAD UP + START - ALGEA BARGE
+    armPOVUp.and(armSTRT).onTrue( // DPAD UP + START - ALGEA BARGE
       new ParallelCommandGroup(
       new InstantCommand(() -> {handtilt.setSmartPosition(9);}, handtilt),
       new InstantCommand(() -> {armExtend.setSmartPosition(9);}, armExtend),
       new InstantCommand(() -> {armlength.setSmartPosition(9);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(9);}, armtilt)
     ));
-    armXbox.povUp().onTrue( // DPAD UP - CORAL L4
+    armPOVUp.onTrue( // DPAD UP - CORAL L4
       new ParallelCommandGroup(
         new InstantCommand(() -> {armExtend.setSmartPosition(5);}, armExtend),
         new InstantCommand(() -> {handtilt.setSmartPosition(5);}, handtilt),
