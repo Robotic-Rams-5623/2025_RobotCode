@@ -129,8 +129,8 @@ public final class Constants
         {0.00,    3.3,   0.00,   30.5},      // POSITION 3 (REEF LOW)
         {0.00,    4.8,   0.00,   30.5},      // POSITION 4 (REEF MID)
         {0.00,    8.4,   6.9,   0.0},      // POSITION 5 (REEF HIGH)
-        {0.3,    0.7,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
-        {0.00,    3.2,   0.0,   2},       // POSITION 7 (ALGEA LOW)
+        {0.3,    2.0,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
+        {0.00,    2.7,   0.0,   2},       // POSITION 7 (ALGEA LOW)
         {0.00,    5.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
         {0.00,    8.6,   11.0,   27},       // POSITION 9 (ALGEA BARGE)
       };
