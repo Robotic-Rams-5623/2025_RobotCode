@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.Autos;
-// import frc.robot.commands.swervedrive.drivebase.AlignToCoralFeedTagRelative;
+import frc.robot.commands.swervedrive.drivebase.AlignToCoralFeedTagRelative;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmLength;
 import frc.robot.subsystems.ArmTilt;
@@ -55,6 +55,10 @@ public class RobotContainer
   private final Trigger driveRB = driverXbox.rightBumper();
   private final Trigger driveLT = driverXbox.leftTrigger(0.2);
   private final Trigger driveRT = driverXbox.rightTrigger(0.2);
+  private final Trigger drivePOVLeft = driverXbox.povLeft();
+  private final Trigger drivePOVRight = driverXbox.povRight();
+  private final Trigger drivePOVup = driverXbox.povUp();
+  private final Trigger drivePOVdown = driverXbox.povDown();
 
   private final Trigger armA = armXbox.a();
   private final Trigger armB = armXbox.b();
@@ -204,7 +208,7 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity_Slow    = drivebase.driveFieldOriented(driveAngularVelocity_Slow);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-    // Command alignCoralFeed = new AlignToCoralFeedTagRelative(false, drivebase);
+    Command alignCoralFeed = new AlignToCoralFeedTagRelative(false, drivebase);
 
     // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
     // drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
@@ -227,8 +231,8 @@ public class RobotContainer
       .onTrue(new InstantCommand(drivebase::zeroGyro, drivebase));
     // driverXbox.b()
     //   .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
-    // driveB
-    //   .whileTrue(alignCoralFeed);
+    driveB
+      .whileTrue(alignCoralFeed);
     driveX
       // .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       .whileTrue(new InstantCommand(drivebase::lock, drivebase).repeatedly());
@@ -253,6 +257,26 @@ public class RobotContainer
     //   .and(driverXbox.leftBumper())
     //   .onTrue(Commands.none())
     // driverXbox.start().whileTrue(Commands.none()); 
+    drivePOVLeft.whileTrue(new StartEndCommand(
+      () -> drivebase.drive(new Translation2d(0.0, 0.5), 0.0, false),
+      () -> drivebase.drive(new Translation2d(), 0.0, false),
+      drivebase
+    ));
+    drivePOVRight.whileTrue(new StartEndCommand(
+      () -> drivebase.drive(new Translation2d(0.0, -0.5), 0.0, false),
+      () -> drivebase.drive(new Translation2d(), 0.0, false),
+      drivebase
+    ));
+    drivePOVup.whileTrue(new StartEndCommand(
+      () -> drivebase.drive(new Translation2d(0.5, 0.0), 0.0, false),
+      () -> drivebase.drive(new Translation2d(), 0.0, false),
+      drivebase
+    ));
+    drivePOVdown.whileTrue(new StartEndCommand(
+      () -> drivebase.drive(new Translation2d(-0.5, 0.0), 0.0, false),
+      () -> drivebase.drive(new Translation2d(), 0.0, false),
+      drivebase
+    ));
   }
 
   public void configureBindingsOper()
@@ -463,6 +487,15 @@ public class RobotContainer
       new InstantCommand(() -> {armlength.setSmartPosition(1);}, armlength),
       new InstantCommand(() -> {armtilt.setSmartPosition(1);}, armtilt)
     );
+  }
+
+  public Command driveSidewaysRelative(boolean isRight) {
+    if (isRight) {
+      return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, -0.5), 0.0, false), drivebase);
+    } else {
+      return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, 0.5), 0.0, false), drivebase);
+    }
+    
   }
 
 }

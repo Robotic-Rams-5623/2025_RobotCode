@@ -90,7 +90,7 @@ public final class Constants
       public static final int kIDGrabbyThingy2 = 25;
 
       public static final double kSpeedUp = 0.6; // OPEN
-      public static final double kSpeedDown = 0.6; // CLOSE
+      public static final double kSpeedDown = 0.8; // CLOSE
     }
   }
 
@@ -132,7 +132,7 @@ public final class Constants
         {0.3,    2.0,   0.00,   13},         // POSITION 6 (ALGEA CARRY)
         {0.00,    2.7,   0.0,   2},       // POSITION 7 (ALGEA LOW)
         {0.00,    5.02,   0.00,   0.0},       // POSITION 8 (ALGEA HIGH)
-        {0.00,    8.6,   11.0,   27},       // POSITION 9 (ALGEA BARGE)
+        {0.00,    8.6,   12.0,   27},       // POSITION 9 (ALGEA BARGE)
       };
 
       /** PLAYOFF SETPOINTS **/
@@ -167,7 +167,7 @@ public final class Constants
       public static final int kDIOBaseStartSwitch = 6;    // DIO Port Number Starting Position Switch ~1.5"
       // Speeds
       public static final double kSpeedUp = 0.5;    // Manual Speed to Tilt Arm Mechanism Backwards
-      public static final double kspeedDown = 0.5;  // Manual Speed to Tilt Arm Mechanism Forwards (ONLY FOR CLIMBING/RESET)
+      public static final double kspeedDown = 0.95;  // Manual Speed to Tilt Arm Mechanism Forwards (ONLY FOR CLIMBING/RESET)
       // Closed Loop Control
       public static final double[] kLoopRange = {-0.4,0.7}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
       public static final double[] kPIDF = {0.4, 0, 0, 0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
@@ -241,11 +241,11 @@ public final class Constants
 
 
       public static final double[] kLoopRange_Extend = {-0.8,0.9}; // Allowable %Output of Closed Loop Controller (i.e. can't go faster then ±60%)
-      public static final double[] kPIDF_Extend = {275, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
+      public static final double[] kPIDF_Extend = {205, 0, 0, 0.0};   // {P, I, D, FF} Closed Loop Constants (F = 1/Kv from motor spec sheet if using velocity control, otherwise SET TO ZERO)
       public static final double kIzone_Extend = 0.3;              // Integral Constant Zone
-      public static final double kmaxVel_Extend = 2.5 / (kVelConversion_HD);              // [Max Inch/Sec] -> Affected by VelConversionFactor
+      public static final double kmaxVel_Extend = 3.0 / (kVelConversion_HD);              // [Max Inch/Sec] -> Affected by VelConversionFactor
       public static final double kmaxAcc_Extend = 2.5 / (kVelConversion_HD/60);              // [Max Inch/Sec/Sec]
-      public static final double kallowedError_Extend = 0.1;        // [Inches] -> Affected by PosConversionFactor
+      public static final double kallowedError_Extend = 0.15;        // [Inches] -> Affected by PosConversionFactor
 
       // ALTERNATE ENCODER SPARK MAX CONFIGURATIONS
       public static final AlternateEncoderConfig kAltEncoderConfig_NEO = new AlternateEncoderConfig() // MAY HAVE TO USE setSparkMaxDataPortConfig() method to configure the data port for alternate sensor mode.
@@ -356,14 +356,14 @@ public final class Constants
 
     // DRIVEBASE CONSTANTS FOR AUTO ALIGNING TO THE CORAL HUMAN PLAYER STATION
     public static final double X_FEED_ALIGNMENT_P = 0.0; // PID Proportional Value
-    public static final double Y_FEED_ALIGNMENT_P = 3.5; // PID Proportional Value
+    public static final double Y_FEED_ALIGNMENT_P = 0.1; // PID Proportional Value
     public static final double ROT_FEED_ALIGNMENT_P = 0.0; // PID Proportional Value
 
     public static final double ROT_SETPOINT_FEED_ALIGNMENT = 0;  // Rotation = RY from LL
   	public static final double ROT_TOLERANCE_FEED_ALIGNMENT = 90; // ± Deg
   	public static final double X_SETPOINT_FEED_ALIGNMENT = 25.8;  // Vertical pose = TX from LL, It will essentially control the distance from the wall that we are
   	public static final double X_TOLERANCE_FEED_ALIGNMENT = 1.0; // ± Tol (DONT NEED X)
-  	public static final double Y_SETPOINT_FEED_ALIGNMENT = -6.1;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
+  	public static final double Y_SETPOINT_FEED_ALIGNMENT = 6.1;  // Horizontal pose = TZ from LL, Could need two different positons if you want robot to align from either side but lets stick with always aligning with the robot to the right of the april tag every time.
   	public static final double Y_TOLERANCE_FEED_ALIGNMENT = 1.0; // ± Tol
 
     // LIMELIGHT APRIL TAG AUTO ALIGN CONSTANTS
