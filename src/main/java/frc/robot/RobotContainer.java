@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -83,13 +79,6 @@ public class RobotContainer
   private final HandTilt handtilt = new HandTilt();
   private final FlyWheel flywheel = new FlyWheel();
 
-  //* TRIGGERS */
-  // private final Trigger coraltrigger = new Trigger(flywheel::getSwitch);
-  // private final Trigger handtiltTrigger = new Trigger(handtilt::getswitch);
-  // private final Trigger armbasetrigger = new Trigger(armtilt::getbottomswitch);
-  // private final Trigger armtoptrigger = new Trigger(armlength::gettopswitch);
-  // private final Trigger armextendtrigger = new Trigger(armExtend::getSwitch);
-
   /** AUTOS */
   private static final String kDefaultAuto = "Default";
   private static final String kStraight = "Straight";
@@ -124,26 +113,6 @@ public class RobotContainer
                                                                                              driverXbox::getRightY)
                                                            .headingWhile(true);
 
-
-
-  // SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
-  //                                                                  () -> -driverXbox.getLeftY(),
-  //                                                                  () -> -driverXbox.getLeftX())
-  //                                                              .withControllerRotationAxis(() -> driverXbox.getRawAxis(2))
-  //                                                              .deadband(OperatorConstants.DEADBAND)
-  //                                                              .scaleTranslation(0.8)
-  //                                                              .allianceRelativeControl(true);
-  // // Derive the heading axis with math!
-  // SwerveInputStream driveDirectAngleSim     = driveAngularVelocitySim.copy()
-  //                                                                    .withControllerHeadingAxis(() -> Math.sin(
-  //                                                                                                   driverXbox.getRawAxis(
-  //                                                                                                       2) * Math.PI) * (Math.PI * 2),
-  //                                                                                               () -> Math.cos(
-  //                                                                                                   driverXbox.getRawAxis(
-  //                                                                                                       2) * Math.PI) *
-  //                                                                                                     (Math.PI * 2))
-  //                                                                    .headingWhile(true);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -154,7 +123,6 @@ public class RobotContainer
     mChooser.addOption("Straight", kStraight);
     mChooser.addOption("Straight Drop L2", kStraightL2);
     mChooser.addOption("Straight L4", kStraightL4);
-    // mChooser.addOption("Straight Drop L4", kStraightL4);
 
     new EventTrigger("Open").onTrue(new InstantCommand(() -> armtilt.setSmartPosition(1), armtilt));
     new EventTrigger("Spit").onTrue(new StartEndCommand(flywheel::out, flywheel::stop, flywheel).withTimeout(6));
@@ -180,8 +148,6 @@ public class RobotContainer
     SmartDashboard.putData("Auto Select", mChooser);
 
 
-
-
     // Configure the trigger bindings
     configureBindingsDrive();
     configureBindingsOper();
@@ -198,20 +164,12 @@ public class RobotContainer
    */
   private void configureBindingsDrive()
   {
-    // Command driveSetpointGen                      = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
-    // Command driveFieldOrientedDirectAngleSim      = drivebase.driveFieldOriented(driveDirectAngleSim);
-    // Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
-    // Command driveSetpointGenSim                   = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
-
     // SET THE DRIVE TYPE
     Command driveFieldOrientedAnglularVelocity    = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveFieldOrientedAnglularVelocity_Slow    = drivebase.driveFieldOriented(driveAngularVelocity_Slow);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
     Command alignCoralFeed = new AlignToCoralFeedTagRelative(false, drivebase);
-
-    // Command driveFieldOrientedDirectAngle         = drivebase.driveFieldOriented(driveDirectAngle);
-    // drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
 
     /* COMPETITION/PRACTICE CONTROLS
       * A = ZERO GYRO
@@ -227,36 +185,22 @@ public class RobotContainer
       * BACK = (FUTURE) OVERIDE TILT LIMIT SWITCH
     */
     driveA
-      // .onTrue(Commands.runOnce(drivebase::zeroGyro, drivebase));
       .onTrue(new InstantCommand(drivebase::zeroGyro, drivebase));
-    // driverXbox.b()
-    //   .onTrue(drivebase.driveToPose(new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0))).beforeStarting(drivebase::zeroGyro, drivebase));
     driveB
       .whileTrue(alignCoralFeed);
     driveX
-      // .whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       .whileTrue(new InstantCommand(drivebase::lock, drivebase).repeatedly());
-    // driverXbox.y()
-    //   .whileTrue(drivebase.driveToDistanceCommand(2.0, 0.25)); // Drive Straight 2 Meters in 8 Seconds
     driveLB
-      // .and(driverXbox.back().negate())
-      // .onTrue(Commands.runOnce(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
-      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
-      .onTrue(new InstantCommand(armtilt::backwards, armtilt))  //MIGHT HAVE TO SWAP THIS ONE WITH RIGHT
+      .onTrue(new InstantCommand(armtilt::backwards, armtilt))
       .onFalse(new InstantCommand(armtilt::halt, armtilt));
     driveRB
-      // .and(driverXbox.back().negate())
-      // .onTrue(Commands.runOnce(armtilt::forwards, armtilt))
-      // .onFalse(Commands.runOnce(armtilt::halt, armtilt));
       .onTrue(new InstantCommand(armtilt::forwards, armtilt))
       .onFalse(new InstantCommand(armtilt::halt, armtilt));
     driveLT
       .or(driveRT)
       .whileTrue(driveFieldOrientedAnglularVelocity_Slow);
-    // driverXbox.back()
-    //   .and(driverXbox.leftBumper())
-    //   .onTrue(Commands.none())
-    // driverXbox.start().whileTrue(Commands.none()); 
+
+    // DPAD controls for driver to align easier with HP station and reef.
     drivePOVLeft.whileTrue(new StartEndCommand(
       () -> drivebase.drive(new Translation2d(0.0, 0.5), 0.0, false),
       () -> drivebase.drive(new Translation2d(), 0.0, false),
@@ -305,72 +249,41 @@ public class RobotContainer
      * DPAD UP LEFT = BARGE (NOT CONFIGURED)
      * DPAD LEFT = HOME/HUMAN PLAYER POSITION
      */
-
-    // new InstantCommand(runnable, requirement) will initialize, execute, and end on the same iteration of the command scheduler.
-    // Commands.runOnce(runnable, requirement) 
+    
     armA
       .onTrue(Commands.runOnce(flywheel::in, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
-      // .onTrue(new InstantCommand(flywheel::in, flywheel))
-      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
-    
     armB
       .onTrue(Commands.runOnce(flywheel::out, flywheel))
       .onFalse(Commands.runOnce(flywheel::stop, flywheel));
-      // .onTrue(new InstantCommand(flywheel::out, flywheel))
-      // .onFalse(new InstantCommand(flywheel::stop, flywheel));
-    
     armX
       .onTrue(Commands.runOnce(handtilt::close, handtilt))
       .onFalse(Commands.runOnce(handtilt::hold, handtilt));
-      // .onTrue(new InstantCommand(handtilt::close, handtilt))
-      // .onFalse(new InstantCommand(handtilt::hold, handtilt));
-    
     armY
       .onTrue(Commands.runOnce(handtilt::open, handtilt))
       .onFalse(Commands.runOnce(handtilt::halt, handtilt));
-      // .onTrue(new InstantCommand(handtilt::open, handtilt))
-      // .onFalse(new InstantCommand(handtilt::halt, handtilt));
-    
     armLT
       .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Down, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
-      // .onTrue(new InstantCommand(armlength::Down, armlength))
-      // .onFalse(new InstantCommand(armlength::Halt, armlength));
-    
     armRT
       .and(armSLCT.negate())
       .onTrue(Commands.runOnce(armlength::Up, armlength))
       .onFalse(Commands.runOnce(armlength::Halt, armlength));
-      // .onTrue(new InstantCommand(armlength::Up, armlength))
-      // .onFalse(new InstantCommand(armlength::Halt, armlength));
-    
-      armSLCT
+    armSLCT
       .and(armLT)
       .onTrue(Commands.runOnce(armExtend::out, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
-      // .onTrue(new InstantCommand(armExtend::out, armlength))
-      // .onFalse(new InstantCommand(armExtend::stop, armlength));
-    
     armSLCT
       .and(armRT)
       .onTrue(Commands.runOnce(armExtend::in, armlength))
       .onFalse(Commands.runOnce(armExtend::stop, armlength));
-      // .onTrue(new InstantCommand(armExtend::in, armlength))
-      // .onFalse(new InstantCommand(armExtend::stop, armlength));
-    
     armLB
       .onTrue(Commands.runOnce(handtilt::up, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-      // .onTrue(new InstantCommand(handtilt::up, handtilt))
-      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
-    
     armRB
       .onTrue(Commands.runOnce(handtilt::down, handtilt))
       .onFalse(Commands.runOnce(handtilt::stop, handtilt));
-      // .onTrue(new InstantCommand(handtilt::down, handtilt))
-      // .onFalse(new InstantCommand(handtilt::stop, handtilt));
 
    // Zero out all the sensors and go to the starting position.
     armSTRT
@@ -384,16 +297,10 @@ public class RobotContainer
         new StartEndCommand(armlength::Down, armlength::Halt, armlength).until(armlength::getBottomSwitch).withTimeout(10)
       ));
 
-    
      // * DPAD DOWN = LOW REEF CORAL
-     // * DPAD DOWN RIGHT = LOWER REEF ALGEA
-
      // * DPAD RIGHT = MID REEF CORAL
-     // * DPAD UP RIGHT = HIGHER REEF ALGEA
      // * DPAD UP = TOP REEF CORAL
-     // * DPAD UP LEFT = BARGE
      // * DPAD LEFT = HOME/HUMAN PLAYER POSITION
-     // * DPAD CENTER = MAKE THIS DEFAULT HOME??? (PROBS NOT)
 
      armPOVLeft.and(armSTRT).onTrue( // DPAD LEFT + START - ALGEA SAFE TRAVEL
       new ParallelCommandGroup(
@@ -457,28 +364,15 @@ public class RobotContainer
 
   }
 
-
-
-
-
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand()
-  {
-    // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand(mChooser.getSelected());
-  }
+  public Command getAutonomousCommand() { return drivebase.getAutonomousCommand(mChooser.getSelected()); }
 
-
-
-
-  public void setMotorBrake(boolean brake)
-  {
-    drivebase.setMotorBrake(brake);
-  }
+  public void setMotorBrake(boolean brake) { drivebase.setMotorBrake(brake); }
 
   public Command setPositions(int id) {
     return new ParallelCommandGroup(
@@ -490,12 +384,7 @@ public class RobotContainer
   }
 
   public Command driveSidewaysRelative(boolean isRight) {
-    if (isRight) {
-      return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, -0.5), 0.0, false), drivebase);
-    } else {
-      return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, 0.5), 0.0, false), drivebase);
-    }
-    
+    if (isRight) { return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, -0.5), 0.0, false), drivebase);
+    } else { return new InstantCommand(() -> drivebase.drive(new Translation2d(0.0, 0.5), 0.0, false), drivebase); }
   }
-
 }
