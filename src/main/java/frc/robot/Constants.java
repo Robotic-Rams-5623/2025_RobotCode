@@ -45,7 +45,7 @@ public final class Constants
       public static final int kDIOtiltdownswitch = 1;
 
       public static final double kLoopRange[] = {-.8, .8};
-      public static final double kIzone = 1.0; // DERGREES
+      public static final double kIzone = 1.0; // DEGREES
       public static final double kPIDF[] = {400, 0, 0, 0};
       public static final double kPosConversion = 1.0;//180/32.7857
       public static final double kVelConversion = 1.0; // (180/30)/60
